@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { MovieLanguages } from 'src/movie_languages/entities';
 
 @Entity('language')
 export class Language {
@@ -10,4 +11,7 @@ export class Language {
 
   @Column({ type: 'varchar', length: 500 })
   language_name: string;
+
+  @OneToMany(() => MovieLanguages, (movieLanguages) => movieLanguages.language)
+  movieLanguages: MovieLanguages[];
 }

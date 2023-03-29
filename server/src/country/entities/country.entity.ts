@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { ProductionCountry } from 'src/production_country/entities';
 
 @Entity()
 export class Country {
@@ -10,4 +11,10 @@ export class Country {
 
   @Column({ type: 'varchar', length: 200 })
   country_iso_code: string;
+
+  @OneToMany(
+    () => ProductionCountry,
+    (productionCountry) => productionCountry.country,
+  )
+  productionCountry: ProductionCountry[];
 }

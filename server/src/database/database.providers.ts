@@ -1,5 +1,6 @@
 import { join } from 'path';
 import { DataSource } from 'typeorm';
+import 'reflect-metadata';
 import { Country } from 'src/country/entities';
 import { Department } from 'src/department/entities';
 import { Gender } from 'src/gender/entities';
@@ -8,6 +9,17 @@ import { Keyword } from 'src/keyword/entities';
 import { Language } from 'src/language/entities';
 import { LanguageRole } from 'src/language_role/entities';
 import { Movie } from 'src/movie/entities';
+import { MovieCast } from 'src/movie_cast/entities';
+import { MovieGenres } from 'src/movie_genres/entities';
+import { MovieKeywords } from 'src/movie_keywords/entities';
+import { MovieLanguages } from 'src/movie_languages/entities';
+import { Person } from 'src/person/entities';
+import { ProductionCompany } from 'src/production_company/entities';
+import { ProductionCountry } from 'src/production_country/entities';
+import { MovieCrew } from 'src/movie_crew/entities';
+import { MovieCompany } from 'src/movie_company/entities';
+// import { User } from 'src/user/entities';
+
 export const databaseProviders = [
   {
     provide: 'DATA_SOURCE',
@@ -28,6 +40,15 @@ export const databaseProviders = [
           Language,
           LanguageRole,
           Movie,
+          MovieCast,
+          MovieGenres,
+          MovieKeywords,
+          MovieLanguages,
+          Person,
+          ProductionCompany,
+          ProductionCountry,
+          MovieCrew,
+          MovieCompany,
         ],
         synchronize: true,
       });
