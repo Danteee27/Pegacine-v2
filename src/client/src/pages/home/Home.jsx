@@ -5,6 +5,7 @@ function Home() {
   return (
     <div className='home'>
       hello
+        <Row title={"trending now"} fetchUrl={}></Row>
     </div>
   )
 }
