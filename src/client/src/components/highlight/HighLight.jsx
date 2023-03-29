@@ -42,11 +42,11 @@ export default function HighLight({ type }) {
         </span>
         <div className="buttons">
           <button className="play">
-            <PlayArrow />
+            <PlayArrow className="play-arrow" />
             <span>Play</span>
           </button>
           <button className="more">
-            <InfoOutlined />
+            <InfoOutlined className="info-outlined" />
             <span>Info</span>
           </button>
         </div>
