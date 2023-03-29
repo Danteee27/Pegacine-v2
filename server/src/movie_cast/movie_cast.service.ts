@@ -12,4 +12,8 @@ export class MovieCastService {
   async findAll(): Promise<MovieCast[]> {
     return this.movieCastRepository.find();
   }
+
+  async findByMovieID(movie_id: number): Promise<MovieCast[]> {
+    return this.movieCastRepository.findBy({ movie_id });
+  }
 }

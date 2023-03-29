@@ -1,6 +1,8 @@
 import { Controller, Get, Body, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { MovieGenresService } from './movie_genres.service';
 
+@ApiTags('movie_genres')
 @Controller('movie_genres')
 export class MovieGenresController {
   constructor(private readonly movieGenreService: MovieGenresService) {}

@@ -1,6 +1,8 @@
 import { Controller, Get, Body, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { KeywordService } from './keyword.service';
 
+@ApiTags('keyword')
 @Controller('keyword')
 export class KeywordController {
   constructor(private readonly keywordService: KeywordService) {}

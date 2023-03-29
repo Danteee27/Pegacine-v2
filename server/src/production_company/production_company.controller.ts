@@ -1,6 +1,8 @@
 import { Controller, Get, Body, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ProductionCompanyService } from './production_company.service';
 
+@ApiTags('productionCompany')
 @Controller('productionCompany')
 export class ProductionCompanyController {
   constructor(
