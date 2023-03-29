@@ -7,28 +7,30 @@ import requests from "../../Requests";
 import Row from "../../components/row/Row";
 import axios from "../../axios";
 
+let curIndex = 0;
+
 function SearchPage() {
 
 
     const [url, setUrl] = useState("");
 
-    const arrUrl = [requests.fetchTrending,requests.fetchDocumentaries,requests.fetchHorrorMovies,requests.fetchActionMovies]
+    const arrUrl = [requests.fetchTrending, requests.fetchDocumentaries, requests.fetchHorrorMovies, requests.fetchActionMovies]
 
-    useEffect(() => {
-        async function fetchData() {
-            return arrUrl[Math.floor(Math.random()*arrUrl.length)];
-        }
+    // useEffect(() => {
+    //     const curUrl = arrUrl[curIndex];
+    //     curIndex = (curIndex + 1) % arrUrl.length;
+    //     console.log("day la IN")
+    //     console.log(curUrl)
+    //     setUrl(curUrl)
+    //
+    // }, [url]);
 
-        fetchData();
-    }, [url]);
-    function searchFilm(value) {
-        useEffect(() => {
-            async function fetchData() {
-                return arrUrl[Math.floor(Math.random()*arrUrl.length)];
-            }
-
-            fetchData();
-        }, [url]);
+    function searchFilm() {
+        const curUrl = arrUrl[curIndex];
+        curIndex = (curIndex + 1) % arrUrl.length;
+        console.log("day la OUT")
+        console.log(curUrl)
+        setUrl(curUrl)
     }
 
     return (
@@ -38,10 +40,10 @@ function SearchPage() {
                 <div className={"searchContainer"}>
                     <input className={"inputSearch"} placeholder={"search films here"}/>
                     <button onClick={searchFilm} className={"searchButton"}>
-                        <FontAwesomeIcon color={"snow"} icon={faMagnifyingGlass} size={"2x"} />
+                        <FontAwesomeIcon color={"snow"} icon={faMagnifyingGlass} size={"2x"}/>
                     </button>
                 </div>
-                <Row title={"Results"} fetchUrl={requests.fetchActionMovies} isLargeRow={false}/>
+                <Row title={"Results"} fetchUrl={url} isLargeRow={false}/>
             </div>
         </React.Fragment>
 

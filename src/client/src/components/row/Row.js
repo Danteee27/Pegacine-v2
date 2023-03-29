@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import requests from "../../Requests";
 
-
 function Row({title, fetchUrl, isLargeRow = false}) {
     const [movies, setMovies] = useState([]);
 
@@ -29,9 +28,9 @@ function Row({title, fetchUrl, isLargeRow = false}) {
 
             <div className={"row__posters"}>
                 {
-                    (movies.length === 0 && <div style={{fontWeight:"bold" , fontSize:'20px'}}>{/*write something here*/}</div>) ||
+                    (movies && movies.length === 0 && <div style={{fontWeight:"bold" , fontSize:'20px'}}>{/*write something here*/}</div>) ||
                     (
-                        movies.map(movie =>
+                        movies && movies.map(movie =>
                             (((isLargeRow && movie.poster_path) ||
                                     (!isLargeRow && movie.backdrop_path)) && (
                                     <img
