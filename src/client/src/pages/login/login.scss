@@ -6,7 +6,7 @@
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 1) 100%
     ),
-    url("http://mppmduse2pmpovwapp.azurewebsites.net/wp-content/uploads/2019/09/netflix-background-9.jpg");
+    url('https://c4.wallpaperflare.com/wallpaper/829/500/975/cyberpunk-cyberpunk-2077-cyberpunk-edgerunners-lucy-edgerunners-anime-hd-wallpaper-preview.jpg');
   background-size: cover;
   position: relative;
 
@@ -48,8 +48,7 @@
       input {
         height: 40px;
         border-radius: 5px;
-        background-color: gray;
-        color: white;
+        background-color: white;
         padding-left: 10px;
 
         &::placeholder {
@@ -60,7 +59,7 @@
       button {
         height: 40px;
         border-radius: 5px;
-        background-color: red;
+        background-color: #e50915;
         color: white;
         border: none;
         font-size: 18px;
