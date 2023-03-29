@@ -10,7 +10,6 @@ function MyList() {
     return (
         <div className={"myList"}>
             {
-
                 <Row title={"My List"} fetchUrl={requests.fetchNullTest} isLargeRow={false}/>
             }
         </div>
