@@ -14,7 +14,7 @@ export const getMovies = async (dispatch) => {
 export const deleteMovie = async (id, dispatch) => {
     dispatch(deleteMovieStart());
     try {
-        await axios.delete("/movies" + id); // access token update later
+        await axios.delete("/movies/" + id); // access token update later
         dispatch(deleteMovieSuccess(id))
     } catch (error) {
         dispatch(deleteMovieFailure());

@@ -26,7 +26,7 @@ const MovieReducer = (state, action) => {
         };
         case "DELETE_MOVIE_SUCCESS":
             return {
-            movies: state.movies.filter(movie => movie.movie_id !== action.payload),
+            movies: state.movies.filter(movie => movie.id !== action.payload),
             isFetching: false,
             error: false,
             };
