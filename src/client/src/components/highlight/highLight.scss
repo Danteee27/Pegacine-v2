@@ -36,16 +36,20 @@
     color: white;
     display: flex;
     flex-direction: column;
+    background-color: transparent;
 
     img {
+      background-color: transparent;
       width: 400px;
     }
 
     .desc {
+      background-color: transparent;
       margin: 20px 0px;
     }
 
     .buttons {
+      background-color: transparent;
       display: flex;
 
       button {
@@ -63,11 +67,19 @@
         &.play {
           background-color: white;
           color: black;
+          .play-arrow,
+          span {
+            background-color: transparent;
+          }
         }
 
         &.more {
           background-color: gray;
           color: white;
+          .info-outlined,
+          span {
+            background-color: transparent;
+          }
         }
 
         span {

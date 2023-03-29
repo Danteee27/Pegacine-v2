@@ -6,7 +6,7 @@
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 1) 100%
     ),
-    url("https://c4.wallpaperflare.com/wallpaper/829/500/975/cyberpunk-cyberpunk-2077-cyberpunk-edgerunners-lucy-edgerunners-anime-hd-wallpaper-preview.jpg");
+    url('https://c4.wallpaperflare.com/wallpaper/829/500/975/cyberpunk-cyberpunk-2077-cyberpunk-edgerunners-lucy-edgerunners-anime-hd-wallpaper-preview.jpg');
   background-size: cover;
   position: relative;
 
@@ -22,7 +22,7 @@
       }
 
       .loginButton {
-        background-color: #E50915;
+        background-color: #e50915;
         border: none;
         color: white;
         border-radius: 5px;
@@ -58,6 +58,11 @@
       font-size: 20px;
     }
 
+    a {
+      color: #e50915;
+      text-decoration: none;
+    }
+
     .input {
       width: 50%;
       background-color: white;
@@ -68,24 +73,23 @@
       height: 50px;
       border-radius: 5px;
 
-      input{
-          flex: 9;
-          height: 100%;
-          border: none;
-          padding: 0 10px;
-          background-color: transparent;
-
+      input {
+        flex: 9;
+        height: 100%;
+        border: none;
+        padding: 0 10px;
+        background-color: transparent;
       }
 
-      .registerButton{
-          flex: 3;
-          height: 100%;
-          background-color: #E50915;
-          border: none;
-          border-radius: 0 5px 5px 0;
-          color: white;
-          font-size: 22px;
-          cursor: pointer;
+      .registerButton {
+        flex: 3;
+        height: 100%;
+        background-color: #e50915;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
       }
     }
   }

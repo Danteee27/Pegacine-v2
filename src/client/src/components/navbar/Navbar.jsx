@@ -26,7 +26,7 @@ const Navbar = () => {
           <Search className="icon" />
           <span className="username">Phu Nguyen</span>
           <img
-            src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+            src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
             alt=""
           />
           <div className="profile">
