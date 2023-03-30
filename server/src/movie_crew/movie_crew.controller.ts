@@ -12,8 +12,8 @@ export class MovieCrewController {
     return this.movieCrewService.findAll();
   }
 
-  // @Get(':id')
-  // findById(@Param('id') id: number) {
-  //   return this.movieCrewService.findById(id);
-  // }
+  @Get(':id')
+  findById(@Param('id') id: number) {
+    return this.movieCrewService.findById(id);
+  }
 }

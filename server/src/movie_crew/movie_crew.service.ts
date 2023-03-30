@@ -13,7 +13,10 @@ export class MovieCrewService {
     return this.movieCrewRepository.find();
   }
 
-  // async findById(movie_id: number): Promise<MovieCrew> {
-  //   return this.movieCrewRepository.findOneBy({ movie_id });
-  // }
+  async findById(movie_id: number): Promise<MovieCrew> {
+    return this.movieCrewRepository.findOne({
+      where: { movie_id },
+      relations: ['person'],
+    });
+  }
 }
