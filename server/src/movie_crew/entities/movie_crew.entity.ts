@@ -35,6 +35,6 @@ export class MovieCrew {
   @JoinColumn({ name: 'department_id', referencedColumnName: 'department_id' })
   department: Department;
 
-  @Column({ type: 'varchar', length: 200 })
+  @PrimaryColumn({ type: 'varchar', length: 200 })
   job: string;
 }

@@ -15,10 +15,10 @@ import { Genre } from 'src/genre/entities';
 @Entity('movie_genres')
 export class MovieGenres {
   @PrimaryColumn({ name: 'movie_id' })
-  movie_id: String;
+  movie_id: number;
 
   @PrimaryColumn({ name: 'genre_id' })
-  genre_id: String;
+  genre_id: number;
 
   @ManyToOne(() => Movie)
   @JoinColumn({ name: 'movie_id', referencedColumnName: 'movie_id' })

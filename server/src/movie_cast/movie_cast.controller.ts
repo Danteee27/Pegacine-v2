@@ -11,4 +11,9 @@ export class MovieCastController {
   findAll() {
     return this.movieCastService.findAll();
   }
+
+  @Get(':movie_id')
+  findByMovieID(@Param('movie_id') movie_id: number) {
+    return this.movieCastService.findByMovieID(movie_id);
+  }
 }

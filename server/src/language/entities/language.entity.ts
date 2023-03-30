@@ -12,6 +12,6 @@ export class Language {
   @Column({ type: 'varchar', length: 500 })
   language_name: string;
 
-  @OneToMany(() => MovieLanguages, (movieLanguages) => movieLanguages.language)
+  @OneToMany(() => MovieLanguages, (movieLanguages) => movieLanguages.languages)
   movieLanguages: MovieLanguages[];
 }

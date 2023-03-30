@@ -13,10 +13,10 @@ import { Gender } from 'src/gender/entities';
 
 @Entity('movie_cast')
 export class MovieCast {
-  @Column({ type: 'varchar', length: 400 })
+  @PrimaryColumn({ type: 'varchar', length: 400 })
   character_name: number;
 
-  @Column({ type: 'int' })
+  @PrimaryColumn({ type: 'int' })
   cast_order: number;
 
   @PrimaryColumn({ name: 'movie_id' })

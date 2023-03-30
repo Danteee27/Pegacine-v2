@@ -14,6 +14,11 @@ export class MovieCastService {
   }
 
   async findByMovieID(movie_id: number): Promise<MovieCast[]> {
-    return this.movieCastRepository.findBy({ movie_id });
+    const queryBuilder = this.movieCastRepository
+      .createQueryBuilder('movie_cast')
+      .leftJoinAndSelect('movie_cast.person', 'person')
+      .where('movie_cast.movie_id = :movie_id', { movie_id })
+      .orderBy('movie_cast.cast_order', 'ASC');
+    return queryBuilder.getMany();
   }
 }

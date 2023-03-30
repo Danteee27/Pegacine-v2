@@ -29,7 +29,7 @@ export class MovieLanguages {
 
   @ManyToOne(() => Language)
   @JoinColumn({ name: 'language_id', referencedColumnName: 'language_id' })
-  language: Language;
+  languages: Language;
 
   @ManyToOne(() => LanguageRole)
   @JoinColumn({

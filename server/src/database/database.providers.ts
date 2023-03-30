@@ -51,6 +51,7 @@ export const databaseProviders = [
           MovieCompany,
         ],
         synchronize: true,
+        logging: ['error'],
       });
 
       return dataSource.initialize();
