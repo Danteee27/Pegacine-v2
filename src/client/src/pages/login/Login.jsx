@@ -1,3 +1,6 @@
+import { Link, Route, Routes } from 'react-router-dom';
+import Home from '../home/Home';
+import Register from '../register/Register';
 import './login.scss';
 
 export default function Login() {
@@ -13,14 +16,16 @@ export default function Login() {
           <h1>Sign In</h1>
           <input type="email" placeholder="Enter your email address" />
           <input type="password" placeholder="Enter your password" />
-          <button className="loginButton">Sign In</button>
+          <Link to="/home">
+            <button className="loginButton">Sign In</button>
+          </Link>
+
+          <Routes>
+            <Route path="/home" element={<Home />} />
+          </Routes>
           <span>
-            New to Netflix? <b>Sign up now.</b>
+            New to Netflix? <a href="/register">Sign up now</a>
           </span>
-          <small>
-            This page is protected by Google reCAPTCHA to ensure you're not a
-            bot. <b>Learn more</b>.
-          </small>
         </form>
       </div>
     </div>

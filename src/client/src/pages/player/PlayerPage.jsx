@@ -1,27 +1,26 @@
-import React from 'react'
-import styled from "styled-components";
-import "./PlayerPage.css"
-import {BsArrowLeft} from "react-icons/bs";
-import {useNavigate} from "react-router-dom";
-import video from "../../assets/demoH06.mp4"
+import React from 'react';
+import styled from 'styled-components';
+import './PlayerPage.css';
+import { BsArrowLeft } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+// import video from "../../assets/demoH06.mp4"
 function Player() {
+  // const navigate = useNavigate()
 
-    // const navigate = useNavigate()
-
-    return <Container>
-        <div className={"player"}>
-            <div className={"back"}>
-                {/*<BsArrowLeft onClick={()=>navigate(-1)}/>*/}
-                <BsArrowLeft />
-            </div>
-            <video src={video}  autoPlay loop controls >
-
-            </video>
+  return (
+    <Container>
+      <div className={'player'}>
+        <div className={'back'}>
+          {/*<BsArrowLeft onClick={()=>navigate(-1)}/>*/}
+          <BsArrowLeft />
         </div>
+        {/* <video src={video} autoPlay loop controls></video> */}
+      </div>
     </Container>
+  );
 }
 
-export default Player
+export default Player;
 
 const Container = styled.div`
   .player {
