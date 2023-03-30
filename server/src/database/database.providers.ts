@@ -18,6 +18,7 @@ import { ProductionCompany } from 'src/production_company/entities';
 import { ProductionCountry } from 'src/production_country/entities';
 import { MovieCrew } from 'src/movie_crew/entities';
 import { MovieCompany } from 'src/movie_company/entities';
+import { UserEntity } from 'src/user/entities';
 // import { User } from 'src/user/entities';
 
 export const databaseProviders = [
@@ -49,6 +50,7 @@ export const databaseProviders = [
           ProductionCountry,
           MovieCrew,
           MovieCompany,
+          UserEntity,
         ],
         synchronize: true,
         logging: ['error'],

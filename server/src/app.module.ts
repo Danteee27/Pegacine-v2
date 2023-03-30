@@ -23,6 +23,7 @@ import { ProductionCompanyModule } from './production_company/production_company
 import { ProductionCountryModule } from './production_country/production_country.module';
 import { MovieCrewModule } from './movie_crew/movie_crew.module';
 import { MovieCompanyModule } from './movie_company/movie_company.module';
+import { UserEntityModule } from './user/user.module';
 // import { UserModule } from './user/user.module';
 
 @Module({
@@ -44,6 +45,7 @@ import { MovieCompanyModule } from './movie_company/movie_company.module';
     ProductionCountryModule,
     MovieCrewModule,
     MovieCompanyModule,
+    UserEntityModule,
     // UserModule,
   ],
   controllers: [AppController],

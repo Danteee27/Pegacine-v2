@@ -3,7 +3,6 @@ import { SearchMovieQuery } from './queries/search_movie/search_movie.query';
 import { Query } from '@nestjs/common/decorators';
 import { GetMovieQuery } from './queries/get_movie/get_movie.query';
 import { Controller, Get, Body, Param } from '@nestjs/common';
-import { MovieService } from './movie.service';
 import { CommandBus } from '@nestjs/cqrs/dist';
 import { QueryBus } from '@nestjs/cqrs/dist';
 
