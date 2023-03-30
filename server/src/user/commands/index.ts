@@ -1,3 +1,4 @@
+import { UpdateProfileCommandHandler } from './update_profile/update_profile.handler';
 import { DeleteProfileCommandHandler } from './delete_profile/delete_profile.handler';
 import { RegisterCommandHandler } from './register/register.handler';
 import { LoginCommandHandler } from './login';
@@ -8,4 +9,5 @@ export const CommandHandlers = [
   LoginCommandHandler,
   CreateProfileCommandHandler,
   DeleteProfileCommandHandler,
+  UpdateProfileCommandHandler,
 ];

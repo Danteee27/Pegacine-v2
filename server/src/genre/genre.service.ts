@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Genre } from './entities';
 
@@ -14,6 +14,11 @@ export class GenreService {
   }
 
   async findById(genre_id: number): Promise<Genre> {
-    return this.genreRepository.findOneBy({ genre_id });
+    const genre = await this.genreRepository.findOneBy({ genre_id });
+    if (genre === null) {
+      throw new BadRequestException('Genre does not exist');
+    }
+
+    return genre;
   }
 }
