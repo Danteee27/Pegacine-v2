@@ -13,6 +13,7 @@ async function bootstrap() {
     .setTitle('Pegacine APIs')
     .setDescription('Movie APIS v1')
     .setVersion('v1')
+    .addBearerAuth({ in: 'header', type: 'http' })
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

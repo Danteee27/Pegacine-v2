@@ -1,13 +1,16 @@
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { SearchMovieQuery } from './queries/search_movie/search_movie.query';
 import { Query } from '@nestjs/common/decorators';
 import { GetMovieQuery } from './queries/get_movie/get_movie.query';
-import { Controller, Get, Body, Param } from '@nestjs/common';
+import { Controller, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs/dist';
 import { QueryBus } from '@nestjs/cqrs/dist';
+import { AuthGuard } from 'libs/guards/clientService.guard';
 
 @ApiTags('movie')
 @Controller('movie')
+@UseGuards(AuthGuard)
+@ApiBearerAuth()
 export class MovieController {
   constructor(private readonly queryBus: QueryBus) {}
 
@@ -15,7 +18,6 @@ export class MovieController {
   findAll() {
     //
   }
-
   @Get('findById')
   findById(@Query('id') id: number) {
     // return this.movieService.findById(id);

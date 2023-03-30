@@ -1,3 +1,4 @@
+import { ProfileEntity } from './../user/entities/profile.entity';
 import { join } from 'path';
 import { DataSource } from 'typeorm';
 import 'reflect-metadata';
@@ -51,6 +52,7 @@ export const databaseProviders = [
           MovieCrew,
           MovieCompany,
           UserEntity,
+          ProfileEntity,
         ],
         synchronize: true,
         logging: ['error'],

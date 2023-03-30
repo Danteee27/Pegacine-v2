@@ -11,6 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { ProfileEntity } from './profile.entity';
 
 export interface UserEntity {
   checkPassword(attempt: string): boolean;
@@ -53,6 +54,9 @@ export class UserEntity extends BaseEntity {
 
   @Column({ name: 'logged_time', type: 'bigint', default: 0, nullable: false })
   loggedTime: number;
+
+  @OneToMany((type) => ProfileEntity, (profile) => profile.user)
+  profiles: ProfileEntity[];
 
   private tempPassword: string;
 

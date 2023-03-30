@@ -48,7 +48,11 @@ export class SearchMovieQueryHandler
     // }
     const queryBuilder = this.movieRepository.createQueryBuilder('movie');
     queryBuilder.orderBy('movie.title', 'ASC');
-    queryBuilder.where([{ title: Like(`%${queryString}%`) }]);
+    queryBuilder.where([
+      { title: Like(`%${queryString}%`) },
+      { tagline: Like(`#${queryString}%`) },
+    ]);
+
     const x = await paginate<Movie>(queryBuilder, {
       page: page,
       limit: pageSize,

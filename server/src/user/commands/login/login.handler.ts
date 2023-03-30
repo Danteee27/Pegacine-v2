@@ -2,46 +2,42 @@ import { OkResponse } from './../../../../libs/models/responses/ok.response';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RegisterCommand } from './register.command';
+import { LoginCommand } from './login.command';
 import { UserEntity } from 'src/user/entities';
 import { BadRequestException, Inject } from '@nestjs/common';
 
-@CommandHandler(RegisterCommand)
-export class RegisterCommandHandler
-  implements ICommandHandler<RegisterCommand>
-{
+@CommandHandler(LoginCommand)
+export class LoginCommandHandler implements ICommandHandler<LoginCommand> {
   constructor(
     @Inject('UserEntity_REPOSITORY')
     private readonly userRepository: Repository<UserEntity>,
     private readonly jwtService: JwtService,
   ) {}
 
-  async execute(command: RegisterCommand) {
+  async execute(command: LoginCommand) {
     const email = command.dto.email.trim().toLowerCase();
-    const userExist = await this.userRepository.exist({ where: { email } });
-    if (userExist) {
-      throw new BadRequestException('User already exists');
-    }
-
-    const { password, firstName, lastName, dob, phoneNumber } = command.dto;
-
-    const newUser = this.userRepository.create({
-      email,
-      username: email,
-      password,
+    const userToAttempt = await this.userRepository.findOne({
+      where: { email },
     });
 
-    await newUser.save();
+    if (!userToAttempt) {
+      throw new BadRequestException('User does not exist');
+    }
+
+    const isMatch = await userToAttempt.checkPassword(command.dto.password);
+    if (!isMatch) {
+      throw new BadRequestException('Invalid Email or Password');
+    }
 
     const token = this.jwtService.sign(
       {
-        id: newUser.id,
+        id: userToAttempt.id,
       },
-      { secret: newUser.password, expiresIn: '1d' },
+      { secret: userToAttempt.password, expiresIn: '1d' },
     );
 
     const refreshToken = this.jwtService.sign(
-      { id: newUser.id },
+      { id: userToAttempt.id },
       { secret: token, expiresIn: '30d' },
     );
 
@@ -50,7 +46,7 @@ export class RegisterCommandHandler
         token,
         refreshToken,
       },
-      user: newUser,
+      user: userToAttempt,
     });
   }
 }

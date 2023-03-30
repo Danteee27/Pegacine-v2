@@ -5,6 +5,7 @@ import { DatabaseModule } from '../database/database.module';
 import { UserEntityController } from './user.controller';
 import { UserEntityProviders } from './user.providers';
 import { JwtModule } from '@nestjs/jwt';
+import { ProfileEntityProviders } from './profile.providers';
 
 @Module({
   imports: [
@@ -17,6 +18,10 @@ import { JwtModule } from '@nestjs/jwt';
     }),
   ],
   controllers: [UserEntityController],
-  providers: [...UserEntityProviders, ...CommandHandlers],
+  providers: [
+    ...UserEntityProviders,
+    ...CommandHandlers,
+    ...ProfileEntityProviders,
+  ],
 })
 export class UserEntityModule {}
