@@ -1,94 +1,96 @@
-import React, {useEffect, useState} from "react";
-import styled from "styled-components";
-import {IoPlayCircleSharp} from "react-icons/io5";
-import {AiOutlinePlus} from "react-icons/ai";
-import {RiThumbUpFill, RiThumbDownFill} from "react-icons/ri";
-import {BiChevronDown} from "react-icons/bi";
-import {BsCheck} from "react-icons/bs";
-import axios from "../../axios";
-import video from "../../assets/demoH06.mp4";
-import requests from "../../Requests";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { IoPlayCircleSharp } from 'react-icons/io5';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { RiThumbUpFill, RiThumbDownFill } from 'react-icons/ri';
+import { BiChevronDown } from 'react-icons/bi';
+import { BsCheck } from 'react-icons/bs';
+import axios from '../../axios';
+import requests from '../../Requests';
 
-import "./Card.css"
+import './Card.css';
 
-export default React.memo(function Card({index, movieData, isLiked = false}) {
-    const [isHovered, setIsHovered] = useState(false);
+export default React.memo(function Card({ index, movieData, isLiked = false }) {
+  const [isHovered, setIsHovered] = useState(false);
 
-    const trailer = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
-    const base_url = "https://image.tmdb.org/t/p/original/";
+  const trailer =
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
+  const base_url = 'https://image.tmdb.org/t/p/original/';
 
-    return (
-        <Container
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
+  return (
+    <Container
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={`${base_url}${movieData.backdrop_path}`}
+        alt="card"
+        // onClick={() => navigate("/player")                }
+      />
+
+      {isHovered && (
+        <div className="hover">
+          <div className="image-video-container">
             <img
-                src={`${base_url}${movieData.backdrop_path}`}
-                alt="card"
-                // onClick={() => navigate("/player")                }
+              src={`${base_url}${movieData.backdrop_path}`}
+              alt="card"
+              // onClick={() => navigate("/player")}
             />
-
-            {isHovered && (
-                <div className="hover">
-                    <div className="image-video-container">
-                        <img
-                            src={`${base_url}${movieData.backdrop_path}`}
-                            alt="card"
-                            // onClick={() => navigate("/player")}
-                        />
-                        <video
-                            src={trailer}
-                            autoPlay={true}
-                            loop
-                            muted
-                            // onClick={() => navigate("/player")}
-                        />
-                    </div>
-                    <div className="info-container flex column">
-                        <h3 className="name"
-                            // onClick={() => navigate("/player")}
-                        >
-                            {movieData.name}
-                        </h3>
-                        <div className="icons flex j-between">
-                            <div className="controls flex">
-                                <IoPlayCircleSharp
-                                    title="Play"
-                                    // onClick={() => navigate("/player")}
-                                />
-                                <RiThumbUpFill title="Like"/>
-                                <RiThumbDownFill title="Dislike"/>
-                                {isLiked ? (
-                                    <BsCheck
-                                        title="Remove from List"
-                                        // onClick={() =>
-                                        //     dispatch(
-                                        //         removeMovieFromLiked({movieId: movieData.id, email})
-                                        //     )
-                                        // }
-                                    />
-                                ) : (
-                                    <AiOutlinePlus title="Add to my list"
-                                                   // onClick={addToList}
-                                    />
-                                )}
-                            </div>
-                            <div className="info">
-                                <BiChevronDown title="More Info"/>
-                            </div>
-                        </div>
-                        <div className="genres flex">
-                            <ul className="flex">
-                                {movieData.genre_ids.map((genre) => (
-                                    <li key={genre}>{genre}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            )}
-        </Container>
-    );
+            <video
+              src={trailer}
+              autoPlay={true}
+              loop
+              muted
+              // onClick={() => navigate("/player")}
+            />
+          </div>
+          <div className="info-container flex column">
+            <h3
+              className="name"
+              // onClick={() => navigate("/player")}
+            >
+              {movieData.name}
+            </h3>
+            <div className="icons flex j-between">
+              <div className="controls flex">
+                <IoPlayCircleSharp
+                  title="Play"
+                  // onClick={() => navigate("/player")}
+                />
+                <RiThumbUpFill title="Like" />
+                <RiThumbDownFill title="Dislike" />
+                {isLiked ? (
+                  <BsCheck
+                    title="Remove from List"
+                    // onClick={() =>
+                    //     dispatch(
+                    //         removeMovieFromLiked({movieId: movieData.id, email})
+                    //     )
+                    // }
+                  />
+                ) : (
+                  <AiOutlinePlus
+                    title="Add to my list"
+                    // onClick={addToList}
+                  />
+                )}
+              </div>
+              <div className="info">
+                <BiChevronDown title="More Info" />
+              </div>
+            </div>
+            <div className="genres flex">
+              <ul className="flex">
+                {movieData.genre_ids.map((genre) => (
+                  <li key={genre}>{genre}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+    </Container>
+  );
 });
 
 const Container = styled.div`
