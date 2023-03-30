@@ -14,7 +14,7 @@ import "./Card.css"
 export default React.memo(function Card({index, movieData, isLiked = false}) {
     const [isHovered, setIsHovered] = useState(false);
 
-    const trailer = 'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761';
+    const trailer = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
     const base_url = "https://image.tmdb.org/t/p/original/";
 
     return (
@@ -37,7 +37,7 @@ export default React.memo(function Card({index, movieData, isLiked = false}) {
                             // onClick={() => navigate("/player")}
                         />
                         <video
-                            src={video}
+                            src={trailer}
                             autoPlay={true}
                             loop
                             muted

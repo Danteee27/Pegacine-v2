@@ -26,11 +26,12 @@ import Card from "../../components/card/Card";
 import styled from "styled-components";
 import axios from "../../axios";
 import requests from "../../Requests";
+import Navbar from "../../components/navbar/Navbar";
+import "./MyList.css"
 
 export default function MyList({fetchUrl}) {
-    const trailer = 'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761';
+    const trailer = 'https://media.istockphoto.com/id/857947444/vi/video/thu-nh%E1%BB%8F-%C4%91%E1%BA%A7u-b%E1%BA%BFp-trang-tr%C3%AD-%C4%91%C4%A9a-c%E1%BB%A7a-m%C3%ACnh-v%C3%A0-tr%C3%B4ng-r%E1%BA%A5t-h%E1%BA%A1nh-ph%C3%BAc.mp4?s=mp4-640x640-is&k=20&c=aiuYYFGW7o-MIb95Gr1MLRP8F0gc7WD3u5qEpe1sR4I=';
     const base_url = "https://image.tmdb.org/t/p/original/";
-
     const [isScrolled, setIsScrolled] = useState(false);
     const [movies, setMovies] = useState([]);
 
@@ -54,7 +55,8 @@ export default function MyList({fetchUrl}) {
     };
 
     return (
-        <Container>
+        <div className={"myList"}><Container>
+            <Navbar/>
             <div className="content flex column">
                 <h1>My List</h1>
                 <div className="grid flex">
@@ -70,7 +72,7 @@ export default function MyList({fetchUrl}) {
                     })}
                 </div>
             </div>
-        </Container>
+        </Container></div>
     );
 }
 
@@ -80,6 +82,7 @@ const Container = styled.div`
     margin-top: 8rem;
     gap: 3rem;
     h1 {
+      color: snow;
       margin-left: 3rem;
     }
     .grid {

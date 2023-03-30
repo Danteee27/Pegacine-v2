@@ -17,3 +17,7 @@
 .a-center {
     align-items: center;
 }
+
+.myList {
+    overflow: hidden;
+}
