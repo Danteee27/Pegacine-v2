@@ -5,9 +5,6 @@ import {AiOutlinePlus} from "react-icons/ai";
 import {RiThumbUpFill, RiThumbDownFill} from "react-icons/ri";
 import {BiChevronDown} from "react-icons/bi";
 import {BsCheck} from "react-icons/bs";
-import axios from "../../axios";
-import video from "../../assets/demoH06.mp4";
-import requests from "../../Requests";
 
 import "./Card.css"
 
