@@ -19,4 +19,12 @@ export class MovieCrewService {
       relations: ['person'],
     });
   }
+
+  async findByMovieId(movie_id: number): Promise<MovieCrew[]> {
+    const queryBuilder =
+      this.movieCrewRepository.createQueryBuilder('movie_crew');
+    queryBuilder.where('movie_crew.movie_id = :movie_id', { movie_id });
+    queryBuilder.innerJoinAndSelect('movie_crew.person', 'person');
+    return queryBuilder.getMany();
+  }
 }

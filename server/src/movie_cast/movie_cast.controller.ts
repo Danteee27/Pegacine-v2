@@ -12,7 +12,12 @@ export class MovieCastController {
     return this.movieCastService.findAll();
   }
 
-  @Get(':movie_id')
+  @Get(':id')
+  findById(@Param('id') id: number) {
+    return this.movieCastService.findById(id);
+  }
+
+  @Get('find_by_movie_id/:movie_id')
   findByMovieID(@Param('movie_id') movie_id: number) {
     return this.movieCastService.findByMovieID(movie_id);
   }

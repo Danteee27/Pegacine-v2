@@ -13,7 +13,15 @@ export class MovieGenresService {
     return this.genreRepository.find();
   }
 
-  // async findById(genre_id: number): Promise<MovieGenres> {
-  //   return this.genreRepository.findOneBy({ genre_id });
-  // }
+  async findById(genre_id: number): Promise<MovieGenres> {
+    return this.genreRepository.findOneBy({ genre_id });
+  }
+
+  async findByMovieId(movie_id: number): Promise<MovieGenres[]> {
+    const queryBuilder =
+      this.genreRepository.createQueryBuilder('movie_genres');
+    queryBuilder.where('movie_genres.movie_id = :movie_id', { movie_id });
+    queryBuilder.innerJoinAndSelect('movie_genres.genre', 'genre');
+    return queryBuilder.getMany();
+  }
 }

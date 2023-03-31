@@ -13,7 +13,18 @@ export class MovieCompanyService {
     return this.movieCompanyRepository.find();
   }
 
-  async findById(movie_id: number): Promise<MovieCompany[]> {
-    return this.movieCompanyRepository.findBy({ movie_id });
+  async findById(company_id: number): Promise<MovieCompany> {
+    return this.movieCompanyRepository.findOne({
+      where: { company_id },
+      relations: ['company'],
+    });
+  }
+
+  async findByMovieId(movie_id: number): Promise<MovieCompany[]> {
+    const queryBuilder =
+      this.movieCompanyRepository.createQueryBuilder('movie_company');
+    queryBuilder.where('movie_company.movie_id = :movie_id', { movie_id });
+    queryBuilder.innerJoinAndSelect('movie_company.company', 'company');
+    return queryBuilder.getMany();
   }
 }

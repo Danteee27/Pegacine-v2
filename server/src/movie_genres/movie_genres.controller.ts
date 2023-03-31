@@ -12,8 +12,13 @@ export class MovieGenresController {
     return this.movieGenreService.findAll();
   }
 
-  // @Get(':id')
-  // findById(@Param('id') id: number) {
-  //   return this.movieGenreService.findById(id);
-  // }
+  @Get(':id')
+  findById(@Param('id') id: number) {
+    return this.movieGenreService.findById(id);
+  }
+
+  @Get('find_by_movie_id/:id')
+  findByMovieId(@Param('id') id: number) {
+    return this.movieGenreService.findByMovieId(id);
+  }
 }

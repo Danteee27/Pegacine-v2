@@ -13,7 +13,15 @@ export class MovieLanguagesService {
     return this.movieLanguagesRepository.find();
   }
 
-  // async findById(movie_id: number): Promise<MovieLanguages> {
-  //   return this.movieLanguagesRepository.findOneBy({ movie_id });
-  // }
+  async findById(movie_id: number): Promise<MovieLanguages> {
+    return this.movieLanguagesRepository.findOneBy({ movie_id });
+  }
+
+  async findByMovieId(movie_id: number): Promise<MovieLanguages[]> {
+    const queryBuilder =
+      this.movieLanguagesRepository.createQueryBuilder('movie_languages');
+    queryBuilder.where('movie_languages.movie_id = :movie_id', { movie_id });
+    queryBuilder.innerJoinAndSelect('movie_languages.language', 'language');
+    return queryBuilder.getMany();
+  }
 }

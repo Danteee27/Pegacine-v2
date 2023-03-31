@@ -12,8 +12,13 @@ export class MovieLanguagesController {
     return this.movieLanguagesService.findAll();
   }
 
-  // @Get(':id')
-  // findById(@Param('id') id: number) {
-  //   return this.movieLanguagesService.findById(id);
-  // }
+  @Get(':id')
+  findById(@Param('id') id: number) {
+    return this.movieLanguagesService.findById(id);
+  }
+
+  @Get('find_by_movie_id/:id')
+  findByMovieId(@Param('id') id: number) {
+    return this.movieLanguagesService.findByMovieId(id);
+  }
 }

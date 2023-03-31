@@ -13,4 +13,14 @@ export class ProductionCountryController {
   findAll() {
     return this.productionCountryService.findAll();
   }
+
+  @Get(':id')
+  findById(@Param('id') id: number) {
+    return this.productionCountryService.findById(id);
+  }
+
+  @Get('find_by_movie_id/:id')
+  findByMovieId(@Param('id') id: number) {
+    return this.productionCountryService.findByMovieId(id);
+  }
 }

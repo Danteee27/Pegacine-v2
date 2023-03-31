@@ -13,6 +13,13 @@ export class MovieCastService {
     return this.movieCastRepository.find();
   }
 
+  async findById(movie_id: number): Promise<MovieCast> {
+    return this.movieCastRepository.findOne({
+      where: { movie_id },
+      relations: ['person'],
+    });
+  }
+
   async findByMovieID(movie_id: number): Promise<MovieCast[]> {
     const queryBuilder = this.movieCastRepository
       .createQueryBuilder('movie_cast')
