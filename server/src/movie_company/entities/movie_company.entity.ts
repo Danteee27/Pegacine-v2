@@ -9,12 +9,15 @@ import {
 } from 'typeorm';
 import { Movie } from 'src/movie/entities';
 import { ProductionCompany } from 'src/production_company/entities';
+import { ApiProperty } from '@nestjs/swagger';
 @Entity('movie_company')
 export class MovieCompany {
   @PrimaryColumn({ name: 'movie_id' })
+  @ApiProperty()
   movie_id: number;
 
   @PrimaryColumn({ name: 'company_id' })
+  @ApiProperty()
   company_id: number;
 
   @ManyToOne(() => Movie)

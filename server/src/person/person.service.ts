@@ -16,4 +16,13 @@ export class PersonService {
   async findById(person_id: number): Promise<Person> {
     return this.genreRepository.findOneBy({ person_id });
   }
+
+  async create(person: Person): Promise<Person> {
+    return this.genreRepository.save(person);
+  }
+
+  async delete(person_id: number): Promise<Person> {
+    const person = await this.findById(person_id);
+    return this.genreRepository.remove(person);
+  }
 }

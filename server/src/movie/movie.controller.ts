@@ -9,6 +9,7 @@ import { AuthGuard } from 'libs/guards/clientService.guard';
 import { GetMovieByGenresQuery } from './queries/get_movie_by_genres/get_movie_by_genres.query';
 import { Movie } from './entities';
 import { GetMovieByCastQuery } from './queries/get_movie_by_cast/get_movie_by_cast.query';
+import { GetMovieByCrewQuery } from './queries/get_movie_by_crew/get_movie_by_crew.query';
 
 @ApiTags('movie')
 @Controller('movie')
@@ -47,7 +48,7 @@ export class MovieController {
     );
   }
 
-  @Get('find_by_movie_cast')
+  @Get('find_by_cast')
   findByMovieCast(
     @Query('person_id') person_id: number,
     @Query('page') page: number = 1,
@@ -55,6 +56,17 @@ export class MovieController {
   ) {
     return this.queryBus.execute(
       new GetMovieByCastQuery(person_id, page, pageSize),
+    );
+  }
+
+  @Get('find_by_crew')
+  findByMovieCrew(
+    @Query('person_id') person_id: number,
+    @Query('page') page: number = 1,
+    @Query('pageSize') pageSize: number = 30,
+  ) {
+    return this.queryBus.execute(
+      new GetMovieByCrewQuery(person_id, page, pageSize),
     );
   }
 }

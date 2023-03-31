@@ -11,13 +11,16 @@ import {
 // import 'reflect-metadata';
 import { Movie } from 'src/movie/entities';
 import { Genre } from 'src/genre/entities';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('movie_genres')
 export class MovieGenres {
   @PrimaryColumn({ name: 'movie_id' })
+  @ApiProperty()
   movie_id: number;
 
   @PrimaryColumn({ name: 'genre_id' })
+  @ApiProperty()
   genre_id: number;
 
   @ManyToOne(() => Movie)

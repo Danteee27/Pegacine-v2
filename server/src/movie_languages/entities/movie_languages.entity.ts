@@ -11,16 +11,20 @@ import {
 import { Movie } from 'src/movie/entities';
 import { Language } from 'src/language/entities';
 import { LanguageRole } from 'src/language_role/entities';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('movie_languages')
 export class MovieLanguages {
   @PrimaryColumn({ name: 'movie_id' })
+  @ApiProperty()
   movie_id: number;
 
   @PrimaryColumn({ name: 'language_id' })
+  @ApiProperty()
   language_id: number;
 
   @PrimaryColumn({ name: 'language_role_id' })
+  @ApiProperty()
   language_role_id: number;
 
   @ManyToOne(() => Movie)

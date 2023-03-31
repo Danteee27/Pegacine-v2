@@ -10,22 +10,28 @@ import {
 import { Movie } from 'src/movie/entities';
 import { Person } from 'src/person/entities';
 import { Gender } from 'src/gender/entities';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('movie_cast')
 export class MovieCast {
   @PrimaryColumn({ type: 'varchar', length: 400 })
+  @ApiProperty()
   character_name: number;
 
   @PrimaryColumn({ type: 'int' })
+  @ApiProperty()
   cast_order: number;
 
   @PrimaryColumn({ name: 'movie_id' })
+  @ApiProperty()
   movie_id: number;
 
   @PrimaryColumn({ name: 'person_id' })
+  @ApiProperty()
   person_id: number;
 
   @PrimaryColumn({ name: 'gender_id' })
+  @ApiProperty()
   gender_id: number;
 
   @ManyToOne(() => Movie)

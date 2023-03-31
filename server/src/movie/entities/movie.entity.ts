@@ -6,46 +6,60 @@ import { MovieCrew } from 'src/movie_crew/entities';
 import { MovieLanguages } from 'src/movie_languages/entities';
 import { ProductionCountry } from 'src/production_country/entities';
 import { MovieCompany } from 'src/movie_company/entities';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('movie')
 export class Movie {
   @PrimaryGeneratedColumn()
+  @ApiProperty()
   movie_id: number;
 
   @Column({ type: 'varchar', length: 1000 })
+  @ApiProperty()
   title: string;
 
   @Column({ type: 'int', nullable: true })
+  @ApiProperty()
   budget: number;
 
   @Column({ type: 'varchar', length: 1000, nullable: true })
+  @ApiProperty()
   homepage: string;
 
   @Column({ type: 'varchar', length: 1000, nullable: true })
+  @ApiProperty()
   overview: string;
 
   @Column({ type: 'decimal', precision: 12, scale: 6, nullable: true })
+  @ApiProperty()
   popularity: number;
 
   @Column({ type: 'date', nullable: true })
+  @ApiProperty()
   release_date: Date;
 
   @Column({ type: 'bigint', nullable: true })
+  @ApiProperty()
   revenue: number;
 
   @Column({ type: 'int', nullable: true })
+  @ApiProperty()
   runtime: number;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
+  @ApiProperty()
   movie_status: string;
 
   @Column({ type: 'varchar', length: 1000, nullable: true })
+  @ApiProperty()
   tagline: string;
 
   @Column({ type: 'decimal', precision: 4, scale: 2, nullable: true })
+  @ApiProperty()
   vote_average: number;
 
   @Column({ type: 'int' })
+  @ApiProperty()
   vote_count: number;
 
   @OneToMany(() => MovieGenres, (movieGenres) => movieGenres.movie)
