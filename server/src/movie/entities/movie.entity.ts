@@ -79,7 +79,7 @@ export class Movie {
 
   @OneToMany(
     () => ProductionCountry,
-    (productionCountry) => productionCountry.country,
+    (productionCountry) => productionCountry.movie,
   )
   production_country: ProductionCountry[];
 

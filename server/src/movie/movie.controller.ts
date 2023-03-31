@@ -10,6 +10,7 @@ import { GetMovieByGenresQuery } from './queries/get_movie_by_genres/get_movie_b
 import { Movie } from './entities';
 import { GetMovieByCastQuery } from './queries/get_movie_by_cast/get_movie_by_cast.query';
 import { GetMovieByCrewQuery } from './queries/get_movie_by_crew/get_movie_by_crew.query';
+import { GetMovieByCountryQuery } from './queries/get_movie_by_country/get_movie_by_country.query';
 
 @ApiTags('movie')
 @Controller('movie')
@@ -45,6 +46,17 @@ export class MovieController {
   ) {
     return this.queryBus.execute(
       new GetMovieByGenresQuery(genre_id, page, pageSize),
+    );
+  }
+
+  @Get('find_by_country')
+  findByMovieCountry(
+    @Query('country_id') country_id: number,
+    @Query('page') page: number = 1,
+    @Query('pageSize') pageSize: number = 30,
+  ) {
+    return this.queryBus.execute(
+      new GetMovieByCountryQuery(country_id, page, pageSize),
     );
   }
 

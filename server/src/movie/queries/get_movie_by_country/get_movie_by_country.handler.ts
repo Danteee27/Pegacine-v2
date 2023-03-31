@@ -18,8 +18,11 @@ export class GetMovieByCountryQueryHandler
   async execute(query: GetMovieByCountryQuery): Promise<any> {
     const { country_id, page, pageSize } = query;
     const queryBuilder = this.movieRepository.createQueryBuilder('movie');
-    queryBuilder.innerJoinAndSelect('movie.movie_countries', 'movie_countries');
-    queryBuilder.where('movie_countries.country_id = :country_id', {
+    queryBuilder.innerJoinAndSelect(
+      'movie.production_country',
+      'production_country',
+    );
+    queryBuilder.where('production_country.country_id = :country_id', {
       country_id,
     });
     const x = await paginate<Movie>(queryBuilder, {
