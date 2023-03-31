@@ -23,4 +23,12 @@ export class KeywordService {
   async findById(keyword_id: number): Promise<Keyword> {
     return this.keywordRepository.findOneBy({ keyword_id });
   }
+
+  async create(keyword: Keyword): Promise<Keyword> {
+    return this.keywordRepository.save(keyword);
+  }
+
+  async delete(keyword_id: number): Promise<void> {
+    await this.keywordRepository.delete(keyword_id);
+  }
 }

@@ -5,10 +5,12 @@ import { DatabaseModule } from '../database/database.module';
 import { MovieController } from './movie.controller';
 import { MovieProviders } from './movie.providers';
 import { QueryHandlers } from './queries';
+import { MovieGenresModule } from 'src/movie_genres/movie_genres.module';
+import { MovieGenresProviders } from 'src/movie_genres/movie_genres.providers';
 
 @Module({
-  imports: [DatabaseModule, CqrsModule, AuthModule],
+  imports: [DatabaseModule, CqrsModule, AuthModule, MovieGenresModule],
   controllers: [MovieController],
-  providers: [...MovieProviders, ...QueryHandlers],
+  providers: [...MovieProviders, ...QueryHandlers, ...MovieGenresProviders],
 })
 export class MovieModule {}

@@ -1,6 +1,7 @@
 import { Controller, Get, Body, Param } from '@nestjs/common';
-import { Query } from '@nestjs/common/decorators';
+import { Delete, Post, Query } from '@nestjs/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
+import { Keyword } from './entities';
 import { KeywordService } from './keyword.service';
 
 @ApiTags('keyword')
@@ -20,5 +21,15 @@ export class KeywordController {
   @Get(':id')
   findById(@Param('id') id: number) {
     return this.keywordService.findById(id);
+  }
+
+  @Post()
+  create(@Body() keyword: Keyword) {
+    return this.keywordService.create(keyword);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: number) {
+    return this.keywordService.delete(id);
   }
 }

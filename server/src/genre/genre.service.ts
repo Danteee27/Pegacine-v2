@@ -21,4 +21,12 @@ export class GenreService {
 
     return genre;
   }
+
+  async create(genre: Genre): Promise<Genre> {
+    return this.genreRepository.save(genre);
+  }
+
+  async delete(genre_id: number): Promise<void> {
+    await this.genreRepository.delete(genre_id);
+  }
 }
