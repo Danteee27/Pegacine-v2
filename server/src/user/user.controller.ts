@@ -19,6 +19,9 @@ import { RegisterDto } from './dtos/register.dto';
 import { CreateProfileCommand } from './commands/create_profile/create_profile.command';
 import { DeleteProfileDto } from './dtos/delete_profile.dto';
 import { DeleteProfileCommand } from './commands/delete_profile/delete_profile.command';
+import { GetProfilesQuery } from './query/get_profiles/get_profiles.query';
+import { GetProfileFavoriteQuery } from './query/get_profile_favorite/get_profile_favorite.query';
+import { ProfileFavoriteMovieCommand } from './commands/profile_favorite_movie/profile_favorite_movie.command';
 
 @ApiTags('user')
 @Controller('user')
@@ -54,5 +57,25 @@ export class UserEntityController {
   @Patch('profile')
   updateProfile(@Body() dto: UpdateProfileDto) {
     return this.commandBus.execute(new UpdateProfileCommand(dto));
+  }
+
+  @Post('profile/favorite/:profile_id/:movie_id')
+  addFavoriteMovie(
+    @Param('profile_id') profile_id: number,
+    @Param('movie_id') movie_id: number,
+  ) {
+    return this.commandBus.execute(
+      new ProfileFavoriteMovieCommand(profile_id, movie_id),
+    );
+  }
+
+  @Get('profiles/favorite/:profile_id')
+  findFavoriteMovies(@Param('profile_id') id: number) {
+    return this.queryBus.execute(new GetProfileFavoriteQuery(id));
+  }
+
+  @Get('profiles/:user_id')
+  findProfileById(@Param('user_id') id: number) {
+    return this.queryBus.execute(new GetProfilesQuery(id));
   }
 }
