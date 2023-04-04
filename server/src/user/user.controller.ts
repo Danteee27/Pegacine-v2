@@ -23,6 +23,8 @@ import { DeleteProfileCommand } from './commands/delete_profile/delete_profile.c
 import { GetProfilesQuery } from './query/get_profiles/get_profiles.query';
 import { GetProfileFavoriteQuery } from './query/get_profile_favorite/get_profile_favorite.query';
 import { ProfileFavoriteMovieCommand } from './commands/profile_favorite_movie/profile_favorite_movie.command';
+import { GetProfileMyListQuery } from './query/get_profile_mylist/get_profile_mylist.query';
+import { ProfileMyListMovieCommand } from './commands/profile_mylist_movie/profile_mylist_movie.command';
 
 @ApiTags('user')
 @Controller('user')
@@ -60,17 +62,27 @@ export class UserEntityController {
     return this.commandBus.execute(new UpdateProfileCommand(dto));
   }
 
-  @Post('profile/favorite/:profile_id/:movie_id')
+  @Post('profile/favorite')
   addFavoriteMovie(
-    @Param('profile_id') profile_id: number,
-    @Param('movie_id') movie_id: number,
+    @Query('profile_id') profile_id: number,
+    @Query('movie_id') movie_id: number,
   ) {
     return this.commandBus.execute(
       new ProfileFavoriteMovieCommand(profile_id, movie_id),
     );
   }
 
-  @Get('profiles/favorite/:profile_id')
+  @Post('profile/my_list')
+  addMyListMovie(
+    @Query('profile_id') profile_id: number,
+    @Query('movie_id') movie_id: number,
+  ) {
+    return this.commandBus.execute(
+      new ProfileMyListMovieCommand(profile_id, movie_id),
+    );
+  }
+
+  @Get('profiles/favorite/')
   findFavoriteMovies(
     @Query('profile_id') profile_id: number,
     @Query('page') page: number,
@@ -78,6 +90,17 @@ export class UserEntityController {
   ) {
     return this.queryBus.execute(
       new GetProfileFavoriteQuery(profile_id, page, pageSize),
+    );
+  }
+
+  @Get('profiles/my_list/')
+  FindMyListMovies(
+    @Query('profile_id') profile_id: number,
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: number,
+  ) {
+    return this.queryBus.execute(
+      new GetProfileMyListQuery(profile_id, page, pageSize),
     );
   }
 

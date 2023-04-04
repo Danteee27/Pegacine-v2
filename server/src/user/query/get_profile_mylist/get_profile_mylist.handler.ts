@@ -1,10 +1,11 @@
-import { IQueryHandler } from '@nestjs/cqrs';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetProfileMyListQuery } from './get_profile_mylist.query';
 import { Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { ProfileEntity } from 'src/user/entities/profile.entity';
 import { paginate } from 'nestjs-typeorm-paginate';
 
+@QueryHandler(GetProfileMyListQuery)
 export class GetProfileMyListQueryHandler
   implements IQueryHandler<GetProfileMyListQuery>
 {
