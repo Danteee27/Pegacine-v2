@@ -17,7 +17,7 @@ function Player() {
             <div className={'player'}>
                 <div className={'back'}>
                     {/*<BsArrowLeft onClick={()=>navigate(-1)}/>*/}
-                    <BsArrowLeft/>
+                    {/*<BsArrowLeft/>*/}
                 </div>
                 <div className={"videoPlayer"}>
                     <video src={videoUrl} autoPlay loop controls datatype={".mp4"}></video>

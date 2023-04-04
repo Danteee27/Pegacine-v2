@@ -8,6 +8,9 @@ import { BiChevronDown } from 'react-icons/bi';
 import { BsCheck } from 'react-icons/bs';
 
 import './Card.css';
+import {Link, Route, Routes} from "react-router-dom";
+import Home from "../../pages/home/Home";
+import PlayerPage from "../../pages/player/PlayerPage";
 
 export default React.memo(function Card({ index, movieData, isLiked = false }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -52,10 +55,16 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
             </h3>
             <div className="icons flex j-between">
               <div className="controls flex">
-                <IoPlayCircleSharp
-                  title="Play"
-                  // onClick={() => navigate("/player")}
+                <Link to="../player"><IoPlayCircleSharp
+                    title="Play"
                 />
+                </Link>
+
+
+                <Routes>
+                  <Route path="/player" element={<PlayerPage />} />
+                </Routes>
+
                 <RiThumbUpFill title="Like" />
                 <RiThumbDownFill title="Dislike" />
                 {isLiked ? (

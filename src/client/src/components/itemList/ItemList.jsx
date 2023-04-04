@@ -5,11 +5,12 @@ import {
   ThumbUpAltOutlined,
   ThumbDownOutlined,
 } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import {Link, Route, Routes} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import requests from '../../Requests';
+import PlayerPage from "../../pages/player/PlayerPage";
 
 export default function ItemList({ index }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -34,7 +35,12 @@ export default function ItemList({ index }) {
             <video src={trailer} autoPlay={true} loop />
             <div className="itemInfo">
               <div className="icons">
-                <PlayArrow className="icon" />
+                  <Link to="../player">
+                      <PlayArrow className="icon"/>
+                  </Link>
+                  <Routes>
+                      <Route path="/player" element={<PlayerPage />} />
+                  </Routes>
                 <Add className="icon" />
                 <ThumbUpAltOutlined className="icon" />
                 <ThumbDownOutlined className="icon" />

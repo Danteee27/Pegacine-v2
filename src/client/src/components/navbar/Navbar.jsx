@@ -1,8 +1,12 @@
 import Search from '@mui/icons-material/Search';
 import Notifications from '@mui/icons-material/Notifications';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './navbar.scss';
+import {Link, Route, Routes} from "react-router-dom";
+import PlayerPage from "../../pages/player/PlayerPage";
+import SearchPage from "../../pages/search/SearchPage";
+import Home from "../../pages/home/Home";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,14 +20,19 @@ const Navbar = () => {
       <div className="container">
         <div className="left">
           <img src="../logo.png" alt="" />
-          <span>Homepage</span>
-          <span>Series</span>
-          <span>Movies</span>
-          <span>New and Popular</span>
-          <span>My List</span>
+          <a href="./home"><span>Homepage</span></a>
+          {/*<Link to="../player"><span>Series</span></Link>*/}
+          {/*<Link to="../player"><span>Movies</span></Link>*/}
+          {/*<Link to="../player"><span>New and Popular</span></Link>*/}
+          <a href="./myList"><span>My List</span></a>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/player" element={<PlayerPage />} />
+          </Routes>
         </div>
         <div className="right">
-          <Search className="icon" />
+          <a href="./search"><Search className="icon"/></a>
           <span className="username">Phu Nguyen</span>
           <img
             src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"

@@ -1,5 +1,7 @@
 import { InfoOutlined, PlayArrow } from '@mui/icons-material';
 import './highLight.scss';
+import {Link, Route, Routes} from "react-router-dom";
+import PlayerPage from "../../pages/player/PlayerPage";
 
 export default function HighLight({ type }) {
   return (
@@ -41,10 +43,14 @@ export default function HighLight({ type }) {
           temporibus eum earum?
         </span>
         <div className="buttons">
-          <button className="play">
-            <PlayArrow className="play-arrow" />
-            <span>Play</span>
-          </button>
+          <Link to="../player">
+            <button className="play">
+              <PlayArrow className="play-arrow"/>
+              <span>Play</span>
+            </button>
+          </Link>
+          <Routes><Route path="/player" element={<PlayerPage/>}/></Routes>
+
           <button className="more">
             <InfoOutlined className="info-outlined" />
             <span>Info</span>

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Navbar from './components/navbar/Navbar';
 import requests from "./Requests";
 import Register from './pages/register/Register';
 import Login from './pages/login/Login';
@@ -15,6 +14,7 @@ import {
     Routes,
 } from 'react-router-dom';
 import {useContext} from 'react';
+import TestPage from "./pages/test/Test";
 
 
 export default function App() {
@@ -27,6 +27,8 @@ export default function App() {
                 <Route path="/player" element={<PlayerPage/>}/>
                 <Route path="/myList" element={<MyList fetchUrl={requests.fetchTrending}/>}/>
                 <Route path="/search" element={<SearchPage/>}/>
+                <Route path="/test" element={<TestPage/>}/>
+
             </Routes>
         </div>
     );
