@@ -11,6 +11,7 @@ import {
   Post,
   Delete,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
@@ -70,8 +71,14 @@ export class UserEntityController {
   }
 
   @Get('profiles/favorite/:profile_id')
-  findFavoriteMovies(@Param('profile_id') id: number) {
-    return this.queryBus.execute(new GetProfileFavoriteQuery(id));
+  findFavoriteMovies(
+    @Query('profile_id') profile_id: number,
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: number,
+  ) {
+    return this.queryBus.execute(
+      new GetProfileFavoriteQuery(profile_id, page, pageSize),
+    );
   }
 
   @Get('profiles/:user_id')

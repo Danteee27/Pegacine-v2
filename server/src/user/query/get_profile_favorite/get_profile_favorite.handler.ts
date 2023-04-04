@@ -3,6 +3,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { ProfileEntity } from 'src/user/entities/profile.entity';
 import { Repository } from 'typeorm';
 import { GetProfileFavoriteQuery } from './get_profile_favorite.query';
+import { paginate } from 'nestjs-typeorm-paginate';
 
 @QueryHandler(GetProfileFavoriteQuery)
 export class GetProfileFavoriteQueryHandler
@@ -14,7 +15,7 @@ export class GetProfileFavoriteQueryHandler
   ) {}
 
   async execute(query: GetProfileFavoriteQuery) {
-    const { profile_id } = query;
+    const { profile_id, page, pageSize } = query;
 
     const queryBuilder =
       this.profileEntityRepository.createQueryBuilder('profiles');
@@ -24,6 +25,6 @@ export class GetProfileFavoriteQueryHandler
     );
     queryBuilder.where('profiles.profile_id = :profile_id', { profile_id });
 
-    return queryBuilder.getMany();
+    return paginate(queryBuilder, { page: page, limit: pageSize });
   }
 }
