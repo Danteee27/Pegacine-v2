@@ -4,11 +4,11 @@ import { OkResponse } from 'libs/models/responses';
 import { Movie } from 'src/movie/entities';
 import { ProfileEntity } from 'src/user/entities/profile.entity';
 import { Repository } from 'typeorm';
-import { ProfileFavoriteMovieCommand } from './profile_favorite_movie.command';
+import { AddProfileFavoriteMovieCommand } from './add_profile_favorite_movie.command';
 
-@CommandHandler(ProfileFavoriteMovieCommand)
-export class ProfileFavoriteMovieCommandHandler
-  implements ICommandHandler<ProfileFavoriteMovieCommand>
+@CommandHandler(AddProfileFavoriteMovieCommand)
+export class AddProfileFavoriteMovieCommandHandler
+  implements ICommandHandler<AddProfileFavoriteMovieCommand>
 {
   constructor(
     @Inject('ProfileEntity_REPOSITORY')
@@ -17,7 +17,7 @@ export class ProfileFavoriteMovieCommandHandler
     readonly movieRepository: Repository<Movie>,
   ) {}
 
-  async execute(command: ProfileFavoriteMovieCommand) {
+  async execute(command: AddProfileFavoriteMovieCommand) {
     const { profile_id, movie_id } = command;
 
     const profile = await this.profileEntityRepository.findOne({

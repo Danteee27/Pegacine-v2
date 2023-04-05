@@ -22,9 +22,10 @@ import { DeleteProfileDto } from './dtos/delete_profile.dto';
 import { DeleteProfileCommand } from './commands/delete_profile/delete_profile.command';
 import { GetProfilesQuery } from './query/get_profiles/get_profiles.query';
 import { GetProfileFavoriteQuery } from './query/get_profile_favorite/get_profile_favorite.query';
-import { ProfileFavoriteMovieCommand } from './commands/profile_favorite_movie/profile_favorite_movie.command';
 import { GetProfileMyListQuery } from './query/get_profile_mylist/get_profile_mylist.query';
-import { ProfileMyListMovieCommand } from './commands/profile_mylist_movie/profile_mylist_movie.command';
+import { AddProfileFavoriteMovieCommand } from './commands/add_profile_favorite_movie/add_profile_favorite_movie.command';
+import { AddProfileMyListMovieCommand } from './commands/add_profile_mylist_movie/add_profile_mylist_movie.command';
+import { DeleteProfileFavoriteMovieCommand } from './commands/delete_profile_favorite_movie/delete_profile_favorite_movie.command';
 
 @ApiTags('user')
 @Controller('user')
@@ -68,7 +69,17 @@ export class UserEntityController {
     @Query('movie_id') movie_id: number,
   ) {
     return this.commandBus.execute(
-      new ProfileFavoriteMovieCommand(profile_id, movie_id),
+      new AddProfileFavoriteMovieCommand(profile_id, movie_id),
+    );
+  }
+
+  @Delete('profile/favorite')
+  deleteFavoriteMovie(
+    @Query('profile_id') profile_id: number,
+    @Query('movie_id') movie_id: number,
+  ) {
+    return this.commandBus.execute(
+      new DeleteProfileFavoriteMovieCommand(profile_id, movie_id),
     );
   }
 
@@ -78,7 +89,7 @@ export class UserEntityController {
     @Query('movie_id') movie_id: number,
   ) {
     return this.commandBus.execute(
-      new ProfileMyListMovieCommand(profile_id, movie_id),
+      new AddProfileMyListMovieCommand(profile_id, movie_id),
     );
   }
 
