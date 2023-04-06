@@ -1,31 +1,31 @@
-import { UpdateProfileDto } from './dtos/update_profile.dto';
-import { UpdateProfileCommand } from './commands/update_profile/update_profile.command';
-import { CreateProfileDto } from 'src/user/dtos/create_profile.dto';
-import { LoginCommand } from './commands/login/login.command';
-import { LoginDto } from './dtos/login.dto';
 import {
   Controller,
   Get,
-  Body,
   Param,
   Post,
+  Body,
   Delete,
   Patch,
   Query,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
-import { RegisterCommand } from './commands/register/register.command';
-import { RegisterDto } from './dtos/register.dto';
-import { CreateProfileCommand } from './commands/create_profile/create_profile.command';
-import { DeleteProfileDto } from './dtos/delete_profile.dto';
-import { DeleteProfileCommand } from './commands/delete_profile/delete_profile.command';
-import { GetProfilesQuery } from './query/get_profiles/get_profiles.query';
+import { AddProfileFavoriteMovieCommand } from './commands/profile/add_profile_favorite_movie/add_profile_favorite_movie.command';
+import { AddProfileMyListMovieCommand } from './commands/profile/add_profile_mylist_movie/add_profile_mylist_movie.command';
+import { CreateProfileCommand } from './commands/profile/create_profile/create_profile.command';
+import { CreateProfileDto } from './commands/profile/create_profile/create_profile.dto';
+import { DeleteProfileCommand } from './commands/profile/delete_profile/delete_profile.command';
+import { DeleteProfileDto } from './commands/profile/delete_profile/delete_profile.dto';
+import { DeleteProfileFavoriteMovieCommand } from './commands/profile/delete_profile_favorite_movie/delete_profile_favorite_movie.command';
+import { UpdateProfileCommand } from './commands/profile/update_profile/update_profile.command';
+import { UpdateProfileDto } from './commands/profile/update_profile/update_profile.dto';
+import { LoginCommand } from './commands/user/login/login.command';
+import { LoginDto } from './commands/user/login/login.dto';
+import { RegisterCommand } from './commands/user/register/register.command';
+import { RegisterDto } from './commands/user/register/register.dto';
 import { GetProfileFavoriteQuery } from './query/get_profile_favorite/get_profile_favorite.query';
 import { GetProfileMyListQuery } from './query/get_profile_mylist/get_profile_mylist.query';
-import { AddProfileFavoriteMovieCommand } from './commands/add_profile_favorite_movie/add_profile_favorite_movie.command';
-import { AddProfileMyListMovieCommand } from './commands/add_profile_mylist_movie/add_profile_mylist_movie.command';
-import { DeleteProfileFavoriteMovieCommand } from './commands/delete_profile_favorite_movie/delete_profile_favorite_movie.command';
+import { GetProfilesQuery } from './query/get_profiles/get_profiles.query';
 
 @ApiTags('user')
 @Controller('user')
