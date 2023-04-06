@@ -31,6 +31,7 @@ import { AddProfileWatchingMovieCommand } from './commands/profile/add_profile_w
 import { DeleteProfileMyListMovieCommandHandler } from './commands/profile/delete_profile_mylist_movie/delete_profile_mylist_movie.handler';
 import { DeleteProfileMyListMovieCommand } from './commands/profile/delete_profile_mylist_movie/delete_profile_mylist_movie.command';
 import { DeleteProfileWatchingMovieCommand } from './commands/profile/delete_profile_watching_movie/delete_profile_watching_movie.command';
+import { GetProfileWatchedQuery } from './query/get_profile_watched/get_profile_watched.query';
 
 @ApiTags('user')
 @Controller('user')
@@ -159,6 +160,17 @@ export class UserEntityController {
   ) {
     return this.commandBus.execute(
       new DeleteProfileWatchingMovieCommand(profile_id, movie_id),
+    );
+  }
+
+  @Get('profiles/watched')
+  getWatchedMovie(
+    @Query('profile_id') profile_id: number,
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: number,
+  ) {
+    return this.queryBus.execute(
+      new GetProfileWatchedQuery(profile_id, page, pageSize),
     );
   }
 
