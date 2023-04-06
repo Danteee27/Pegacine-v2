@@ -39,6 +39,6 @@ export class AddProfileFavoriteMovieCommandHandler
 
     profile.save();
 
-    return new OkResponse();
+    return new OkResponse(profile.FavoriteMovies);
   }
 }

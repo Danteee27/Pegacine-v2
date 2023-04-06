@@ -26,6 +26,11 @@ import { RegisterDto } from './commands/user/register/register.dto';
 import { GetProfileFavoriteQuery } from './query/get_profile_favorite/get_profile_favorite.query';
 import { GetProfileMyListQuery } from './query/get_profile_mylist/get_profile_mylist.query';
 import { GetProfilesQuery } from './query/get_profiles/get_profiles.query';
+import { GetProfileWatchingQuery } from './query/get_profile_watching/get_profile_watching.query';
+import { AddProfileWatchingMovieCommand } from './commands/profile/add_profile_watching_movie/add_profile_watching_movie.command';
+import { DeleteProfileMyListMovieCommandHandler } from './commands/profile/delete_profile_mylist_movie/delete_profile_mylist_movie.handler';
+import { DeleteProfileMyListMovieCommand } from './commands/profile/delete_profile_mylist_movie/delete_profile_mylist_movie.command';
+import { DeleteProfileWatchingMovieCommand } from './commands/profile/delete_profile_watching_movie/delete_profile_watching_movie.command';
 
 @ApiTags('user')
 @Controller('user')
@@ -63,6 +68,17 @@ export class UserEntityController {
     return this.commandBus.execute(new UpdateProfileCommand(dto));
   }
 
+  @Get('profiles/favorite/')
+  findFavoriteMovies(
+    @Query('profile_id') profile_id: number,
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: number,
+  ) {
+    return this.queryBus.execute(
+      new GetProfileFavoriteQuery(profile_id, page, pageSize),
+    );
+  }
+
   @Post('profile/favorite')
   addFavoriteMovie(
     @Query('profile_id') profile_id: number,
@@ -83,6 +99,17 @@ export class UserEntityController {
     );
   }
 
+  @Get('profiles/my_list/')
+  FindMyListMovies(
+    @Query('profile_id') profile_id: number,
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: number,
+  ) {
+    return this.queryBus.execute(
+      new GetProfileMyListQuery(profile_id, page, pageSize),
+    );
+  }
+
   @Post('profile/my_list')
   addMyListMovie(
     @Query('profile_id') profile_id: number,
@@ -93,25 +120,45 @@ export class UserEntityController {
     );
   }
 
-  @Get('profiles/favorite/')
-  findFavoriteMovies(
+  @Delete('profiles/my_list')
+  deleteMyListMovie(
     @Query('profile_id') profile_id: number,
-    @Query('page') page: number,
-    @Query('pageSize') pageSize: number,
+    @Query('movie_id') movie_id: number,
   ) {
-    return this.queryBus.execute(
-      new GetProfileFavoriteQuery(profile_id, page, pageSize),
+    return this.commandBus.execute(
+      new DeleteProfileMyListMovieCommand(profile_id, movie_id),
     );
   }
 
-  @Get('profiles/my_list/')
-  FindMyListMovies(
+  @Get('profiles/watching/')
+  FindWatchingMovies(
     @Query('profile_id') profile_id: number,
     @Query('page') page: number,
     @Query('pageSize') pageSize: number,
   ) {
     return this.queryBus.execute(
-      new GetProfileMyListQuery(profile_id, page, pageSize),
+      new GetProfileWatchingQuery(profile_id, page, pageSize),
+    );
+  }
+
+  @Post('profiles/watching')
+  createProfileWatchingMovie(
+    @Query('profile_id') profile_id: number,
+    @Query('movie_id') movie_id: number,
+    @Query('stoppedAt') stoppedAt: number,
+  ) {
+    return this.commandBus.execute(
+      new AddProfileWatchingMovieCommand(profile_id, movie_id, stoppedAt),
+    );
+  }
+
+  @Delete('profiles/watching')
+  deleteProfileWatchingMovie(
+    @Query('profile_id') profile_id: number,
+    @Query('movie_id') movie_id: number,
+  ) {
+    return this.commandBus.execute(
+      new DeleteProfileWatchingMovieCommand(profile_id, movie_id),
     );
   }
 

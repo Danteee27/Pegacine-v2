@@ -7,6 +7,7 @@ import { MovieLanguages } from 'src/movie_languages/entities';
 import { ProductionCountry } from 'src/production_country/entities';
 import { MovieCompany } from 'src/movie_company/entities';
 import { ApiProperty } from '@nestjs/swagger';
+import { ProfileWatchingMovies } from 'src/user/entities/profile-watching.entity';
 
 @Entity('movie')
 export class Movie {
@@ -85,4 +86,7 @@ export class Movie {
 
   @OneToMany(() => MovieCompany, (movieCompany) => movieCompany.movie)
   movie_company: MovieCompany[];
+
+  @OneToMany(() => ProfileWatchingMovies, (profile) => profile.movie)
+  watching_movies: ProfileWatchingMovies[];
 }

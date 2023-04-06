@@ -1,0 +1,7 @@
+export class GetProfileWatchingQuery {
+  constructor(
+    public readonly profile_id: number,
+    public readonly page: number,
+    public readonly pageSize: number,
+  ) {}
+}

@@ -7,9 +7,11 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserEntity } from './user.entity';
+import { ProfileWatchingMovies } from './profile-watching.entity';
 
 @Entity({ name: 'profiles' })
 export class ProfileEntity extends BaseEntity {
@@ -29,9 +31,12 @@ export class ProfileEntity extends BaseEntity {
   @Column({ nullable: true })
   image: string;
 
+  @OneToMany(() => ProfileWatchingMovies, (profile) => profile.profile)
+  WatchingMovies: ProfileWatchingMovies[];
+
   @ManyToMany(() => Movie)
   @JoinTable({
-    name: 'profile_watching_movies', // table name for the junction table of this relation
+    name: 'profile_watched_movies',
     joinColumn: {
       name: 'profile_id',
       referencedColumnName: 'profile_id',
@@ -41,7 +46,7 @@ export class ProfileEntity extends BaseEntity {
       referencedColumnName: 'movie_id',
     },
   })
-  WatchingMovies: Movie[];
+  WatchedMovies: Movie[];
 
   @ManyToMany(() => Movie)
   @JoinTable({
