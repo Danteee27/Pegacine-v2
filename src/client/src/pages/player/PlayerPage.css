@@ -24,3 +24,15 @@
 /*    width: 100%;*/
 /*    object-fit: cover;*/
 /*}*/
+
+/*=========================*/
+.videoContainer{
+
+}
+
+.controls{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+

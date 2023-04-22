@@ -21,7 +21,7 @@
 // export default MyList
 
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Card from "../../components/card/Card";
 import styled from "styled-components";
 import axios from "../../axios";
@@ -61,14 +61,12 @@ export default function MyList({fetchUrl}) {
                 <h1>My List</h1>
                 <div className="grid flex">
                     {movies.map((movie, index) => {
-                        return (
-                            <Card
-                                movieData={movie}
-                                index={index}
-                                key={movie.id}
-                                isLiked={true}
-                            />
-                        );
+                        return (<Card
+                            movieData={movie}
+                            index={index}
+                            key={movie.id}
+                            isLiked={true}
+                        />);
                     })}
                 </div>
             </div>
@@ -81,10 +79,12 @@ const Container = styled.div`
     margin: 2.3rem;
     margin-top: 8rem;
     gap: 3rem;
+
     h1 {
       color: snow;
       margin-left: 3rem;
     }
+
     .grid {
       flex-wrap: wrap;
       gap: 1rem;

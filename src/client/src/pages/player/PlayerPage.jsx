@@ -9,18 +9,30 @@ import Navbar from "../../components/navbar/Navbar";
 function Player() {
     // const navigate = useNavigate()
 
-    const videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+    const videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
 
     return (
         <Container>
-            <Navbar/>
+            {/*<Navbar/>*/}
             <div className={'player'}>
                 <div className={'back'}>
                     {/*<BsArrowLeft onClick={()=>navigate(-1)}/>*/}
                     {/*<BsArrowLeft/>*/}
                 </div>
-                <div className={"videoPlayer"}>
+                <div className={"videoPlayer videoContainer"}>
                     <video src={videoUrl} autoPlay loop controls datatype={".mp4"}></video>
+                    <div className={"controls"}>
+                        <button> Play/pause</button>
+                        <button> Go back</button>
+                        <button> Go foward</button>
+                        <button> Volume</button>
+                        <p>Bick buck punny</p>
+                        <button>help</button>
+                        <button>next</button>
+                        <button>episodes</button>
+                        <button>caption</button>
+                        <button>full screen</button>
+                    </div>
                 </div>
             </div>
         </Container>
@@ -53,15 +65,18 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      //width: 100vw;
+      //height: 100vh;
     }
     video {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height: 100vh;
+      width: 100vw;
       object-fit: cover;
-      margin-top: 75px;
+      //display: flex;
+      //align-items: center;
+      //justify-content: center;
+      //object-fit: cover;
+      //margin-top: 75px;
     }
   }
 `;
