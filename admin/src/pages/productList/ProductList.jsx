@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { MovieContext } from "../../context/movieContext/MovieContext";
 import { deleteMovie, getMovies } from "../../context/movieContext/apiCalls";
+import { Button } from "@material-ui/core";
 
 export default function ProductList() {
   const { movies, dispatch } = useContext(MovieContext);
@@ -65,6 +66,9 @@ export default function ProductList() {
 
   return (
     <div className="productList">
+      <div>
+        <button className="productListEdit" style={{marginBottom: "10px", justifyContent: "flex-end"}}>Add</button>
+      </div>
       <DataGrid
         rows={movies}
         disableSelectionOnClick
