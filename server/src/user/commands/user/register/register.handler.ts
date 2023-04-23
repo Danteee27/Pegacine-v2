@@ -1,10 +1,10 @@
-import { OkResponse } from './../../../../libs/models/responses/ok.response';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { RegisterCommand } from './register.command';
 import { UserEntity } from 'src/user/entities';
 import { BadRequestException, Inject } from '@nestjs/common';
+import { OkResponse } from 'libs/models/responses';
 
 @CommandHandler(RegisterCommand)
 export class RegisterCommandHandler

@@ -6,6 +6,9 @@ import { UserEntityController } from './user.controller';
 import { UserEntityProviders } from './user.providers';
 import { JwtModule } from '@nestjs/jwt';
 import { ProfileEntityProviders } from './profile.providers';
+import { QueryHandlers } from './query';
+import { MovieProviders } from 'src/movie/movie.providers';
+import { ProfileWatchingProviders } from './profile-watching.provider';
 
 @Module({
   imports: [
@@ -21,7 +24,10 @@ import { ProfileEntityProviders } from './profile.providers';
   providers: [
     ...UserEntityProviders,
     ...CommandHandlers,
+    ...QueryHandlers,
     ...ProfileEntityProviders,
+    ...MovieProviders,
+    ...ProfileWatchingProviders,
   ],
 })
 export class UserEntityModule {}
