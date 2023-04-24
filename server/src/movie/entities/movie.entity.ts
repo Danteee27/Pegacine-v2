@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  BaseEntity,
+} from 'typeorm';
 import { MovieGenres } from 'src/movie_genres/entities';
 import { MovieKeywords } from 'src/movie_keywords/entities';
 import { MovieCast } from 'src/movie_cast/entities';
@@ -10,7 +16,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ProfileWatchingMovies } from 'src/user/entities/profile-watching.entity';
 
 @Entity('movie')
-export class Movie {
+export class Movie extends BaseEntity {
   @PrimaryGeneratedColumn()
   @ApiProperty()
   movie_id: number;

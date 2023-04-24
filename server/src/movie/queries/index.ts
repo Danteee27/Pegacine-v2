@@ -12,4 +12,5 @@ export const QueryHandlers = [
   GetMovieByCastQueryHandler,
   GetMovieByCrewQueryHandler,
   GetMovieByCountryQueryHandler,
+
 ];

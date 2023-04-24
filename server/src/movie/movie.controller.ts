@@ -1,6 +1,6 @@
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { SearchMovieQuery } from './queries/search_movie/search_movie.query';
-import { Query } from '@nestjs/common/decorators';
+import { Post, Query } from '@nestjs/common/decorators';
 import { GetMovieQuery } from './queries/get_movie/get_movie.query';
 import { Controller, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs/dist';
@@ -11,13 +11,18 @@ import { Movie } from './entities';
 import { GetMovieByCastQuery } from './queries/get_movie_by_cast/get_movie_by_cast.query';
 import { GetMovieByCrewQuery } from './queries/get_movie_by_crew/get_movie_by_crew.query';
 import { GetMovieByCountryQuery } from './queries/get_movie_by_country/get_movie_by_country.query';
+import { CreateMovieDto } from './commands/create_movie/create_movie.dto';
+import { CreateMovieCommand } from './commands/create_movie/create_movie.command';
 
 @ApiTags('movie')
 @Controller('movie')
 // @UseGuards(AuthGuard)
 @ApiBearerAuth()
 export class MovieController {
-  constructor(private readonly queryBus: QueryBus) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   @Get()
   findAll() {
@@ -80,5 +85,10 @@ export class MovieController {
     return this.queryBus.execute(
       new GetMovieByCrewQuery(person_id, page, pageSize),
     );
+  }
+
+  @Post('')
+  createMovie(@Body() dto: CreateMovieDto) {
+    return this.commandBus.execute(new CreateMovieCommand(dto));
   }
 }

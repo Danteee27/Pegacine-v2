@@ -9,6 +9,7 @@ import { ProfileEntityProviders } from './profile.providers';
 import { QueryHandlers } from './query';
 import { MovieProviders } from 'src/movie/movie.providers';
 import { ProfileWatchingProviders } from './profile-watching.provider';
+import { MovieModule } from 'src/movie/movie.module';
 
 @Module({
   imports: [
@@ -25,8 +26,8 @@ import { ProfileWatchingProviders } from './profile-watching.provider';
     ...UserEntityProviders,
     ...CommandHandlers,
     ...QueryHandlers,
-    ...ProfileEntityProviders,
     ...MovieProviders,
+    ...ProfileEntityProviders,
     ...ProfileWatchingProviders,
   ],
 })

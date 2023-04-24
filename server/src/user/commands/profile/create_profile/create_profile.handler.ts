@@ -18,7 +18,6 @@ export class CreateProfileCommandHandler
 
   async execute(command: CreateProfileCommand) {
     const { user_id, name } = command.dto;
-
     const profile = this.profileEntityRepository.create({
       user_id,
       name,
