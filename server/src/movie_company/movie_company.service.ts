@@ -16,7 +16,6 @@ export class MovieCompanyService {
   async findById(company_id: number): Promise<MovieCompany> {
     return this.movieCompanyRepository.findOne({
       where: { company_id },
-      relations: ['company'],
     });
   }
 
@@ -26,5 +25,11 @@ export class MovieCompanyService {
     queryBuilder.where('movie_company.movie_id = :movie_id', { movie_id });
     queryBuilder.innerJoinAndSelect('movie_company.company', 'company');
     return queryBuilder.getMany();
+  }
+
+  async create(movieCompany: MovieCompany) {
+    const company = this.movieCompanyRepository.create(movieCompany);
+    company.save();
+    return company;
   }
 }

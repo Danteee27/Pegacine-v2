@@ -8,6 +8,6 @@ import { MovieProviders } from 'src/movie/movie.providers';
 @Module({
   imports: [DatabaseModule],
   controllers: [MovieCastController],
-  providers: [...MovieCastProviders, MovieCastService, ...MovieProviders],
+  providers: [...MovieCastProviders, MovieCastService],
 })
 export class MovieCastModule {}

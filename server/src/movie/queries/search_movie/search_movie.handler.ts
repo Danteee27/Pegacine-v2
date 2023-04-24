@@ -25,7 +25,8 @@ export class SearchMovieQueryHandler
   async execute(
     query: SearchMovieQuery,
   ): Promise<BaseResponse<Pagination<Movie>>> {
-    const { queryString, page, pageSize } = query;
+    let { queryString, page, pageSize } = query;
+    queryString = queryString.trim();
     // const movies = await this.movieRepository.find({
     //   where: [
     //     { title: Like(`%${queryString}%`) },

@@ -6,12 +6,13 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
+  BaseEntity,
 } from 'typeorm';
 import { Movie } from 'src/movie/entities';
 import { ProductionCompany } from 'src/production_company/entities';
 import { ApiProperty } from '@nestjs/swagger';
 @Entity('movie_company')
-export class MovieCompany {
+export class MovieCompany extends BaseEntity {
   @PrimaryColumn({ name: 'movie_id' })
   @ApiProperty()
   movie_id: number;
@@ -24,7 +25,7 @@ export class MovieCompany {
   @JoinColumn({ name: 'movie_id', referencedColumnName: 'movie_id' })
   movie: Movie;
 
-  @ManyToOne(() => ProductionCompany)
-  @JoinColumn({ name: 'company_id', referencedColumnName: 'company_id' })
-  company: ProductionCompany;
+  // @ManyToOne(() => ProductionCompany)
+  // @JoinColumn({ name: 'company_id', referencedColumnName: 'company_id' })
+  // company: ProductionCompany;
 }

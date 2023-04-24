@@ -8,8 +8,6 @@ export class MovieCastService {
   constructor(
     @Inject('MOVIECAST_REPOSITORY')
     private movieCastRepository: Repository<MovieCast>,
-    @Inject('MOVIE_REPOSITORY')
-    private movieRepository: Repository<Movie>,
   ) {}
 
   async findAll(): Promise<MovieCast[]> {
@@ -33,12 +31,6 @@ export class MovieCastService {
   }
 
   async create(movieCast: MovieCast) {
-    const movie = await this.movieRepository.findOneBy({
-      movie_id: movieCast.movie_id,
-    });
-    if (!movie) {
-      throw new BadRequestException('Movie not found');
-    }
     const cast = this.movieCastRepository.create(movieCast);
     cast.gender_id = 0;
     cast.save();
