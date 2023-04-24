@@ -69,6 +69,26 @@ export class Movie extends BaseEntity {
   @ApiProperty()
   vote_count: number;
 
+  @Column()
+  @ApiProperty()
+  image: string;
+
+  @Column()
+  @ApiProperty()
+  backdrop: string;
+
+  @Column()
+  @ApiProperty()
+  thumbnail: string;
+
+  @Column()
+  @ApiProperty()
+  video: string;
+
+  @Column()
+  @ApiProperty()
+  trailer: string;
+
   @OneToMany(() => MovieGenres, (movieGenres) => movieGenres.movie)
   movie_genres: MovieGenres[];
 

@@ -50,4 +50,19 @@ export class CreateMovieDto {
   @ApiProperty()
   @IsNumber()
   vote_count: number;
+
+  @ApiProperty()
+  image: string;
+
+  @ApiProperty()
+  backdrop: string;
+
+  @ApiProperty()
+  thumbnail: string;
+
+  @ApiProperty()
+  video: string;
+
+  @ApiProperty()
+  trailer: string;
 }
