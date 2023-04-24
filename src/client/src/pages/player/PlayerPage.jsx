@@ -1,9 +1,10 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import './PlayerPage.css';
 import {BsArrowLeft} from 'react-icons/bs';
 import {useNavigate} from 'react-router-dom';
 import Navbar from "../../components/navbar/Navbar";
+import requests from "../../Requests";
 
 // import video from "../../assets/demoH06.mp4"
 function Player() {
@@ -11,54 +12,74 @@ function Player() {
 
     const videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
 
+    // const [isEpisodeHover, setEpisodeHover] = useState(false);
+    const [isEpisodeHover, setIsEpisodeHover] = useState(false);
+    const [isNextEpisodeHover, setIsNextEpisodeHover] = useState(false);
+
     const video = useRef(null);
-    const videoContainer = useRef(null)
+    const videoContainer = useRef(null);
     const watchBar = useRef(null);
     const timeRemaining = useRef(null);
-    const progressBar = useRef(null)
-    const playPauseButton = useRef(null)
-    const playingIcon = useRef(null)
-    const pausedIcon = useRef(null)
-    const fullVolumeIcon = useRef(null)
-    const mutedIcon = useRef(null)
-    const maximizeIcon = useRef(null)
-    const minimizeIcon = useRef(null)
-    const controlsContainer = useRef(null)
-    const controlsTimeout = useRef(null)
+    const progressBar = useRef(null);
+    const playPauseButton = useRef(null);
+    const playingIcon = useRef(null);
+    const pausedIcon = useRef(null);
+    const fullVolumeIcon = useRef(null);
+    const mutedIcon = useRef(null);
+    const maximizeIcon = useRef(null);
+    const minimizeIcon = useRef(null);
+    const controlsContainer = useRef(null);
+    const controlsTimeout = useRef(null);
+    const backButton = useRef(null);
 
+    const navigate = useNavigate();
 
-    const displayControls = ()=>{
-        controlsContainer.current.style.opacity = "1";
-        document.body.style.cursor = "initial";
-        if(controlsTimeout.current){
+    const clearControlsTimeout = () => {
+        if (controlsTimeout.current) {
             clearTimeout(controlsTimeout.current);
         }
-        controlsTimeout.current =setTimeout(()=>{
-            controlsContainer.current.style.opacity = "0";
-            document.body.style.cursor = "none";
-        },5000);
+
     }
 
-    // useEffect(() => {
-    //     const displayControls = ()=>{
-    //         controlsContainer.current
-    //     }
-    //     return () => {
-    //         effect
-    //     };
-    // }, []);
+    const displayControls = () => {
+        if (controlsContainer.current && backButton.current) {
+            controlsContainer.current.style.opacity = "1";
+            backButton.current.style.opacity = "1";
+            document.body.style.cursor = "initial";
+            if (controlsTimeout.current) {
+                clearTimeout(controlsTimeout.current);
+            }
+            controlsTimeout.current = setTimeout(() => {
+                if (controlsContainer.current && backButton.current) {
+                    controlsContainer.current.style.opacity = "0";
+                    backButton.current.style.opacity = "0";
+                    document.body.style.cursor = "none";
+                }
+            }, 5000);
+        }
+    }
+
+
 
 
     useEffect(() => {
+        // initial icon for playpause button
+        if (video.current.paused) {
+            video.current.play();
+            pausedIcon.current.style.display = "";
+            playingIcon.current.style.display = "none";
+        } else {
+            video.current.pause()
+            pausedIcon.current.style.display = "none";
+            playingIcon.current.style.display = "";
+        }
+        //mouse move event
         controlsContainer.current.style.opacity = "0";
-        // if(controlsTimeout.current){
-        //     clearTimeout(controlsTimeout.current)
-        // }
-        // displayControls()
-
-        document.addEventListener('mousemove', () => {
+        const mousemove = () => {
             displayControls();
-        });
+        }
+
+        document.addEventListener('mousemove', mousemove);
 
         //keydown event
         const f = (e) => {
@@ -66,10 +87,9 @@ function Player() {
                 handlePlay()
             }
             if (e.key == "m") {
-                console.log("click mute")
                 handleVolume()
             }
-            if(controlsTimeout.current){
+            if (controlsTimeout.current) {
                 clearTimeout(controlsTimeout.current)
             }
             displayControls()
@@ -77,25 +97,26 @@ function Player() {
         document.addEventListener('keydown', event => f(event))
 
         // update watch progressbar
-        video.current.addEventListener('timeupdate', () => {
-            watchBar.current.style.width = (((video.current.currentTime / video.current.duration) * 100) + '%');
+        const updateTime = () => {
+            if (watchBar.current) {
+                watchBar.current.style.width = (((video.current.currentTime / video.current.duration) * 100) + '%');
 
-            //time remaining
-            const totalSecondsRemaining = video.current.duration - video.current.currentTime;
-            const time = new Date(null);
-            time.setSeconds(totalSecondsRemaining);
-            let hours = null;
+                //time remaining
+                const totalSecondsRemaining = video.current.duration - video.current.currentTime;
+                const time = new Date(null);
+                time.setSeconds(totalSecondsRemaining);
+                let hours = null;
 
-            if (totalSecondsRemaining >= 3600) {
-                hours = (time.getHours().toString()).padStart(2, '0');
+                if (totalSecondsRemaining >= 3600) {
+                    hours = (time.getHours().toString()).padStart(2, '0');
+                }
+
+                let minutes = (time.getMinutes().toString()).padStart(2, '0');
+                let seconds = (time.getSeconds().toString()).padStart(2, '0');
+                timeRemaining.current.textContent = `${hours ? hours : ''}${minutes}:${seconds}`;
             }
-
-            let minutes = (time.getMinutes().toString()).padStart(2, '0');
-            let seconds = (time.getSeconds().toString()).padStart(2, '0');
-            timeRemaining.current.textContent = `${hours ? hours : ''}${minutes}:${seconds}`;
-
-
-        })
+        }
+        video.current.addEventListener('timeupdate', () => updateTime())
 
         progressBar.current.addEventListener('click', (e) => {
             const pos =
@@ -107,6 +128,8 @@ function Player() {
         return () => {
             document.removeEventListener('keydown', event => f(event));
             document.removeEventListener('mousemove', displayControls);
+            document.removeEventListener('mousemove', mousemove);
+            // video.current.removeEventListener('timeupdate', updateTime)
         }
     }, []);
 
@@ -159,15 +182,28 @@ function Player() {
         }
     }
 
+    function handleOnMouseLeaveEpisode() {
+        setIsEpisodeHover(false)
+
+    }
+
+    function handleOnMouseLeaveNextEpisode() {
+        setIsNextEpisodeHover(false)
+    }
+
     return (<Container>
         {/*<Navbar/>*/}
         <div className={'player'}>
-            <div className={'back'}>
-                {/*<BsArrowLeft onClick={()=>navigate(-1)}/>*/}
-                {/*<BsArrowLeft/>*/}
+            <div className={'back'} ref={backButton} onClick={() => navigate(-1)}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                     className="Hawkins-Icon Hawkins-Icon-Standard" data-name="ArrowLeft">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M24 11.0001L3.41421 11.0001L8.70711 5.70718L7.29289 4.29297L0.292892 11.293C0.105356 11.4805 0 11.7349 0 12.0001C0 12.2653 0.105356 12.5196 0.292892 12.7072L7.29289 19.7072L8.70711 18.293L3.41421 13.0001H24V11.0001Z"
+                          fill="white"></path>
+                </svg>
             </div>
             <div className={"videoPlayer videoContainer"} ref={videoContainer}>
-                <video ref={video} src={videoUrl} autoPlay={true} loop datatype={".mp4"}></video>
+                <video ref={video} src={videoUrl} autoPlay={true} muted={false} datatype={".mp4"}  onClick={handlePlay}></video>
                 <div className={"controlsContainer"} ref={controlsContainer}>
                     <div className={"progressControls"}>
                         <div className={"progressBar"} ref={progressBar}>
@@ -231,21 +267,25 @@ function Player() {
                             <span className={"series"}>Blender Foundation</span>
                             <span className={"episodeName"}>Bick Buck Bunny</span>
                         </p>
-                        <button className={"help"}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            >
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                            </svg>
-                        </button>
-                        <button className={"next"}>
+                        {/*<button className={"help"}>*/}
+                        {/*    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"*/}
+                        {/*    >*/}
+                        {/*        <circle cx="12" cy="12" r="10"></circle>*/}
+                        {/*        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>*/}
+                        {/*        <line x1="12" y1="17" x2="12.01" y2="17"></line>*/}
+                        {/*    </svg>*/}
+                        {/*</button>*/}
+                        <button className={"next"} onMouseEnter={() => setIsNextEpisodeHover(true)}
+                                onMouseLeave={handleOnMouseLeaveNextEpisode}
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <polygon points="5 4 15 12 5 20 5 4"></polygon>
                                 <line x1="19" y1="5" x2="19" y2="19"></line>
                             </svg>
                         </button>
-                        <button className={"episode"}>
+                        <button className={"episode"} onMouseEnter={() => setIsEpisodeHover(true)}
+                                onMouseLeave={handleOnMouseLeaveEpisode}
+                        >
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg" className="Hawkins-Icon Hawkins-Icon-Standard"
                                  data-name="Episodes">
@@ -282,7 +322,64 @@ function Player() {
                         </button>
                     </div>
                 </div>
+                {
+                    isNextEpisodeHover &&
+                    <div className={"episodeNextHover"} onMouseEnter={() => setIsNextEpisodeHover(true)}
+                         onMouseLeave={handleOnMouseLeaveNextEpisode}>
+                        <div className={"filmTitle"}>Next Episode</div>
+                        <div className={"episodeList"}>
+                            <div className={"episodeRow"}>
+                                <div className={"headerEpisodeRow"}>
+                                    <div className={"orderAndTitleEpisode"}>
+                                        <div className={"orderEpisode"}>1</div>
+                                        <div className={"titleEpisode"}>One You With To Avoid</div>
+                                    </div>
+                                    <div className={"progressBarForEpisode"}>ProgressBar</div>
+                                </div>
+                                <div className={"contentEpisodeRow"}>
+                                    <div className={"imgEpisode"}>
+                                        <img src={require("../../assets/img_episode.jpg")}/>
+                                    </div>
+                                    <div className={"descriptionEpisode"}>The fight to stay in the competition
+                                        continues.
+                                        Contestants find ways of defying their own physical limitations in order to beat
+                                        opponents.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                {
+                    isEpisodeHover &&
+                    <div className={"episodeHover"} onMouseEnter={() => setIsEpisodeHover(true)}
+                         onMouseLeave={handleOnMouseLeaveEpisode}>
+                        <div className={"filmTitle"}>Physical 100</div>
+                        <div className={"episodeList"}>
+                            <div className={"episodeRow"}>
+                                <div className={"headerEpisodeRow"}>
+                                    <div className={"orderAndTitleEpisode"}>
+                                        <div className={"orderEpisode"}>1</div>
+                                        <div className={"titleEpisode"}>One You With To Avoid</div>
+                                    </div>
+                                    <div className={"progressBarForEpisode"}>ProgressBar</div>
+                                </div>
+                                <div className={"contentEpisodeRow"}>
+                                    <div className={"imgEpisode"}>
+                                        <img src={require("../../assets/img_episode.jpg")}/>
+                                    </div>
+                                    <div className={"descriptionEpisode"}>The fight to stay in the competition
+                                        continues.
+                                        Contestants find ways of defying their own physical limitations in order to beat
+                                        opponents.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
+
         </div>
     </Container>);
 }

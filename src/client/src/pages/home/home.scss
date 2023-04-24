@@ -1,6 +1,6 @@
 .home {
   background-color: black;
-  overflow: hidden;
+  overflow: auto;
 }
 
 a{
@@ -8,4 +8,8 @@ a{
   color: snow;
   text-decoration: none;
   font-size: 18px;
+}
+
+body{
+  overflow: auto;
 }

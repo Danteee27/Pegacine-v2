@@ -86,6 +86,16 @@ body {
     font-family: 'Rubik', sans-serif;
 }
 
+.back {
+    transition: opacity 1s linear;
+}
+
+.back svg {
+    width: 6vw;
+    height: 6vh;
+}
+
+
 .videoContainer .controlsContainer {
     position: fixed;
     bottom: 0;
@@ -102,7 +112,7 @@ body {
     color: white;
 }
 
-.videoContainer .progressControls .timeRemaining{
+.videoContainer .progressControls .timeRemaining {
     font-size: 1vw;
     right: 1vw;
 }
@@ -118,7 +128,7 @@ body {
 }
 
 .videoContainer .progressControls .progressBar .watchBar,
-.videoContainer .progressControls .progressBar .playHead{
+.videoContainer .progressControls .progressBar .playHead {
     background: #E31221;
 }
 
@@ -143,6 +153,10 @@ body {
     align-items: center;
 }
 
+.episodesContainer {
+
+}
+
 .videoContainer .controls button {
     background: none;
     box-shadow: none;
@@ -151,7 +165,7 @@ body {
     width: 4vw;
     height: 4vw;
     margin: 0 1vmin;
-    transition: ease-in-out  500ms;
+    transition: ease-in-out 500ms;
 }
 
 .videoContainer .controls button:hover {
@@ -208,4 +222,109 @@ body {
     stroke-linecap: round;
     width: 100%;
     height: 100%;
+}
+
+.episodeNextHover{
+    position: absolute;
+    background: #252525;
+    color: white;
+    z-index: 99;
+    bottom: 7vh;
+    right: 4vw;
+    width: 40vw;
+    /*height: 70vh;*/
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+}
+
+.episodeHover {
+    position: absolute;
+    background: #252525;
+    color: white;
+    z-index: 99;
+    bottom: 7vh;
+    right: 0;
+    width: 40vw;
+    /*height: 70vh;*/
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+}
+
+.filmTitle{
+    margin-left: 15px;
+    font-size: 1.4vw;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.episodeRow {
+    display: flex;
+    flex-direction: column;
+}
+
+.episodeRow:hover {
+    background: #131313;
+}
+
+.headerEpisodeRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.1vw;
+    font-weight: bold;
+}
+
+.orderAndTitleEpisode {
+    padding-left: 20px;
+    display: flex;
+    justify-content: flex-start;
+    overflow: clip;
+}
+
+.orderEpisode {
+    margin-left: 10px;
+}
+
+.titleEpisode {
+    margin-left: 10px;
+}
+
+.progressBarForEpisode {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+
+.contentEpisodeRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.contentEpisodeRow .descriptionEpisode {
+    font-size: 1vw;
+    font-weight: normal;
+}
+
+.imgEpisode {
+    padding: 10px;
+}
+
+.descriptionEpisode {
+    padding: 15px 20px;
+    overflow: clip;
+}
+
+.imgEpisode img {
+    width: 16vw;
+    height: 9vw;
+    min-width: 209px;
+    max-width: 298px;
+    min-height: 117px;
+    max-height: 167px;
 }
