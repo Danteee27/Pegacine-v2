@@ -16,9 +16,51 @@ function Player() {
     const watchBar = useRef(null);
     const timeRemaining = useRef(null);
     const progressBar = useRef(null)
+    const playPauseButton = useRef(null)
+    const playingIcon = useRef(null)
+    const pausedIcon = useRef(null)
+    const fullVolumeIcon = useRef(null)
+    const mutedIcon = useRef(null)
+    const maximizeIcon = useRef(null)
+    const minimizeIcon = useRef(null)
+    const controlsContainer = useRef(null)
+    const controlsTimeout = useRef(null)
+
+
+    const displayControls = ()=>{
+        controlsContainer.current.style.opacity = "1";
+        document.body.style.cursor = "initial";
+        if(controlsTimeout.current){
+            clearTimeout(controlsTimeout.current);
+        }
+        controlsTimeout.current =setTimeout(()=>{
+            controlsContainer.current.style.opacity = "0";
+            document.body.style.cursor = "none";
+        },5000);
+    }
+
+    // useEffect(() => {
+    //     const displayControls = ()=>{
+    //         controlsContainer.current
+    //     }
+    //     return () => {
+    //         effect
+    //     };
+    // }, []);
+
 
     useEffect(() => {
+        controlsContainer.current.style.opacity = "0";
+        // if(controlsTimeout.current){
+        //     clearTimeout(controlsTimeout.current)
+        // }
+        // displayControls()
 
+        document.addEventListener('mousemove', () => {
+            displayControls();
+        });
+
+        //keydown event
         const f = (e) => {
             if (e.key == " ") {
                 handlePlay()
@@ -27,9 +69,14 @@ function Player() {
                 console.log("click mute")
                 handleVolume()
             }
+            if(controlsTimeout.current){
+                clearTimeout(controlsTimeout.current)
+            }
+            displayControls()
         }
         document.addEventListener('keydown', event => f(event))
 
+        // update watch progressbar
         video.current.addEventListener('timeupdate', () => {
             watchBar.current.style.width = (((video.current.currentTime / video.current.duration) * 100) + '%');
 
@@ -50,7 +97,7 @@ function Player() {
 
         })
 
-        progressBar.current.addEventListener('click',(e)=>{
+        progressBar.current.addEventListener('click', (e) => {
             const pos =
                 (e.pageX - progressBar.current.offsetLeft - progressBar.current.offsetParent.offsetLeft) /
                 progressBar.current.offsetWidth;
@@ -58,8 +105,8 @@ function Player() {
         })
 
         return () => {
-            console.log("remove roi nha")
             document.removeEventListener('keydown', event => f(event));
+            document.removeEventListener('mousemove', displayControls);
         }
     }, []);
 
@@ -67,7 +114,13 @@ function Player() {
     function handlePlay() {
         if (video.current.paused) {
             video.current.play();
-        } else video.current.pause()
+            pausedIcon.current.style.display = "";
+            playingIcon.current.style.display = "none";
+        } else {
+            video.current.pause()
+            pausedIcon.current.style.display = "none";
+            playingIcon.current.style.display = "";
+        }
     }
 
     function handleRewind() {
@@ -79,6 +132,13 @@ function Player() {
     }
 
     function handleVolume() {
+        if (video.current.muted) {
+            mutedIcon.current.style.display = "none";
+            fullVolumeIcon.current.style.display = "";
+        } else {
+            mutedIcon.current.style.display = "";
+            fullVolumeIcon.current.style.display = "none";
+        }
         video.current.muted = !video.current.muted;
     }
 
@@ -90,8 +150,12 @@ function Player() {
                     `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
                 );
             });
+            maximizeIcon.current.style.display = "none"
+            minimizeIcon.current.style.display = ""
         } else {
             document.exitFullscreen();
+            maximizeIcon.current.style.display = ""
+            minimizeIcon.current.style.display = "none"
         }
     }
 
@@ -104,7 +168,7 @@ function Player() {
             </div>
             <div className={"videoPlayer videoContainer"} ref={videoContainer}>
                 <video ref={video} src={videoUrl} autoPlay={true} loop datatype={".mp4"}></video>
-                <div className={"controlsContainer"}>
+                <div className={"controlsContainer"} ref={controlsContainer}>
                     <div className={"progressControls"}>
                         <div className={"progressBar"} ref={progressBar}>
                             <div className={"watchBar"} ref={watchBar}></div>
@@ -115,10 +179,18 @@ function Player() {
                         </div>
                     </div>
                     <div className={"controls"}>
-                        <button className={"play"} onClick={handlePlay}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 stroke-linejoin="round" className="feather feather-play">
+                        <button className={"playPause"} onClick={handlePlay} ref={playPauseButton}>
+                            <svg className="playing" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24"
+                                 stroke-linejoin="round" ref={playingIcon}>
                                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            <svg className="paused" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 data-name="Pause" ref={pausedIcon}>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M4.5 3C4.22386 3 4 3.22386 4 3.5V20.5C4 20.7761 4.22386 21 4.5 21H9.5C9.77614 21 10 20.7761 10 20.5V3.5C10 3.22386 9.77614 3 9.5 3H4.5ZM14.5 3C14.2239 3 14 3.22386 14 3.5V20.5C14 20.7761 14.2239 21 14.5 21H19.5C19.7761 21 20 20.7761 20 20.5V3.5C20 3.22386 19.7761 3 19.5 3H14.5Z"
+                                      fill="white"></path>
                             </svg>
                         </button>
                         <button className={"rewind"} onClick={handleRewind}>
@@ -140,11 +212,18 @@ function Player() {
                             </svg>
                         </button>
                         <button className={"volume"} onClick={handleVolume}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            <svg className="fullVolume" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg"
-                                 className="Hawkins-Icon Hawkins-Icon-Standard" data-name="VolumeHigh">
+                                 data-name="VolumeHigh" ref={fullVolumeIcon}>
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                       d="M24 12C24 8.28699 22.525 4.72603 19.8995 2.10052L18.4853 3.51474C20.7357 5.76517 22 8.81742 22 12C22 15.1826 20.7357 18.2349 18.4853 20.4853L19.8995 21.8995C22.525 19.274 24 15.7131 24 12ZM11 4.00001C11 3.59555 10.7564 3.23092 10.3827 3.07613C10.009 2.92135 9.57889 3.00691 9.29289 3.29291L4.58579 8.00001H1C0.447715 8.00001 0 8.44773 0 9.00001V15C0 15.5523 0.447715 16 1 16H4.58579L9.29289 20.7071C9.57889 20.9931 10.009 21.0787 10.3827 20.9239C10.7564 20.7691 11 20.4045 11 20V4.00001ZM5.70711 9.70712L9 6.41423V17.5858L5.70711 14.2929L5.41421 14H5H2V10H5H5.41421L5.70711 9.70712ZM16.0001 12C16.0001 10.4087 15.368 8.8826 14.2428 7.75739L12.8285 9.1716C13.5787 9.92174 14.0001 10.9392 14.0001 12C14.0001 13.0609 13.5787 14.0783 12.8285 14.8285L14.2428 16.2427C15.368 15.1174 16.0001 13.5913 16.0001 12ZM17.0709 4.92896C18.9462 6.80432 19.9998 9.34786 19.9998 12C19.9998 14.6522 18.9462 17.1957 17.0709 19.0711L15.6567 17.6569C17.157 16.1566 17.9998 14.1218 17.9998 12C17.9998 9.87829 17.157 7.84346 15.6567 6.34317L17.0709 4.92896Z"
+                                      fill="white"></path>
+                            </svg>
+                            <svg className="muted" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 data-name="VolumeOff" ref={mutedIcon}>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M11 4.00003C11 3.59557 10.7564 3.23093 10.3827 3.07615C10.009 2.92137 9.57889 3.00692 9.29289 3.29292L4.58579 8.00003H1C0.447715 8.00003 0 8.44774 0 9.00003V15C0 15.5523 0.447715 16 1 16H4.58579L9.29289 20.7071C9.57889 20.9931 10.009 21.0787 10.3827 20.9239C10.7564 20.7691 11 20.4045 11 20V4.00003ZM5.70711 9.70714L9 6.41424V17.5858L5.70711 14.2929L5.41421 14H5H2V10H5H5.41421L5.70711 9.70714ZM15.2929 9.70714L17.5858 12L15.2929 14.2929L16.7071 15.7071L19 13.4142L21.2929 15.7071L22.7071 14.2929L20.4142 12L22.7071 9.70714L21.2929 8.29292L19 10.5858L16.7071 8.29292L15.2929 9.70714Z"
                                       fill="white"></path>
                             </svg>
                         </button>
@@ -185,12 +264,19 @@ function Player() {
                             </svg>
                         </button>
                         <button className={"fullScreen"} onClick={handleFullScreen}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            <svg className="maximize" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg"
-                                 className="Hawkins-Icon Hawkins-Icon-Standard" data-name="FullscreenEnter"
-                                 data-uia="control-fullscreen-enter">
+                                 data-name="FullscreenEnter"
+                                 data-uia="control-fullscreen-enter" ref={maximizeIcon}>
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                       d="M0 5C0 3.89543 0.895431 3 2 3H9V5H2V9H0V5ZM22 5H15V3H22C23.1046 3 24 3.89543 24 5V9H22V5ZM2 15V19H9V21H2C0.895431 21 0 20.1046 0 19V15H2ZM22 19V15H24V19C24 20.1046 23.1046 21 22 21H15V19H22Z"
+                                      fill="white"></path>
+                            </svg>
+                            <svg className="minimize" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 data-name="FullscreenExit" data-uia="control-fullscreen-exit" ref={minimizeIcon}>
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M24 8H19V3H17V9V10H18H24V8ZM0 16H5V21H7V15V14H6H0V16ZM7 10H6H0V8H5V3H7V9V10ZM19 21V16H24V14H18H17V15V21H19Z"
                                       fill="white"></path>
                             </svg>
                         </button>
