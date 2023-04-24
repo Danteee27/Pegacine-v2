@@ -39,7 +39,7 @@ export default function MyList({fetchUrl}) {
         async function fetchData() {
             const request = await axios.get(fetchUrl);
             setMovies(request.data.results);
-            console.log(request)
+            console.log(request.data.results)
             return request;
         }
 
@@ -68,6 +68,7 @@ export default function MyList({fetchUrl}) {
                             isLiked={true}
                         />);
                     })}
+
                 </div>
             </div>
         </Container></div>
