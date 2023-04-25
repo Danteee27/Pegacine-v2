@@ -59,10 +59,25 @@ export class CreateMovieDto {
 
   @ApiProperty()
   thumbnail: string;
-  
+
   @ApiProperty()
   video: string;
 
   @ApiProperty()
   trailer: string;
+
+  @ApiProperty()
+  isAdult: boolean;
+
+  @ApiProperty()
+  isSeries: boolean;
+
+  @ApiProperty()
+  seriesId: number;
+
+  @ApiProperty()
+  seriesOrder: number;
+
+  @ApiProperty()
+  poster: string;
 }
