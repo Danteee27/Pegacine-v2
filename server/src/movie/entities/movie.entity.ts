@@ -103,6 +103,10 @@ export class Movie extends BaseEntity {
 
   @Column({ nullable: true })
   @ApiProperty()
+  seriesOrder: number;
+
+  @Column({ nullable: true })
+  @ApiProperty()
   poster: string;
 
   @OneToMany(() => MovieGenres, (movieGenres) => movieGenres.movie)
