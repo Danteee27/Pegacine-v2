@@ -89,6 +89,22 @@ export class Movie extends BaseEntity {
   @ApiProperty()
   trailer: string;
 
+  @Column({ nullable: true })
+  @ApiProperty()
+  isAdult: boolean;
+
+  @Column({ nullable: true })
+  @ApiProperty()
+  isSeries: boolean;
+
+  @Column({ nullable: true })
+  @ApiProperty()
+  seriesId: number;
+
+  @Column({ nullable: true })
+  @ApiProperty()
+  poster: string;
+
   @OneToMany(() => MovieGenres, (movieGenres) => movieGenres.movie)
   movie_genres: MovieGenres[];
 
