@@ -23,7 +23,7 @@ export class RegisterCommandHandler
       throw new BadRequestException('User already exists');
     }
 
-    const { password, firstName, lastName, dob, phoneNumber } = command.dto;
+    const { password } = command.dto;
 
     const newUser = this.userRepository.create({
       email,

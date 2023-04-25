@@ -89,7 +89,7 @@ export class Movie extends BaseEntity {
   @ApiProperty()
   trailer: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
   @ApiProperty()
   isAdult: boolean;
 

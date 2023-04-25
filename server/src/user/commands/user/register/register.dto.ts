@@ -10,25 +10,4 @@ export class RegisterDto {
   @ApiProperty()
   @IsNotEmpty()
   password: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  firstName: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  lastName: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  gender: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  dob: Date;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsMobilePhone()
-  phoneNumber: string;
 }

@@ -10,11 +10,14 @@ import { QueryHandlers } from './query';
 import { MovieProviders } from 'src/movie/movie.providers';
 import { ProfileWatchingProviders } from './profile-watching.provider';
 import { MovieModule } from 'src/movie/movie.module';
+import { HttpModule } from '@nestjs/axios';
+import { UserTransactionEntityProviders } from './transaction.provider';
 
 @Module({
   imports: [
     DatabaseModule,
     CqrsModule,
+    HttpModule,
     JwtModule.register({
       signOptions: {
         expiresIn: '1d',
@@ -29,6 +32,7 @@ import { MovieModule } from 'src/movie/movie.module';
     ...MovieProviders,
     ...ProfileEntityProviders,
     ...ProfileWatchingProviders,
+    ...UserTransactionEntityProviders,
   ],
 })
 export class UserEntityModule {}

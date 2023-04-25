@@ -43,6 +43,9 @@ export class UserEntity extends BaseEntity {
   @Column({ name: 'promoted_expired_at', nullable: true })
   promotedExpiredAt: Date;
 
+  @Column({ nullable: true, default: 'NONE' })
+  userRank: string;
+
   @Column({ name: 'is_verified', default: false, nullable: false })
   isVerified: boolean;
 
