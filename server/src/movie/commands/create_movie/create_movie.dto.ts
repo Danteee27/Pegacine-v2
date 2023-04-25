@@ -59,7 +59,7 @@ export class CreateMovieDto {
 
   @ApiProperty()
   thumbnail: string;
-
+  
   @ApiProperty()
   video: string;
 

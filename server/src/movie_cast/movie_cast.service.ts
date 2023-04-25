@@ -34,7 +34,6 @@ export class MovieCastService {
     const cast = this.movieCastRepository.create(movieCast);
     cast.gender_id = 0;
     cast.save();
-
     return cast;
   }
 }

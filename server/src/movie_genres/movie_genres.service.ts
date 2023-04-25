@@ -24,4 +24,10 @@ export class MovieGenresService {
     queryBuilder.innerJoinAndSelect('movie_genres.genre', 'genre');
     return queryBuilder.getMany();
   }
+
+  async create(movieGenre: MovieGenres) {
+    const genre = this.genreRepository.create(movieGenre);
+    genre.save();
+    return genre;
+  }
 }

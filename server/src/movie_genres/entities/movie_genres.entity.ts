@@ -7,6 +7,7 @@ import {
   ManyToOne,
   Generated,
   PrimaryColumn,
+  BaseEntity,
 } from 'typeorm';
 // import 'reflect-metadata';
 import { Movie } from 'src/movie/entities';
@@ -14,7 +15,7 @@ import { Genre } from 'src/genre/entities';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('movie_genres')
-export class MovieGenres {
+export class MovieGenres extends BaseEntity {
   @PrimaryColumn({ name: 'movie_id' })
   @ApiProperty()
   movie_id: number;

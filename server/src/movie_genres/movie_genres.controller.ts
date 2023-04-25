@@ -1,6 +1,7 @@
-import { Controller, Get, Body, Param } from '@nestjs/common';
+import { Controller, Get, Body, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MovieGenresService } from './movie_genres.service';
+import { MovieGenres } from './entities';
 
 @ApiTags('movie_genres')
 @Controller('movie_genres')
@@ -20,5 +21,10 @@ export class MovieGenresController {
   @Get('find_by_movie_id/:id')
   findByMovieId(@Param('id') id: number) {
     return this.movieGenreService.findByMovieId(id);
+  }
+
+  @Post()
+  create(@Body() movieGenre: MovieGenres) {
+    return this.movieGenreService.create(movieGenre);
   }
 }

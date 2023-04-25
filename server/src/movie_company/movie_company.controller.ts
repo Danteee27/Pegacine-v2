@@ -23,8 +23,8 @@ export class MovieCompanyController {
     return this.movieCompanyService.findByMovieId(id);
   }
 
-  @Post()
-  createCompany(@Body() company: MovieCompany) {
-    return this.movieCompanyService.create(company);
-  }
+  // @Post()
+  // createCompany(@Body() company: MovieCompany) {
+  //   return this.movieCompanyService.create(company);
+  // }
 }
