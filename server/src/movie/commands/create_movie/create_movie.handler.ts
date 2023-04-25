@@ -52,6 +52,16 @@ export class CreateMovieCommandHandler
       tagline,
       vote_average,
       vote_count,
+      image,
+      backdrop,
+      thumbnail,
+      poster,
+      seriesId,
+      seriesOrder,
+      isSeries,
+      video,
+      trailer,
+      isAdult,
     } = command.dto;
 
     const newMovie = this.movieRepository.create({
@@ -66,6 +76,16 @@ export class CreateMovieCommandHandler
       tagline,
       vote_average,
       vote_count,
+      image,
+      backdrop,
+      thumbnail,
+      poster,
+      seriesId,
+      seriesOrder,
+      isSeries,
+      video,
+      trailer,
+      isAdult,
     });
 
     newMovie.save();
