@@ -27,7 +27,7 @@ export class SearchMovieQueryHandler
   ): Promise<BaseResponse<Pagination<Movie>>> {
     let { queryString, page, pageSize, sort } = query;
     queryString = queryString.trim();
-    sort = sort.trim();
+    sort = sort.trim().toLowerCase();
     // const movies = await this.movieRepository.find({
     //   where: [
     //     { title: Like(`%${queryString}%`) },
@@ -49,7 +49,7 @@ export class SearchMovieQueryHandler
     //   throw new BadRequestException('No movies found');
     // }
     const queryBuilder = this.movieRepository.createQueryBuilder('movie');
-    if (sort == 'A-Z') {
+    if (sort == 'a-z') {
       queryBuilder.orderBy('movie.title', 'ASC');
     }
     if (sort == 'year') {
