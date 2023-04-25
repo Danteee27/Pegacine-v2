@@ -37,10 +37,13 @@ export class MovieController {
   @Get('search')
   search(
     @Query('query') query: string,
+    @Query('sort') sort: string,
     @Query('page') page: number = 1,
     @Query('pageSize') pageSize: number = 30,
   ): Promise<Movie[]> {
-    return this.queryBus.execute(new SearchMovieQuery(query, page, pageSize));
+    return this.queryBus.execute(
+      new SearchMovieQuery(query, sort, page, pageSize),
+    );
   }
 
   @Get('find_by_movie_genres')

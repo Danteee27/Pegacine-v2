@@ -21,9 +21,9 @@ export class MovieCompany extends BaseEntity {
   @ApiProperty()
   company_id: number;
 
-  @ManyToOne(() => Movie)
-  @JoinColumn({ name: 'movie_id', referencedColumnName: 'movie_id' })
-  movie: Movie;
+  // @ManyToOne(() => Movie)
+  // @JoinColumn({ name: 'movie_id', referencedColumnName: 'movie_id' })
+  // movie: Movie;
 
   // @ManyToOne(() => ProductionCompany)
   // @JoinColumn({ name: 'company_id', referencedColumnName: 'company_id' })

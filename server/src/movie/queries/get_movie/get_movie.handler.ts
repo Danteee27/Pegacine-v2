@@ -23,7 +23,6 @@ export class GetMovieQueryHandler implements IQueryHandler<GetMovieQuery> {
         'movie_cast.person',
         'movie_keywords',
         'movie_languages.languages',
-        'movie_company.company',
         'movie_crew',
         // production_country: true,
       ],

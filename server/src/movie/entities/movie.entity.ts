@@ -110,8 +110,8 @@ export class Movie extends BaseEntity {
   )
   production_country: ProductionCountry[];
 
-  @OneToMany(() => MovieCompany, (movieCompany) => movieCompany.movie)
-  movie_company: MovieCompany[];
+  // @OneToMany(() => MovieCompany, (movieCompany) => movieCompany.movie)
+  // movie_company: MovieCompany[];
 
   @OneToMany(() => ProfileWatchingMovies, (profile) => profile.movie)
   watching_movies: ProfileWatchingMovies[];
