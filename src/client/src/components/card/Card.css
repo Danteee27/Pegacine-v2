@@ -1,5 +1,7 @@
 .flex {
     display: flex;
+    justify-content: center;
+
 }
 
 .column {
@@ -16,4 +18,20 @@
 
 .a-center {
     align-items: center;
+}
+
+.imgItem{
+    border-radius: 3%
+}
+
+.vipTag{
+    width: 2.3em;
+    height: 1.2em;
+    vertical-align: middle;
+    fill: yellow;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+
 }

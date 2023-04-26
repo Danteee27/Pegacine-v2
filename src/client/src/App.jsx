@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom';
 import {useContext} from 'react';
 import TestPage from "./pages/test/Test";
+import Series from "./pages/series/Series";
 
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
                 <Route path="/myList" element={<MyList fetchUrl={requests.fetchTrending}/>}/>
                 <Route path="/search" element={<SearchPage/>}/>
                 <Route path="/test" element={<TestPage/>}/>
+                <Route path="/series" element={<Series fetchUrl={requests.fetchTrending}/>}/>
 
             </Routes>
         </div>

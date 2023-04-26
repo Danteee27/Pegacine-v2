@@ -4,34 +4,38 @@
     justify-content: center;
     justify-items: center;
     flex-direction: column;
-
     margin-top: 80px;
+    padding-bottom: 200px;
 }
 
 .searchContainer {
     display: flex;
-    width: 80%;
+    width: 90%;
     height: 48px;
     flex-wrap: nowrap;
     margin-right: 40px;
-    margin-left: 40px;
-    padding-bottom: 20px;
+    margin-left: 80px;
+    padding-bottom: 35px;
+    justify-content: space-around;
 
 }
 
 .inputSearch {
     display: flex;
-    flex: 1;
-    color: darkgray;
-    border: 1px solid gray;
-    border-radius: 8px;
+    width: 80%;
+    height: 40px;
+    color: white;
+    border: 2px solid #999999;
     margin-right: 3px;
+    background: #141414;
+    box-sizing: border-box;
+
 }
 
 .searchButton {
     display: flex;
     width: 48px;
-    height: 48px;
+    height: 40px;
     justify-content: center;
     justify-items: center;
     align-items: center;
@@ -40,11 +44,71 @@
     border-radius: 8px;
     border: none;
     outline: none;
+    background:#141414;
+    box-sizing: border-box;
 
+}
+
+.titleSort{
+    padding-right: 5px;
+}
+
+.searchType{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.dropDownContainer{
+
+}
+
+.dropDown{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #999999;
+    width: 170px;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.hoverDropDown{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 170px;
+    background: #141414;
+    box-sizing: border-box;
+    overflow: auto;
+    position: absolute;
+    max-height: 170px;
+    z-index: 100000;
 }
 
 .searchIcon {
     color: snow;
+}
 
+.searchResult{
+    display: flex;
+    gap: 17px;
+    row-gap: 80px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.hoverShowedItem{
+    width: 100%;
+    cursor: pointer;
+}
 
+.hoverShowedItem:hover{
+    background: #A1A1A1;
 }
