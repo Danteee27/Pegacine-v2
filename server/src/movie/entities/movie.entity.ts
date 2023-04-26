@@ -89,7 +89,7 @@ export class Movie extends BaseEntity {
   @ApiProperty()
   trailer: string;
 
-  @Column({ nullable: true, default: false })
+  @Column({ nullable: true, default: 0 })
   @ApiProperty()
   isAdult: boolean;
 
@@ -108,6 +108,10 @@ export class Movie extends BaseEntity {
   @Column({ nullable: true })
   @ApiProperty()
   poster: string;
+
+  @Column({ default: 'SILVER' })
+  @ApiProperty()
+  userRank: string;
 
   @OneToMany(() => MovieGenres, (movieGenres) => movieGenres.movie)
   movie_genres: MovieGenres[];
