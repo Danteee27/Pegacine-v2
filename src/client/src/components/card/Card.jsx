@@ -10,7 +10,7 @@ import './Card.css';
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import PlayerPage from "../../pages/player/PlayerPage";
 
-export default React.memo(function Card({index, movieData, isLiked = false,isVip=false}) {
+export default React.memo(function Card({index, movieData, isLiked = false, isVip = false}) {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
 
@@ -23,43 +23,51 @@ export default React.memo(function Card({index, movieData, isLiked = false,isVip
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <img className={"imgItem"}
-                 src={`${base_url}${movieData.backdrop_path}`}
-                 alt="card"
-                 onClick={() => navigate("/player/")}
-            />
-            { isVip &&
-                <div className={"vipTag"}>
-                {/*<svg xmlns="http://www.w3.org/2000/svg" className="svg-icon"*/}
-                {/*     viewBox="0 0 1024 1024" version="1.1">*/}
-                {/*    <path*/}
-                {/*        d="M896 896H128a128 128 0 0 1-128-128V256a128 128 0 0 1 128-128h768a128 128 0 0 1 128 128v512a128 128 0 0 1-128 128zM128 213.333333a42.666667 42.666667 0 0 0-42.666667 42.666667v512a42.666667 42.666667 0 0 0 42.666667 42.666667h768a42.666667 42.666667 0 0 0 42.666667-42.666667V256a42.666667 42.666667 0 0 0-42.666667-42.666667z m592.213333 465.493334a42.666667 42.666667 0 0 1-42.666666-42.666667V387.84a42.666667 42.666667 0 0 1 42.666666-42.666667H768a123.306667 123.306667 0 0 1 0 246.186667h-6.4v45.226667a42.666667 42.666667 0 0 1-41.386667 42.24z m42.666667-248.32v75.946666H768a37.973333 37.973333 0 0 0 0-75.52z m-213.333333 248.32a42.666667 42.666667 0 0 1-42.666667-42.666667V387.84a42.666667 42.666667 0 0 1 85.333333 0v248.32a42.666667 42.666667 0 0 1-42.24 42.666667z m-240.213334 0a42.666667 42.666667 0 0 1-39.253333-25.6L161.706667 404.906667a42.666667 42.666667 0 0 1 78.506666-34.133334l66.133334 151.04 54.186666-148.48a42.666667 42.666667 0 1 1 80.213334 29.013334L349.866667 650.666667a42.666667 42.666667 0 0 1-38.826667 28.16z"/>*/}
-                {/*</svg>*/}
-                    <img src={require("../../assets/vip.jpg")} alt="img vip"/>
-            </div>
+            <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}}>
+                <img className={"imgItem"}
+                    // src={`${base_url}${movieData.backdrop_path}`}
+                     src={movieData.backdrop}
+                     alt="card"
+                    // onClick={() => navigate(`/player/?url=${movieData.video}`)}//dang lam
+                />
+            </Link>
+            {isVip &&
+                <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}}>
+                    <div className={"vipTag"}>
+                        {/*<svg xmlns="http://www.w3.org/2000/svg" className="svg-icon"*/}
+                        {/*     viewBox="0 0 1024 1024" version="1.1">*/}
+                        {/*    <path*/}
+                        {/*        d="M896 896H128a128 128 0 0 1-128-128V256a128 128 0 0 1 128-128h768a128 128 0 0 1 128 128v512a128 128 0 0 1-128 128zM128 213.333333a42.666667 42.666667 0 0 0-42.666667 42.666667v512a42.666667 42.666667 0 0 0 42.666667 42.666667h768a42.666667 42.666667 0 0 0 42.666667-42.666667V256a42.666667 42.666667 0 0 0-42.666667-42.666667z m592.213333 465.493334a42.666667 42.666667 0 0 1-42.666666-42.666667V387.84a42.666667 42.666667 0 0 1 42.666666-42.666667H768a123.306667 123.306667 0 0 1 0 246.186667h-6.4v45.226667a42.666667 42.666667 0 0 1-41.386667 42.24z m42.666667-248.32v75.946666H768a37.973333 37.973333 0 0 0 0-75.52z m-213.333333 248.32a42.666667 42.666667 0 0 1-42.666667-42.666667V387.84a42.666667 42.666667 0 0 1 85.333333 0v248.32a42.666667 42.666667 0 0 1-42.24 42.666667z m-240.213334 0a42.666667 42.666667 0 0 1-39.253333-25.6L161.706667 404.906667a42.666667 42.666667 0 0 1 78.506666-34.133334l66.133334 151.04 54.186666-148.48a42.666667 42.666667 0 1 1 80.213334 29.013334L349.866667 650.666667a42.666667 42.666667 0 0 1-38.826667 28.16z"/>*/}
+                        {/*</svg>*/}
+                        <img src={require("../../assets/vip.jpg")} alt="img vip"/>
+                    </div>
+                </Link>
             }
 
             {isHovered && (
                 <div className="hover">
-                    <div className="image-video-container">
-                        <img
-                            src={`${base_url}${movieData.backdrop_path}`}
-                            alt="card"
-                            onClick={() => navigate("/player")}
-                        />
-                        <video
-                            src={trailer}
-                            autoPlay={true}
-                            loop
-                            muted
-                            onClick={() => navigate("/player")}
-                        />
-                    </div>
+                    <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}}>
+                        <div className="image-video-container">
+                            <img
+                                // src={`${base_url}${movieData.backdrop_path}`}
+                                src={movieData.backdrop}
+                                alt="card"
+                                // onClick={() => navigate(`/player/?url=${movieData.video}`)}//dang lam
+                            />
+                            <video
+                                src={trailer}
+                                autoPlay={true}
+                                loop
+                                muted
+                                // onClick={() => navigate(`/player/?url=${movieData.video}`)} // dang lam
+                            />
+                        </div>
+                    </Link>
                     <div className="info-container flex column">
                         <h3 className="name"
                             // onClick={() => navigate("/player")}
                         >
-                            {movieData.name}
+                            {movieData.title}
                         </h3>
                         <div className="icons flex j-between">
                             <div className="controls flex">
@@ -97,9 +105,10 @@ export default React.memo(function Card({index, movieData, isLiked = false,isVip
                         </div>
                         <div className="genres flex">
                             <ul className="flex">
-                                {movieData.genre_ids.map((genre) => (
-                                    <li key={genre}>{genre}</li>
-                                ))}
+                                {/*dang lam mang cho genre*/}
+                                {/*{movieData.genre_ids.map((genre) => (*/}
+                                {/*    <li key={genre}>{genre}</li>*/}
+                                {/*))}*/}
                             </ul>
                         </div>
                     </div>
