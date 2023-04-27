@@ -24,7 +24,8 @@
 import React, {useEffect, useState} from "react";
 import Card from "../../components/card/Card";
 import styled from "styled-components";
-import axios from "../../axios";
+import axios, {axiosInstance3} from "../../axios";
+import {axiosInstance2} from "../../axios";
 import requests from "../../Requests";
 import Navbar from "../../components/navbar/Navbar";
 import "./MyList.css"
@@ -37,9 +38,9 @@ export default function MyList({fetchUrl}) {
 
     useEffect(() => {
         async function fetchData() {
-            const request = await axios.get(fetchUrl);
-            setMovies(request.data.results);
-            console.log(request.data.results)
+            const request = await axiosInstance3.get('http://localhost:3000/api/user/profiles/my_list?profile_id=2&page=1&pageSize=999');
+            console.log("request: ",request.data.items[0].MyListMovies)
+            setMovies(request.data.items[0].MyListMovies);
             return request;
         }
 
@@ -64,7 +65,7 @@ export default function MyList({fetchUrl}) {
                         return (<Card
                             movieData={movie}
                             index={index}
-                            key={movie.id}
+                            key={movie.movie_id}
                             isLiked={true}
                         />);
                     })}
