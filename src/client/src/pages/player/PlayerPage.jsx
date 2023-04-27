@@ -2,15 +2,21 @@ import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import './PlayerPage.css';
 import {BsArrowLeft} from 'react-icons/bs';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import Navbar from "../../components/navbar/Navbar";
 import requests from "../../Requests";
 
 // import video from "../../assets/demoH06.mp4"
 function Player() {
     // const navigate = useNavigate()
+    const location = useLocation();
+    console.log("state:",location.state?.data)
 
-    const videoUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    // const videoUrl = url || "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+    const videoUrl = location.state?.data.video || "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+    const movieData = location.state?.data;
+
+
 
     // const [isEpisodeHover, setEpisodeHover] = useState(false);
     const [isEpisodeHover, setIsEpisodeHover] = useState(false);
@@ -264,8 +270,8 @@ function Player() {
                             </svg>
                         </button>
                         <p className={"title"}>
-                            <span className={"series"}>Blender Foundation</span>
-                            <span className={"episodeName"}>Bick Buck Bunny</span>
+                            <span className={"series"}>{movieData?.title}</span>
+                            <span className={"episodeName"}>{movieData?.title}</span>
                         </p>
                         {/*<button className={"help"}>*/}
                         {/*    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"*/}
