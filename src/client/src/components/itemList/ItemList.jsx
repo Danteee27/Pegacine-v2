@@ -47,7 +47,7 @@ const [openDialog, handleDisplay] = React.useState(false);
         <img src={movieThumbnail} alt="" />
         {isHovered && (
           <>
-            <video src={trailer} autoPlay={true} loop />
+            <video className='video-thumbnail' src={trailer} autoPlay={true} loop />
             <div className="itemInfo">
               <div className="icons">
                 
@@ -73,7 +73,13 @@ const [openDialog, handleDisplay] = React.useState(false);
                 Praesentium hic rem eveniet error possimus, neque ex doloribus.
               </div>
               <div className="genre">Action</div>
-              <Dialog className="dialog-detail" onClose = {handleClose} open = {openDialog}>
+              
+            </div>
+            
+          </>
+        )}
+        <Dialog  onMouseEnter={() => setIsHovered(false)}
+        onMouseLeave={() => setIsHovered(false)} className="dialog-detail" onClose = {handleClose} open = {openDialog}>
                 <div className='detail-general'>
 
                 <div className='video-info'>
@@ -123,10 +129,8 @@ const [openDialog, handleDisplay] = React.useState(false);
 
                 </div>
               </Dialog>
-            </div>
-          </>
-        )}
       </div>
+      
     // </Link>
   );
 }
