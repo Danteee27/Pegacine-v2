@@ -80,4 +80,7 @@ export class CreateMovieDto {
 
   @ApiProperty()
   poster: string;
+
+  @ApiProperty()
+  userRank: string;
 }
