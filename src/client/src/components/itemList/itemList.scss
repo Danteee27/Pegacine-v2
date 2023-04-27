@@ -158,3 +158,15 @@ flex-direction: column;
   }
 
 }
+
+.on-close{
+      display: block!important;
+    position: absolute!important;
+    right: 0;
+
+    z-index: 1000;
+}
+
+.close-outlined{
+  color: white;
+}

@@ -6,6 +6,7 @@ import {
   ThumbDownOutlined,
   InfoOutlined,
   InfoRounded,
+  CloseOutlined
 } from '@mui/icons-material';
 import {Link, Route, Routes} from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
@@ -83,6 +84,8 @@ const [openDialog, handleDisplay] = React.useState(false);
                 <div className='detail-general'>
 
                 <div className='video-info'>
+                 
+                  <IconButton className='on-close' onClick={handleClose}><CloseOutlined className='close-outlined'></CloseOutlined></IconButton>
                   <video className='video-custom' autoPlay muted loop src={trailer}> </video>
                   <div className='navigation-general'>
 
