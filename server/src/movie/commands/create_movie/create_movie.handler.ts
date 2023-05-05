@@ -87,8 +87,7 @@ export class CreateMovieCommandHandler
       trailer,
       isAdult,
     });
-
-    newMovie.save();
+    await newMovie.save();
 
     return new OkResponse(newMovie);
   }

@@ -4,6 +4,9 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   BaseEntity,
+  ManyToMany,
+  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { MovieGenres } from 'src/movie_genres/entities';
 import { MovieKeywords } from 'src/movie_keywords/entities';
@@ -14,6 +17,7 @@ import { ProductionCountry } from 'src/production_country/entities';
 import { MovieCompany } from 'src/movie_company/entities';
 import { ApiProperty } from '@nestjs/swagger';
 import { ProfileWatchingMovies } from 'src/user/entities/profile-watching.entity';
+import { Series } from './series.entity';
 
 @Entity('movie')
 export class Movie extends BaseEntity {
@@ -100,6 +104,10 @@ export class Movie extends BaseEntity {
   @Column({ nullable: true })
   @ApiProperty()
   seriesId: number;
+
+  @ManyToOne(() => Series)
+  @JoinColumn({ name: 'seriesId', referencedColumnName: 'seriesId' })
+  series: Series;
 
   @Column({ nullable: true })
   @ApiProperty()
