@@ -13,6 +13,9 @@ import { GetMovieByCrewQuery } from './queries/get_movie_by_crew/get_movie_by_cr
 import { GetMovieByCountryQuery } from './queries/get_movie_by_country/get_movie_by_country.query';
 import { CreateMovieDto } from './commands/create_movie/create_movie.dto';
 import { CreateMovieCommand } from './commands/create_movie/create_movie.command';
+import { CreateSeriesDto } from './commands/create_series/create_series.dto';
+import { CreateSeriesCommand } from './commands/create_series/create_series.command';
+import { GetSeriesQuery } from './queries/get_series/get_series.query';
 
 @ApiTags('movie')
 @Controller('movie')
@@ -93,5 +96,15 @@ export class MovieController {
   @Post('')
   createMovie(@Body() dto: CreateMovieDto) {
     return this.commandBus.execute(new CreateMovieCommand(dto));
+  }
+
+  @Post('series')
+  createSeries(@Body() dto: CreateSeriesDto) {
+    return this.commandBus.execute(new CreateSeriesCommand(dto));
+  }
+
+  @Get('series/:id')
+  getSeries(@Param('id') id: number) {
+    return this.queryBus.execute(new GetSeriesQuery(id));
   }
 }

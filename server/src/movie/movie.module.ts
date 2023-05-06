@@ -19,6 +19,7 @@ import { ProfileWatchingProviders } from 'src/user/profile-watching.provider';
 import { GenreProviders } from 'src/genre/genre.providers';
 import { PersonProviders } from 'src/person/person.providers';
 import { CommandHandlers } from './commands';
+import { SeriesProviders } from './series.provider';
 
 @Module({
   imports: [DatabaseModule, CqrsModule, AuthModule],
@@ -38,6 +39,7 @@ import { CommandHandlers } from './commands';
     ...ProfileWatchingProviders,
     ...GenreProviders,
     ...PersonProviders,
+    ...SeriesProviders,
   ],
 })
 export class MovieModule {}

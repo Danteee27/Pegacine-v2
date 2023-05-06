@@ -21,22 +21,6 @@ export class CreateMovieCommandHandler
   constructor(
     @Inject('MOVIE_REPOSITORY')
     private readonly movieRepository: Repository<Movie>,
-    @Inject('MOVIEGENRE_REPOSITORY')
-    private readonly movieGenresRepository: Repository<MovieGenres>,
-    @Inject('MOVIECAST_REPOSITORY')
-    private readonly movieCastRepository: Repository<MovieCast>,
-    @Inject('MOVIEKEYWORDS_REPOSITORY')
-    private readonly movieKeywordsRepository: Repository<MovieKeywords>,
-    @Inject('MOVIELANGUAGES_REPOSITORY')
-    private readonly movieLanguagesRepository: Repository<MovieLanguages>,
-    @Inject('MOVIECREW_REPOSITORY')
-    private readonly movieCrewRepository: Repository<MovieCrew>,
-    @Inject('MOVIECOMPANY_REPOSITORY')
-    private readonly movieCompanyRepository: Repository<MovieCompany>,
-    @Inject('PRODUCTIONCOUNTRY_REPOSITORY')
-    private readonly productionCountryRepository: Repository<ProductionCountry>,
-    @Inject('PERSON_REPOSITORY')
-    private readonly personRepository: Repository<Person>,
   ) {}
 
   async execute(command: CreateMovieCommand): Promise<any> {
