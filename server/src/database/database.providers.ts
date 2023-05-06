@@ -22,6 +22,7 @@ import { MovieCompany } from 'src/movie_company/entities';
 import { UserEntity } from 'src/user/entities';
 import { ProfileWatchingMovies } from 'src/user/entities/profile-watching.entity';
 import { UserTransactionEntity } from 'src/user/entities/transaction.entity';
+import { Series } from 'src/movie/entities/series.entity';
 // import { User } from 'src/user/entities';
 
 export const databaseProviders = [
@@ -33,8 +34,7 @@ export const databaseProviders = [
         host: 'localhost',
         port: 3306,
         username: 'root',
-        // password: 'ducanh123!@#',
-        password: 'root',
+        password: 'ducanh123!@#',
         database: 'movies',
         entities: [
           Country,
@@ -58,6 +58,7 @@ export const databaseProviders = [
           ProfileEntity,
           ProfileWatchingMovies,
           UserTransactionEntity,
+          Series,
         ],
         synchronize: true,
         logging: ['error'],
