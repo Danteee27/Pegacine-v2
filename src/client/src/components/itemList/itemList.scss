@@ -1,7 +1,7 @@
 .listItem {
   width: 225px;
   height: 120px;
-  background-color: black;
+  background-color: #181818;
   margin-right: 5px;
   overflow: hidden;
   cursor: pointer;
@@ -84,10 +84,18 @@
   background-color: rgba(0, 0, 0, 0.182);
 }
 
+.detail-general{
+  overflow: auto;
+}
+
+.detail-general::-webkit-scrollbar {
+  display: none;
+}
+
 .video-info{
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: #181818;
   color: white;
 }
 
@@ -99,7 +107,7 @@
 
 .detail-info{
   padding: 10px 20px;
-  background-color: black;
+  background-color: #181818;
   color: white;
 }
 
@@ -169,4 +177,53 @@ flex-direction: column;
 
 .close-outlined{
   color: white;
+}
+
+.movie-chapter{
+  padding: 10px 20px;
+  background-color: #181818;
+  
+}
+
+.gap{
+  margin-bottom: 20px;
+}
+
+.movie-chapter-title{
+    font-size: 30px;
+    color: white;
+  
+}
+
+.num-of-chapter{
+  font-size: 20px;
+  color: white;
+  margin-left: 30px;
+}
+
+.chapter-row{
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: white;
+}
+.chapter-image{
+  margin: 0 30px 0 20px;
+  img{
+    width: 130px;
+    height: 80px;
+
+  border-radius: 5px;
+  }
+}
+.chapter-title{
+  font-weight: 300;
+  .chapter-time{
+    font-size: 14px;
+    font-weight: 200;
+  }
+}
+
+.episodes{
+  padding: 0px 0;
 }

@@ -113,24 +113,120 @@ const [openDialog, handleDisplay] = React.useState(false);
 
                 </div>
                 <div className='detail-info'>
-                  <div className='sub-detail-1'>
-                    <span className='new'>New</span>
-                    <span className='time'>10 minutes</span>
-                    <span>Comedy</span>
-                    <span>1999</span>
-                  </div>
-                  <div className='limit-age'>
-                    <span className="limit">+16</span>
+                    <div className='sub-detail-1'>
+                      <span className='new'>New</span>
+                      <span className='time'>10 minutes</span>
+                      <span>Comedy</span>
+                      <span>1999</span>
+                    </div>
+                    <div className='limit-age'>
+                      <span className="limit">+16</span>
 
+                    </div>
+                    <p className='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas est repudiandae consequatur? Minus deleniti natus deserunt, nobis itaque eveniet reprehenderit nesciunt, beatae nam quos provident repellendus ipsam fuga, quod non?</p>
+                    <div className='addtional-field'>
+                      <span><span className='title-additonal'>Cast:</span> Hulk, Batman, Thor, Ironman</span>
+                      <span><span className='title-additonal'>Genres:</span> Action Film, Romantic Film</span>
+                    </div>
                   </div>
-                  <p className='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas est repudiandae consequatur? Minus deleniti natus deserunt, nobis itaque eveniet reprehenderit nesciunt, beatae nam quos provident repellendus ipsam fuga, quod non?</p>
-                  <div className='addtional-field'>
-                    <span><span className='title-additonal'>Cast:</span> Hulk, Batman, Thor, Ironman</span>
-                    <span><span className='title-additonal'>Genres:</span> Action Film, Romantic Film</span>
+
+                  <div className='movie-chapter'>
+                  <span className='movie-chapter-title'>Episodes</span>
+                  <div className='gap'></div>
+                  <div className='episodes'>
+                    <hr size='1'/>
+                    <div className='chapter-row'>
+                      <div className='num-of-chapter'>
+                        <span>1</span>
+                        </div>
+                        <div className="chapter-image">
+                          <img src={movieThumbnail} alt="" />
+                        </div>
+                        <div className='chapter-title'>
+                          <div>
+
+                          <span>I Know What You Did Last Summner</span>
+                          </div>
+                          <div>
+
+                          <span className='chapter-time'>62m</span>
+                          </div>
+                        </div>
+                    </div>
                   </div>
+
+                  <div className='episodes'>
+                    <hr size='1'/>
+                    <div className='chapter-row'>
+                      <div className='num-of-chapter'>
+                        <span>2</span>
+                        </div>
+                        <div className="chapter-image">
+                          <img src={movieThumbnail} alt="" />
+                        </div>
+                        <div className='chapter-title'>
+                          <div>
+
+                          <span>I Know What You Did Last Summner</span>
+                          </div>
+                          <div>
+
+                          <span className='chapter-time'>62m</span>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div className='episodes'>
+                    <hr size='1'/>
+                    <div className='chapter-row'>
+                      <div className='num-of-chapter'>
+                        <span>3</span>
+                        </div>
+                        <div className="chapter-image">
+                          <img src={movieThumbnail} alt="" />
+                        </div>
+                        <div className='chapter-title'>
+                          <div>
+
+                          <span>I Know What You Did Last Summner</span>
+                          </div>
+                          <div>
+
+                          <span className='chapter-time'>62m</span>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div className='episodes'>
+                    <hr size='1'/>
+                    <div className='chapter-row'>
+                      <div className='num-of-chapter'>
+                        <span>4</span>
+                        </div>
+                        <div className="chapter-image">
+                          <img src={movieThumbnail} alt="" />
+                        </div>
+                        <div className='chapter-title'>
+                          <div>
+
+                          <span>I Know What You Did Last Summner</span>
+                          </div>
+                          <div>
+
+                          <span className='chapter-time'>62m</span>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
                 </div>
 
-                </div>
+                
+                    
               </Dialog>
       </div>
       
