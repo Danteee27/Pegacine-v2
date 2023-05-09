@@ -1,13 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { MovieContextProvider } from './context/movieContext/MovieContext';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { AuthContextProvider } from "./context/authContext/AuthContext";
+import { MovieContextProvider } from "./context/movieContext/MovieContext";
+import { ListContextProvider } from "./context/listContext/ListContext";
+import { MovieByIdContextProvider } from "./context/movieContext/MovieContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <MovieContextProvider>
-      <App />
-    </MovieContextProvider>
+    {/* <AuthContextProvider>
+      <MovieContextProvider>
+        <ListContextProvider>
+          <App />
+        </ListContextProvider>
+      </MovieContextProvider>
+    </AuthContextProvider> */}
+      <MovieContextProvider>
+        <MovieByIdContextProvider>
+          <App />
+        </MovieByIdContextProvider>
+      </MovieContextProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
