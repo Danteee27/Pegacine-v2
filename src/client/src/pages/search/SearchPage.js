@@ -7,7 +7,7 @@ import requests from "../../Requests";
 import Row from "../../components/row/Row";
 import axios, {axiosInstance3} from "../../axios";
 import Card from "../../components/card/Card";
-import {log} from "yarn/lib/cli";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 let curIndex = 0;
 
@@ -21,20 +21,40 @@ function SearchPage() {
     const [url, setUrl] = useState("");
     const [reRender, setReRender] = useState(false);
     const [isSortHover, setIsSortHover] = useState(false);
+    const [sortedType, setSortedType] = useState('year');
+    const [pageNumber, setPageNumber] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
 
     const item1 = useRef();
     const item2 = useRef();
     const item3 = useRef();
     const showedItem = useRef();// type of sort in sort Box
     const searchData = useRef();
+    const lastMovieElementRef = useRef();
 
     // const arrUrl = [requests.fetchTrending, requests.fetchDocumentaries, requests.fetchHorrorMovies, requests.fetchActionMovies]
 
+    const fetchData = () => {
+        setPageNumber(prev => prev + 1)
+        async function fetchData() {
+            const request = await axiosInstance3.get(`http://localhost:3000/api/movie/search?query=${searchData.current.value || "%20"}&sort=${sortedType}&page=${pageNumber}&pageSize=10`)
+            setMovies(prev=>[...prev,...request.data.data.items])
+            setTotalPages(request.data.data.meta.totalPages)
+            console.log(request.data.data.items)
+            return request
+        }
+
+        fetchData();
+
+    }
+
     useEffect(() => {
         async function fetchData() {
-            const request = await axiosInstance3.get(`http://localhost:3000/api/movie/search?query=%20&sort=1&page=1&pageSize=10`)
+            const request = await axiosInstance3.get(`http://localhost:3000/api/movie/search?query=%20&sort=${sortedType}&page=1&pageSize=10`)
             setMovies(request.data.data.items)
+            setTotalPages(request.data.data.meta.totalPages)
             console.log(request.data.data.items)
+            console.log(request.data.data.meta)
             return request
         }
 
@@ -42,11 +62,14 @@ function SearchPage() {
     }, []);
 
     function searchFilm() {
-        const curUrl = `http://localhost:3000/api/movie/search?query=${searchData.current.value||""}&sort=1&page=1&pageSize=10`;
+        const curUrl = `http://localhost:3000/api/movie/search?query=${searchData.current.value || "%20"}&sort=${sortedType}&page=1&pageSize=10`;
+
         async function fetchData() {
             const request = await axios.get(curUrl);
             setMovies(request.data.data.items);
+            setTotalPages(request.data.data.meta.totalPages)
             console.log(request.data.data.items)
+            console.log(request.data.data.meta)
             return request;
         }
 
@@ -60,14 +83,17 @@ function SearchPage() {
 
     function handleChooseDropDown1() {
         showedItem.current.textContent = item1.current?.textContent
+        setSortedType('year');
     }
 
     function handleChooseDropDown2() {
         showedItem.current.textContent = item2.current?.textContent
+        setSortedType('asc');
     }
 
     function handleChooseDropDown3() {
         showedItem.current.textContent = item3.current?.textContent
+        setSortedType('desc');
     }
 
     return (
@@ -107,14 +133,48 @@ function SearchPage() {
                 {/*<Row title={"Results"} fetchUrl={url} isLargeRow={false}/>*/}
                 <div className="searchResult">
                     {movies.map((movie, index) => {
-                        return (<Card
-                            movieData={movie}
-                            index={index}
-                            key={movie.id}
-                            isLiked={true}
-                        />);
+                        if (movies.length === index + 1) {
+                            return (
+                                <div ref={lastMovieElementRef}>
+                                    <Card
+                                        movieData={movie}
+                                        index={index}
+                                        key={movie.id}
+                                        isLiked={true}
+                                    />
+                                </div>);
+                        } else
+                            return (<Card
+                                movieData={movie}
+                                index={index}
+                                key={movie.id}
+                                isLiked={true}
+                            />);
                     })
                     }
+                    <InfiniteScroll
+                        dataLength={movies.length} //This is important field to render the next data
+                        next={fetchData}
+                        hasMore={totalPages >= pageNumber}
+                        loader={<h4>Loading...</h4>}
+                        // endMessage={
+                        //     <p style={{ textAlign: 'center' }}>
+                        //         <b>Yay! You have seen it all</b>
+                        //     </p>
+                        // }
+                        // // below props only if you need pull down functionality
+                        // refreshFunction={this.refresh}
+                        // pullDownToRefresh
+                        // pullDownToRefreshThreshold={50}
+                        // pullDownToRefreshContent={
+                        //     <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+                        // }
+                        // releaseToRefreshContent={
+                        //     <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+                        // }
+                    >
+                        {/*{items}*/}
+                    </InfiniteScroll>
                 </div>
             </div>
         </React.Fragment>

@@ -35,3 +35,13 @@
     left: 0;
 
 }
+
+.hover{
+    display: flex;
+    flex-direction: column;
+}
+
+.image-video-container{
+    width: auto;
+    height: auto;
+}

@@ -46,7 +46,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
 
             {isHovered && (
                 <div className="hover">
-                    <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}}>
+                    <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}} style={{height:'236px'}}>
                         <div className="image-video-container">
                             <img
                                 // src={`${base_url}${movieData.backdrop_path}`}
@@ -139,7 +139,7 @@ const Container = styled.div`
     width: 430px;
     position: absolute;
     top: -6vh;
-    left: -30px;
+    left: -60px;
     border-radius: 0.3rem;
     box-shadow: rgba(0, 0, 0, 0.75) 1px 3px 10px;
     background-color: #181818;
@@ -172,9 +172,14 @@ const Container = styled.div`
     }
 
     .info-container {
+      //padding-top: 100px;
+      //padding-top: 1rem;
+      //padding-bottom: 1rem;
+      //padding-left: 1rem;
+      //padding-right: 1rem;
       padding: 1rem;
-      //gap: 0.5rem;
-      gap: 100px;
+      gap: 0.5rem;
+      //gap: 100px;
     }
 
     .icons {

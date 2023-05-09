@@ -39,7 +39,7 @@ export default function MyList({fetchUrl}) {
     useEffect(() => {
         async function fetchData() {
             const request = await axiosInstance3.get('http://localhost:3000/api/user/profiles/my_list?profile_id=2&page=1&pageSize=999');
-            console.log("request: ",request.data.items[0].MyListMovies)
+            console.log("request: ", request.data.items[0].MyListMovies)
             setMovies(request.data.items[0].MyListMovies);
             return request;
         }
@@ -56,11 +56,11 @@ export default function MyList({fetchUrl}) {
     };
 
     return (
-        <div className={"myList"}><Container>
+        <div className={"myList"}>
             <Navbar/>
-            <div className="content flex column">
+            <div className="myListConent">
                 <h1>My List</h1>
-                <div className="grid flex">
+                <div className="moviesContainer">
                     {movies.map((movie, index) => {
                         return (<Card
                             movieData={movie}
@@ -69,27 +69,9 @@ export default function MyList({fetchUrl}) {
                             isLiked={true}
                         />);
                     })}
-
                 </div>
             </div>
-        </Container></div>
+        </div>
     );
 }
 
-const Container = styled.div`
-  .content {
-    margin: 2.3rem;
-    margin-top: 8rem;
-    gap: 3rem;
-
-    h1 {
-      color: snow;
-      margin-left: 3rem;
-    }
-
-    .grid {
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-  }
-`;
