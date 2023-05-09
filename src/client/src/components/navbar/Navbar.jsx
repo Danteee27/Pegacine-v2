@@ -7,6 +7,8 @@ import {Link, Route, Routes} from "react-router-dom";
 import PlayerPage from "../../pages/player/PlayerPage";
 import SearchPage from "../../pages/search/SearchPage";
 import Home from "../../pages/home/Home";
+import Series from "../../pages/series/Series";
+import requests from "../../Requests";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,7 +23,7 @@ const Navbar = () => {
         <div className="left">
           <img src="../logo.png" alt="" />
           <a href="./home"><span>Homepage</span></a>
-          {/*<Link to="../player"><span>Series</span></Link>*/}
+          <Link to="../series"><span>Series</span></Link>
           {/*<Link to="../player"><span>Movies</span></Link>*/}
           {/*<Link to="../player"><span>New and Popular</span></Link>*/}
           <a href="./myList"><span>My List</span></a>
@@ -29,6 +31,7 @@ const Navbar = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/player" element={<PlayerPage />} />
+            <Route path="/series"  element={<Series fetchUrl={requests.fetchTrending}/>} />
           </Routes>
         </div>
         <div className="right">
