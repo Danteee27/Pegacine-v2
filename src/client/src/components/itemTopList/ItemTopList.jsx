@@ -23,10 +23,9 @@ export default function ItemTopList({index, top = index+1}) {
 
     const poster = useRef();
     const indexSvg = useRef();
-    const itemContainer = useRef();
 
     return (
-        <Link to={{pathname: '/player', movie: movie}} style={{width:225}}>
+        <Link to={{pathname: '/player', movie: movie}}>
             <div
                 className="listItem"
                 style={{left: isHovered && index * 225 - 50 + index * 2.5}}
@@ -56,7 +55,7 @@ export default function ItemTopList({index, top = index+1}) {
                     setIsHovered(false)
                 }}
             >
-                <div className={"itemContainer"} ref={itemContainer}>
+                <div className={"itemContainer"}>
                     {
                         top==1 &&
                         <svg ref={indexSvg} id="rank-1" width="100%" height="100%" viewBox="-20 0 70 154"
@@ -137,7 +136,7 @@ export default function ItemTopList({index, top = index+1}) {
                     <img ref={poster} src={movieThumbnail} alt=""/>
                 </div>
                 {isHovered && (
-                    <div>
+                    <>
                         <video src={trailer} autoPlay={true} loop/>
                         <div className="itemInfo">
                             <div className="icons">
@@ -162,7 +161,7 @@ export default function ItemTopList({index, top = index+1}) {
                             </div>
                             <div className="genre">Action</div>
                         </div>
-                    </div>
+                    </>
                 )}
             </div>
         </Link>
