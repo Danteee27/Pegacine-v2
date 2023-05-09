@@ -11,7 +11,7 @@ export default function MovieList() {
 
   useEffect(() => {
     getMovies(dispatch);
-  }, [dispatch]);
+  }, []);
 
   const handleDelete = (id) => {
     deleteMovie(id, dispatch);

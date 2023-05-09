@@ -65,7 +65,10 @@ export const createMovie = async (movie, genres, dispatch) => {
     //   },
     // });
     const res = await axios.post("/movie", movie);
-    dispatch(createMovieSuccess(res.data));
+    genres.forEach(async element => {
+      await axios.post('/movie_genres', { genre_id: element.value, movie_id: res.data.data.movie_id })
+    });
+    // dispatch(createMovieSuccess(res.data));
   } catch (err) {
     dispatch(createMovieFailure());
   }

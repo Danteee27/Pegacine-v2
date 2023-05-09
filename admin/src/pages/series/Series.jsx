@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom";
 import "./series.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 export default function Series() {
 
 

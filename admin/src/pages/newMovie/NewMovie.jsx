@@ -7,6 +7,7 @@ import { MovieContext } from "../../context/movieContext/MovieContext";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { CreateOutlined } from "@material-ui/icons";
 import Select from 'react-select'
+import { useHistory } from "react-router-dom";
 
 
 export default function NewMovie() {
@@ -32,15 +33,12 @@ export default function NewMovie() {
     async function fetchData() {
       return await fetch("/genre")
         .then((res) => res.json())
-      // const request = await axios.get('/movie/findById?id=19204');
-      // setMovie(request.data.data);
-      // return request;
     }
 
     fetchData().then(data => {
       data.forEach(e => {
         genreMapItems.push({
-          value: e.genre_name,
+          value: e.genre_id,
           label: e.genre_name
         })
       })
@@ -49,6 +47,8 @@ export default function NewMovie() {
   }, []);
 
   const { dispatch } = useContext(MovieContext);
+
+  const history = useHistory();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -89,7 +89,7 @@ export default function NewMovie() {
 
   const handleUpload = (e) => {
     e.preventDefault();
-    setLoadingSubmit(true);
+    setLoadingUpload(true);
     upload([
       { file: img, label: "image" },
       { file: backdrop, label: "backdrop" },
@@ -102,6 +102,7 @@ export default function NewMovie() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createMovie(movie, genres, dispatch);
+    history.push('/movies', { replace: true });
   };
 
   const handleSelectChange = (selectedOption) => {
@@ -153,7 +154,7 @@ export default function NewMovie() {
                 marginRight: "300px",
               }}
               loading={loadingUpload}
-              disabled={loadingSubmit}
+              disabled={loadingUpload}
               loadingPosition="start"
               startIcon={<CreateOutlined />}
               variant="outlined"

@@ -28,9 +28,6 @@ export default function Movie() {
     async function fetchData() {
       return await fetch("/movie/findById?id=" + splitLocation[2])
         .then((res) => res.json())
-      // const request = await axios.get('/movie/findById?id=19204');
-      // setMovie(request.data.data);
-      // return request;
     }
 
     fetchData().then(data => {
@@ -43,7 +40,7 @@ export default function Movie() {
       setTrailer(data.data.trailer);
       setVideo(data.data.video);
     });
-  }, [splitLocation]);
+  }, []);
 
   return (
     <div className="product">
