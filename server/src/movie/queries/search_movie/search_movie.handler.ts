@@ -49,6 +49,7 @@ export class SearchMovieQueryHandler
     //   throw new BadRequestException('No movies found');
     // }
     const queryBuilder = this.movieRepository.createQueryBuilder('movie');
+    queryBuilder.innerJoinAndSelect('movie.movie_genres', 'movie_genres');
     if (sort == 'a-z') {
       queryBuilder.orderBy('movie.title', 'ASC');
     }

@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { MovieGenres } from './entities';
+import { OkResponse } from 'libs/models/responses';
 
 @Injectable()
 export class MovieGenresService {
@@ -29,5 +30,14 @@ export class MovieGenresService {
     const genre = this.genreRepository.create(movieGenre);
     genre.save();
     return genre;
+  }
+
+  async delete(movieGenre: MovieGenres) {
+    const genre = await this.genreRepository.findOne({
+      where: { movie_id: movieGenre.movie_id, genre_id: movieGenre.genre_id },
+    });
+    await genre.remove();
+    await genre.save();
+    return new OkResponse();
   }
 }

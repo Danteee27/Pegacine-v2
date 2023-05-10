@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Param, Post } from '@nestjs/common';
+import { Controller, Get, Body, Param, Post, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MovieGenresService } from './movie_genres.service';
 import { MovieGenres } from './entities';
@@ -26,5 +26,10 @@ export class MovieGenresController {
   @Post()
   create(@Body() movieGenre: MovieGenres) {
     return this.movieGenreService.create(movieGenre);
+  }
+
+  @Delete()
+  delete(@Body() movieGenre: MovieGenres) {
+    return this.movieGenreService.delete(movieGenre);
   }
 }
