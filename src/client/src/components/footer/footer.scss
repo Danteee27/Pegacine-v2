@@ -1,0 +1,22 @@
+.footer {
+  padding: 120px;
+  justify-content: center;
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    img {
+      width: 80%;
+    }
+    .menu {
+      margin-top: 20px;
+      span {
+        margin: 0 25px;
+      }
+    }
+  }
+}
