@@ -1,6 +1,6 @@
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { SearchMovieQuery } from './queries/search_movie/search_movie.query';
-import { Inject, Post, Query } from '@nestjs/common/decorators';
+import { Inject, Post, Put, Query } from '@nestjs/common/decorators';
 import { GetMovieQuery } from './queries/get_movie/get_movie.query';
 import { Controller, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs/dist';
@@ -18,6 +18,8 @@ import { CreateSeriesCommand } from './commands/create_series/create_series.comm
 import { GetSeriesQuery } from './queries/get_series/get_series.query';
 import { Repository } from 'typeorm';
 import { Series } from './entities/series.entity';
+import { UpdateMovieDto } from './commands/update_movie/update_movie.dto';
+import { UpdateMovieCommand } from './commands/update_movie/update_movie.command';
 
 @ApiTags('movie')
 @Controller('movie')
@@ -117,5 +119,10 @@ export class MovieController {
   @Get('series/:id')
   getSeries(@Param('id') id: number) {
     return this.queryBus.execute(new GetSeriesQuery(id));
+  }
+
+  @Put(':id')
+  updateMovie(@Param('id') id: number, @Body() dto: UpdateMovieDto) {
+    return this.commandBus.execute(new UpdateMovieCommand(id, dto));
   }
 }
