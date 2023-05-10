@@ -20,6 +20,12 @@ export class GetSeriesQueryHandler implements IQueryHandler<GetSeriesQuery> {
       .orderBy({ 'movies.seriesOrder': 'ASC' })
       .getOne();
 
+    if (!series) {
+      return new OkResponse(
+        await this.seriesRepository.findOne({ where: { seriesId: seriesId } }),
+      );
+    }
+
     return new OkResponse(series);
   }
 }
