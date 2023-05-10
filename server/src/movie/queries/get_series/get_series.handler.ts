@@ -15,6 +15,7 @@ export class GetSeriesQueryHandler implements IQueryHandler<GetSeriesQuery> {
     const { seriesId } = query;
     const series = await this.seriesRepository
       .createQueryBuilder('series')
+      .where('series.seriesId = :seriesId', { seriesId })
       .innerJoinAndSelect('series.movies', 'movies')
       .orderBy({ 'movies.seriesOrder': 'ASC' })
       .getOne();

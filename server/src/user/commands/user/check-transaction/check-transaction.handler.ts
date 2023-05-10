@@ -6,6 +6,7 @@ import { UserTransactionEntity } from 'src/user/entities/transaction.entity';
 import { firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { UserEntity } from 'src/user/entities';
+import { OkResponse } from 'libs/models/responses';
 
 @CommandHandler(CheckTransactionCommand)
 export class CheckTransactionCommandHandler
@@ -42,21 +43,23 @@ export class CheckTransactionCommandHandler
     const transactions = response.data.data.filter((transaction) =>
       transaction.partnerId === existedUser.phoneNumber &&
       command.dto.transaction_type == 'SILVER'
-        ? transaction.amount === '111'
-        : transaction.amount === '222',
+        ? transaction.amount === '100'
+        : transaction.amount === '200',
     );
 
-    if (transactions.length === 0) {
-      throw new BadRequestException('Transaction does not exist');
+    const newTransaction = transactions.filter(
+      (transaction) =>
+        !this.transactionRepository.findOne({
+          where: { transaction_id: transaction.id },
+        }),
+    );
+
+    if (newTransaction.length === 0) {
+      throw new BadRequestException('Transaction does not found');
     }
 
-    const newTransaction = transactions.filter((transaction) =>
-      this.transactionRepository.findOne({
-        where: { transaction_id: transaction.id },
-      }),
-    );
-
     const newTrans = this.transactionRepository.create({
+      user_id: existedUser.id,
       transaction_id: newTransaction[0].id,
       transaction_date: newTransaction[0].clientTime,
       transaction_amount: parseInt(newTransaction[0].amount),
@@ -71,7 +74,8 @@ export class CheckTransactionCommandHandler
     );
 
     await newTrans.save();
+    await existedUser.save();
 
-    return newTrans;
+    return new OkResponse(existedUser);
   }
 }
