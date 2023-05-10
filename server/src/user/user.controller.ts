@@ -44,16 +44,23 @@ import { CheckTransactionCommand } from './commands/user/check-transaction/check
 import { Repository } from 'typeorm';
 import { UserTransactionEntity } from './entities/transaction.entity';
 import { OkResponse } from 'libs/models/responses';
+import { UserEntity } from './entities';
 @ApiTags('user')
 @Controller('user')
 export class UserEntityController {
   constructor(
     readonly commandBus: CommandBus,
     readonly queryBus: QueryBus,
+    @Inject('UserEntity_REPOSITORY')
+    readonly userRepositoy: Repository<UserEntity>,
     @Inject('TRANSACTION_REPOSITORY')
     readonly transactionRepository: Repository<UserTransactionEntity>,
   ) {}
 
+  @Get('get_all_users')
+  async getAllUsers() {
+    return await this.userRepositoy.find();
+  }
   @Post('register')
   register(@Body() dto: RegisterDto) {
     return this.commandBus.execute(new RegisterCommand(dto));
