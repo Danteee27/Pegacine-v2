@@ -45,3 +45,124 @@
     width: auto;
     height: auto;
 }
+
+/*//////dialog*/
+.dialog-detail {
+    background-color: rgba(0, 0, 0, 0.182);
+}
+.detail-general {
+    overflow: auto;
+}
+.detail-general::-webkit-scrollbar {
+    display: none;
+}
+.video-info {
+    width: 100%;
+    height: 100%;
+    background-color: #181818;
+    color: white;
+}
+.title-movie {
+    z-index: 999;
+    margin-top: -90px;
+    margin-left: 20px;
+}
+.detail-info {
+    padding: 10px 20px;
+    background-color: #181818;
+    color: white;
+}
+.sub-detail-1 {
+    display: flex;
+    margin-bottom: 5px;
+}
+.sub-detail-1 span {
+    margin-right: 5px;
+}
+.sub-detail-1 .new {
+    color: greenyellow;
+}
+.sub-detail-1 .time {
+    color: white;
+}
+.limit-age {
+    margin-bottom: 20px;
+}
+.limit-age .limit {
+    border: 1px solid gray;
+    padding: 1px 3px;
+}
+.navigation-button {
+    display: flex;
+    z-index: 999;
+    margin-left: 5px;
+}
+.navigation-button .icons {
+    display: flex;
+}
+.navigation-button .icon-button-custom {
+    color: white;
+    width: 50px;
+    height: 50px;
+}
+.video-custom {
+    width: 100%;
+    object-fit: cover;
+}
+.addtional-field {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.addtional-field .title-additonal {
+    color: greenyellow;
+}
+.on-close {
+    display: block !important;
+    position: absolute !important;
+    right: 0;
+    z-index: 1000;
+}
+.close-outlined {
+    color: white;
+}
+.movie-chapter {
+    padding: 10px 20px;
+    background-color: #181818;
+}
+.gap {
+    margin-bottom: 20px;
+}
+.movie-chapter-title {
+    font-size: 30px;
+    color: white;
+}
+.num-of-chapter {
+    font-size: 20px;
+    color: white;
+    margin-left: 30px;
+}
+.chapter-row {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: white;
+}
+.chapter-image {
+    margin: 0 30px 0 20px;
+}
+.chapter-image img {
+    width: 130px;
+    height: 80px;
+    border-radius: 5px;
+}
+.chapter-title {
+    font-weight: 300;
+}
+.chapter-title .chapter-time {
+    font-size: 14px;
+    font-weight: 200;
+}
+.episodes {
+    padding: 0px 0;
+}
