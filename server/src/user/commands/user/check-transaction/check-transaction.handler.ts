@@ -47,22 +47,26 @@ export class CheckTransactionCommandHandler
         : transaction.amount === '200',
     );
 
-    const newTransaction = transactions.filter(
-      (transaction) =>
-        !this.transactionRepository.findOne({
-          where: { transaction_id: transaction.id },
-        }),
-    );
+    let newTransaction = null;
+    for (let i = 0; i < transactions.length; i++) {
+      const existedTrans = await this.transactionRepository.findOne({
+        where: { transaction_id: transactions[i].id },
+      });
 
-    if (newTransaction.length === 0) {
+      if (!existedTrans) {
+        newTransaction = transactions[i];
+      }
+    }
+
+    if (newTransaction === null) {
       throw new BadRequestException('Transaction does not found');
     }
 
     const newTrans = this.transactionRepository.create({
       user_id: existedUser.id,
-      transaction_id: newTransaction[0].id,
-      transaction_date: newTransaction[0].clientTime,
-      transaction_amount: parseInt(newTransaction[0].amount),
+      transaction_id: newTransaction.id,
+      transaction_date: newTransaction.clientTime,
+      transaction_amount: parseInt(newTransaction.amount),
       transaction_status: 'SUCCESS',
       transaction_type: command.dto.transaction_type,
     });
