@@ -53,7 +53,10 @@ export class SearchMovieQueryHandler
       queryBuilder.orderBy('movie.title', 'ASC');
     }
     if (sort == 'year') {
-      queryBuilder.orderBy('movie.release_date', 'ASC');
+      queryBuilder.orderBy('movie.release_date', 'DESC');
+    }
+    if (sort == 'z-a') {
+      queryBuilder.orderBy('movie.title', 'DESC');
     }
     queryBuilder.where([
       { title: Like(`%${queryString}%`) },

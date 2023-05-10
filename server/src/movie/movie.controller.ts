@@ -1,6 +1,6 @@
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { SearchMovieQuery } from './queries/search_movie/search_movie.query';
-import { Post, Query } from '@nestjs/common/decorators';
+import { Inject, Post, Query } from '@nestjs/common/decorators';
 import { GetMovieQuery } from './queries/get_movie/get_movie.query';
 import { Controller, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs/dist';
@@ -16,6 +16,8 @@ import { CreateMovieCommand } from './commands/create_movie/create_movie.command
 import { CreateSeriesDto } from './commands/create_series/create_series.dto';
 import { CreateSeriesCommand } from './commands/create_series/create_series.command';
 import { GetSeriesQuery } from './queries/get_series/get_series.query';
+import { Repository } from 'typeorm';
+import { Series } from './entities/series.entity';
 
 @ApiTags('movie')
 @Controller('movie')
@@ -25,6 +27,8 @@ export class MovieController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
+    @Inject('SERIES_REPOSITORY')
+    private readonly seriesRepository: Repository<Series>,
   ) {}
 
   @Get()
@@ -101,6 +105,13 @@ export class MovieController {
   @Post('series')
   createSeries(@Body() dto: CreateSeriesDto) {
     return this.commandBus.execute(new CreateSeriesCommand(dto));
+  }
+
+  @Get('series')
+  async getAllSeries() {
+    return await this.seriesRepository.find({
+      relations: ['movies'],
+    });
   }
 
   @Get('series/:id')
