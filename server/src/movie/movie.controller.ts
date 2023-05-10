@@ -20,6 +20,8 @@ import { Repository } from 'typeorm';
 import { Series } from './entities/series.entity';
 import { UpdateMovieDto } from './commands/update_movie/update_movie.dto';
 import { UpdateMovieCommand } from './commands/update_movie/update_movie.command';
+import { UpdateSeriesDto } from './commands/update_series/update_series.dto';
+import { UpdateSeriesCommand } from './commands/update_series/update_series.command';
 
 @ApiTags('movie')
 @Controller('movie')
@@ -124,5 +126,10 @@ export class MovieController {
   @Put(':id')
   updateMovie(@Param('id') id: number, @Body() dto: UpdateMovieDto) {
     return this.commandBus.execute(new UpdateMovieCommand(id, dto));
+  }
+
+  @Put('series/:id')
+  updateSeries(@Param('id') id: number, @Body() dto: UpdateSeriesDto) {
+    return this.commandBus.execute(new UpdateSeriesCommand(id, dto));
   }
 }
