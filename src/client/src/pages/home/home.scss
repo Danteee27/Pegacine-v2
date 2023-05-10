@@ -1,6 +1,5 @@
 .home {
   background-color: black;
-  overflow: hidden;
 }
 
 a {
@@ -11,5 +10,10 @@ a {
 }
 
 body {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
