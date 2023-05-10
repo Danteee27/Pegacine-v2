@@ -18,14 +18,7 @@ export class GetMovieQueryHandler implements IQueryHandler<GetMovieQuery> {
     const { movie_id } = query;
     const movie = await this.movieRepository.findOne({
       where: { movie_id },
-      relations: [
-        'movie_genres.genre',
-        'movie_cast.person',
-        'movie_keywords',
-        'movie_languages.languages',
-        'movie_crew',
-        // production_country: true,
-      ],
+      relations: ['movie_genres.genre', 'movie_cast.person'],
     });
 
     if (!movie) {
