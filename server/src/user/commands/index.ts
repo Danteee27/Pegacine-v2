@@ -7,6 +7,7 @@ import { DeleteProfileFavoriteMovieCommandHandler } from './profile/delete_profi
 import { DeleteProfileMyListMovieCommandHandler } from './profile/delete_profile_mylist_movie/delete_profile_mylist_movie.handler';
 import { DeleteProfileWatchingMovieCommandHandler } from './profile/delete_profile_watching_movie/delete_profile_watching_movie.handler';
 import { UpdateProfileCommandHandler } from './profile/update_profile/update_profile.handler';
+import { CheckTransactionCommandHandler } from './user/check-transaction/check-transaction.handler';
 import { LoginCommandHandler } from './user/login';
 import { RegisterCommandHandler } from './user/register';
 
@@ -22,4 +23,5 @@ export const CommandHandlers = [
   DeleteProfileFavoriteMovieCommandHandler,
   DeleteProfileMyListMovieCommandHandler,
   DeleteProfileWatchingMovieCommandHandler,
+  CheckTransactionCommandHandler,
 ];

@@ -36,14 +36,14 @@ import { GetProfileWatchedQuery } from './query/get_profile_watched/get_profile_
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom, map } from 'rxjs';
 import axios from 'axios';
+import { GetTransactionsDto } from './query/get_transactions/get_transactions.dto';
+import { GetTransactionsQuery } from './query/get_transactions/get_transactions.query';
+import { CheckTransactionDto } from './commands/user/check-transaction/check-transaction.dto';
+import { CheckTransactionCommand } from './commands/user/check-transaction/check-transaction.command';
 @ApiTags('user')
 @Controller('user')
 export class UserEntityController {
-  constructor(
-    readonly commandBus: CommandBus,
-    readonly queryBus: QueryBus,
-    readonly httpService: HttpService,
-  ) {}
+  constructor(readonly commandBus: CommandBus, readonly queryBus: QueryBus) {}
 
   @Get()
   findAll() {}
@@ -186,14 +186,21 @@ export class UserEntityController {
     return this.queryBus.execute(new GetProfilesQuery(id));
   }
 
-  @Get('transaction/:user_id')
-  async transaction(@Param('user_id') id: number) {
-    const response = await firstValueFrom(
-      this.httpService.get(
-        'https://api.web2m.com/historyapimomo/ab183ad8e797a3ab83436f-49e7-d651-cdf1-62c4d29a34f1',
-      ),
-    );
+  @Get('transaction')
+  getTransactions(@Query() dto: GetTransactionsDto) {
+    return this.queryBus.execute(new GetTransactionsQuery(dto));
+  }
 
-    return response.data;
+  @Post('transaction')
+  createTransaction(@Body() dto: GetTransactionsDto) {
+    return this.queryBus.execute(new GetTransactionsQuery(dto));
+  }
+
+  @Post('check_transaction/:user_id')
+  checkTransaction(
+    @Param('user_id') user_id: number,
+    @Body() dto: CheckTransactionDto,
+  ) {
+    return this.commandBus.execute(new CheckTransactionCommand(user_id, dto));
   }
 }

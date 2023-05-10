@@ -31,6 +31,9 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: true })
   password: string;
 
+  @Column({ name: 'phoneNumber' })
+  phoneNumber: string;
+
   @Column({ name: 'updated_at', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 

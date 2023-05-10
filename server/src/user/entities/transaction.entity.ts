@@ -3,6 +3,9 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('transactions')
 export class UserTransactionEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
   transaction_id: number;
 
   @Column()
@@ -14,12 +17,9 @@ export class UserTransactionEntity extends BaseEntity {
   @Column()
   transaction_amount: number;
 
-  @Column()
+  @Column('datetime')
   transaction_date: Date;
 
   @Column()
   transaction_status: string;
-
-  @Column()
-  transaction_description: string;
 }

@@ -23,12 +23,13 @@ export class RegisterCommandHandler
       throw new BadRequestException('User already exists');
     }
 
-    const { password } = command.dto;
+    const { password, phoneNumber } = command.dto;
 
     const newUser = this.userRepository.create({
       email,
       username: email,
       password,
+      phoneNumber,
     });
 
     await newUser.save();
@@ -37,7 +38,7 @@ export class RegisterCommandHandler
       {
         id: newUser.id,
       },
-      { secret: newUser.password, expiresIn: '1d' },
+      { secret: newUser.password, expiresIn: '30d' },
     );
 
     const refreshToken = this.jwtService.sign(
