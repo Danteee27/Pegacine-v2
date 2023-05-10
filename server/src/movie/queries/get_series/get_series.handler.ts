@@ -13,10 +13,11 @@ export class GetSeriesQueryHandler implements IQueryHandler<GetSeriesQuery> {
   ) {}
   async execute(query: GetSeriesQuery): Promise<any> {
     const { seriesId } = query;
-    const series = await this.seriesRepository.findOne({
-      where: { seriesId },
-      relations: ['movies'],
-    });
+    const series = await this.seriesRepository
+      .createQueryBuilder('series')
+      .innerJoinAndSelect('series.movies', 'movies')
+      .orderBy({ 'movies.seriesOrder': 'ASC' })
+      .getOne();
 
     return new OkResponse(series);
   }
