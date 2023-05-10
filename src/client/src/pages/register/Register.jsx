@@ -4,6 +4,7 @@ import { Button, TextField } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './register.scss';
 import { Link, Route, Routes } from 'react-router-dom';
+import axios, { axiosInstance3 } from '../../axios';
 import Login from '../login/Login';
 import Home from '../home/Home';
 
@@ -17,9 +18,20 @@ export default function Register() {
   const handleStart = () => {
     setEmail(emailRef.current.value);
   };
-  const handleFinish = () => {
-    setPassword(passwordRef.current.value);
-  };
+
+  async function fetchData() {
+    const request = await axiosInstance3.post(
+      `http://localhost:3000/api/user/register`,
+      {
+        email: email,
+        password: passwordRef.current.value,
+      },
+    );
+    if (request.data.statusCode === 200) {
+      window.location.href = '/login';
+    }
+    console.log(request.data.statusCode);
+  }
   return (
     <div className="register">
       <div className="top">
@@ -39,8 +51,8 @@ export default function Register() {
         {!email ? (
           <div className="input">
             <input
-              type="email"
-              placeholder="Enter your email address"
+              type="text"
+              placeholder="Enter your username"
               ref={emailRef}
             />
             <button className="registerButton" onClick={handleStart}>
@@ -48,23 +60,19 @@ export default function Register() {
             </button>
           </div>
         ) : (
-          <form className="input">
-            <input
-              type="password"
-              placeholder="Enter your password"
-              ref={passwordRef}
-            />
+          <div className="input-pass">
+            <div className="input">
+              <input
+                type="password"
+                placeholder="Enter your password"
+                ref={passwordRef}
+              />
 
-            <Link to="/home">
-              <button className="registerButton" onClick={handleFinish}>
+              <button className="registerButton" onClick={fetchData}>
                 Start
               </button>
-            </Link>
-
-            <Routes>
-              <Route path="/home" element={<Home />} />
-            </Routes>
-          </form>
+            </div>
+          </div>
         )}
       </div>
     </div>
