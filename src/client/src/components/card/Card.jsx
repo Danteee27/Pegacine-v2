@@ -82,7 +82,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                         </h3>
                         <div className="icons flex j-between">
                             <div className="controls flex">
-                                <Link to="../player">
+                                <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}}>
                                     <IoPlayCircleSharp
                                         title="Play"/>
                                 </Link>

@@ -77,7 +77,7 @@ export default function List() {
                 />
             </div>
 
-            <Dialog className="dialog-detail" onClose={handleClose} open={openDialog} maxWidth={"80vw"}>
+            <Dialog className="dialog-detail" onClose={handleClose} open={openDialog} maxWidth="80vw">
                 <div className={"dialogContent"}>
                     <IconButton className='on-close' onClick={handleClose}>
                         <CloseOutlined className='close-outlined'>
