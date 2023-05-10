@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import TopList from '../../components/topList/TopList';
+import Footer from '../../components/footer/Footer';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -37,12 +38,16 @@ const Home = () => {
       <TopList movieDataList={movies} title={'Hot movies today'} />
       <List movieDataList={movies} title={'Only in Pegacine'} />
       <List movieDataList={movies} title={'Drama'} />
+      <List movieDataList={movies} title={'K Drama'} />
+      <List movieDataList={movies} title={'V Drama'} />
+      <List movieDataList={movies} title={'T Drama'} />
       {/* {moviesTop10Country && (
         <TopList
           movieDataList={moviesTop10Country}
           title={'Hot movies in Vietnam today'}
         />
       )} */}
+      <Footer />
     </div>
   );
 };
