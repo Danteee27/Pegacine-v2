@@ -8,6 +8,7 @@ import {
   Patch,
   Query,
   ForbiddenException,
+  Inject,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
@@ -40,16 +41,18 @@ import { GetTransactionsDto } from './query/get_transactions/get_transactions.dt
 import { GetTransactionsQuery } from './query/get_transactions/get_transactions.query';
 import { CheckTransactionDto } from './commands/user/check-transaction/check-transaction.dto';
 import { CheckTransactionCommand } from './commands/user/check-transaction/check-transaction.command';
+import { Repository } from 'typeorm';
+import { UserTransactionEntity } from './entities/transaction.entity';
+import { OkResponse } from 'libs/models/responses';
 @ApiTags('user')
 @Controller('user')
 export class UserEntityController {
-  constructor(readonly commandBus: CommandBus, readonly queryBus: QueryBus) {}
-
-  @Get()
-  findAll() {}
-
-  @Get(':id')
-  findById(@Param('id') id: number) {}
+  constructor(
+    readonly commandBus: CommandBus,
+    readonly queryBus: QueryBus,
+    @Inject('TRANSACTION_REPOSITORY')
+    readonly transactionRepository: Repository<UserTransactionEntity>,
+  ) {}
 
   @Post('register')
   register(@Body() dto: RegisterDto) {
@@ -187,8 +190,8 @@ export class UserEntityController {
   }
 
   @Get('transaction')
-  getTransactions(@Query() dto: GetTransactionsDto) {
-    return this.queryBus.execute(new GetTransactionsQuery(dto));
+  async getTransactions() {
+    return await this.transactionRepository.find();
   }
 
   @Post('transaction')
