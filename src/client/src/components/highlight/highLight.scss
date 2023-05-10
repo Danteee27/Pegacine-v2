@@ -14,7 +14,7 @@
 
     select {
       cursor: pointer;
-      background-color: black;
+      background-color: #141414;
       border: 1px solid white;
       color: white;
       margin-left: 20px;
@@ -66,7 +66,7 @@
 
         &.play {
           background-color: white;
-          color: black;
+          color: #141414;
           .play-arrow,
           span {
             background-color: transparent;

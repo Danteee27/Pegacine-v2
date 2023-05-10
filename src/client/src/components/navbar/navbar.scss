@@ -8,7 +8,7 @@
   background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.3) 50%);
 
   &.scrolled {
-    background-color: black;
+    background-color: #141414;
   }
 
   .container {
@@ -56,7 +56,7 @@
       .profile {
         .options {
           display: none;
-          background-color: black;
+          background-color: #141414;
           border-radius: 5px;
         }
 
