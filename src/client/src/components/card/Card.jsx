@@ -14,11 +14,13 @@ import {Add, CloseOutlined, PlayArrow, ThumbUpAltOutlined} from "@mui/icons-mate
 import Dialog from "@mui/material/Dialog";
 import {axiosInstance3} from "../../axios";
 
-export default React.memo(function Card({index, movieData, isLiked = false, isVip = false}) {
+export default React.memo(function Card({index, movieData, isLiked = false, isVip = false, isSeries = false}) {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
     const [openDialog, handleDisplay] = useState(false);
     const [fullDataMovie, setFullDataMovie] = useState(null);
+    // const [isSeries, setIsSeries] = useState(false);
+    const [series, setSeries] = useState();
     const handleClose = () => {
         handleDisplay(false);
     };
@@ -28,15 +30,27 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
             const request = await axiosInstance3.get(`http://localhost:3000/api/movie/findById?id=${movieData.movie_id}`);
             console.log("movie: ", request.data.data)
             setFullDataMovie(request.data.data)
-            return request;
+            // if (request.data.data.isSeries === true) {
+            //     setIsSeries(true);
+            // }
         }
 
-        fetchMovieById();
+        if (!isSeries) {
+            fetchMovieById();
+        }
     }, []);
 
+    useEffect(() => {
+        async function fetchSeriesById() {
+            const request = await axiosInstance3.get(`http://localhost:3000/api/movie/series/${movieData.seriesId}`);
+            console.log("Series: ", request.data.data)
+            setSeries(request.data.data)
+        }
 
-
-
+        if (isSeries) {
+            fetchSeriesById();
+        }
+    }, []);
 
 
     const openDialogBox = () => {
@@ -75,7 +89,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
 
             {isHovered && (
                 <div className="hover">
-                    <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}} style={{height:'236px'}}>
+                    <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}} style={{height: '236px'}}>
                         <div className="image-video-container">
                             <img
                                 // src={`${base_url}${movieData.backdrop_path}`}
@@ -84,7 +98,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                                 // onClick={() => navigate(`/player/?url=${movieData.video}`)}//dang lam
                             />
                             <video
-                                src={trailer}
+                                src={movieData.trailer || trailer}
                                 autoPlay={true}
                                 loop
                                 muted
@@ -129,7 +143,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                                 )}
                             </div>
                             <div className="info">
-                                <BiChevronDown title="More Info" onClick = {openDialogBox}/>
+                                <BiChevronDown title="More Info" onClick={openDialogBox}/>
                             </div>
                         </div>
                         <div className="genres flex">
@@ -146,57 +160,87 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                     </div>
                 </div>
             )}
-            <Dialog  onMouseEnter={() => setIsHovered(false)}
-                     onMouseLeave={() => setIsHovered(false)} className="dialog-detail" onClose = {handleClose} open = {openDialog}>
+            <Dialog onMouseEnter={() => setIsHovered(false)}
+                    onMouseLeave={() => setIsHovered(false)} className="dialog-detail" onClose={handleClose}
+                    open={openDialog}>
                 <div className='detail-general'>
 
                     <div className='video-info'>
 
-                        <IconButton className='on-close' onClick={handleClose}><CloseOutlined className='close-outlined'></CloseOutlined></IconButton>
-                        <video className='video-custom' autoPlay muted loop src={trailer}> </video>
+                        <IconButton className='on-close' onClick={handleClose}><CloseOutlined
+                            className='close-outlined'></CloseOutlined></IconButton>
+                        <video className='video-custom' autoPlay muted loop src={trailer}></video>
                         <div className='navigation-general'>
 
-                            <h1 className='title-movie'>Marvel Endgame</h1>
+                            <h1 className='title-movie'>{isSeries ? movieData.seriesName : movieData.title}</h1>
                             <div className='navigation-button'>
                                 <div className="icons">
                                     <Link to="../player">
                                         <IconButton className='icon-button-custom'>
-                                            <PlayArrow />
+                                            <PlayArrow/>
                                         </IconButton>
 
                                     </Link>
                                     <Routes>
-                                        <Route path="/player" element={<PlayerPage />} />
+                                        <Route path="/player" element={<PlayerPage/>}/>
                                     </Routes>
                                     <IconButton className='icon-button-custom'>
-                                        <Add />
+                                        <Add/>
                                     </IconButton>
                                     <IconButton className='icon-button-custom'>
 
-                                        <ThumbUpAltOutlined />
+                                        <ThumbUpAltOutlined/>
                                     </IconButton>
-                                </div></div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
                     <div className='detail-info'>
                         <div className='sub-detail-1'>
                             <span className='new'>New</span>
-                            <span className='time'>10 minutes</span>
-                            <span>Comedy</span>
-                            <span>1999</span>
+                            {!isSeries && <span className='time'>{`${movieData.runtime} minutes`}</span>}
+                            {!isSeries && <span>Comedy</span>}
+                            {!isSeries && <span>1999</span>}
                         </div>
-                        <div className='limit-age'>
+                        {!isSeries && movieData.isAdult && <div className='limit-age'>
                             <span className="limit">+16</span>
 
-                        </div>
-                        <p className='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas est repudiandae consequatur? Minus deleniti natus deserunt, nobis itaque eveniet reprehenderit nesciunt, beatae nam quos provident repellendus ipsam fuga, quod non?</p>
+                        </div>}
+                        <p className='description'>{isSeries ? movieData.seriesDescription : movieData.overview}</p>
                         <div className='addtional-field'>
                             <span><span className='title-additonal'>Cast:</span> Hulk, Batman, Thor, Ironman</span>
                             <span><span className='title-additonal'>Genres:</span> Action Film, Romantic Film</span>
                         </div>
                     </div>
+                    {isSeries &&
+                        <div className='movie-chapter'>
+                            <span className='movie-chapter-title'>Episodes</span>
+                            <div className='gap'></div>
+                            {series?.movies && series.movies.map((movie, index) =>
+                                <div key={index} className='episodes'>
+                                    <hr size='1'/>
+                                    <Link to={`/player/${movie.movie_id}`} state={{data: movie}}> <div className='chapter-row'>
+                                        <div className='num-of-chapter'>
+                                            <span>{movie.seriesOrder}</span>
+                                        </div>
+                                        <div className="chapter-image">
+                                            <img src={movie.backdrop} alt=""/>
+                                        </div>
+                                        <div className='chapter-title'>
+                                            <div>
+                                                <span>{movie.title}</span>
+                                            </div>
+                                            <div>
+                                                <span className='chapter-time'>{`${movie.runtime}m`}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </Link>
 
+                                </div>
+                            )}
+                        </div>}
                 </div>
             </Dialog>
         </Container>
