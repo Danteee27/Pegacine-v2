@@ -1,7 +1,9 @@
 .planFormContainer {
   background: white;
 }
-
+.alert-access {
+  margin-top: 20px;
+}
 .planForm {
   height: 100%;
   padding-bottom: 50px;
