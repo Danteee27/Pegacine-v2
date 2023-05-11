@@ -41,8 +41,8 @@ export default function ItemList({ index, movieData }) {
       setCast(request.data.slice(0, 5));
       return request;
     }
-    fetchData(movieData.movie_id);
-    fetchDataCast(movieData.movie_id);
+    fetchData(movieData?.movie_id);
+    fetchDataCast(movieData?.movie_id);
   }, []);
 
   const trailer =
@@ -73,21 +73,21 @@ export default function ItemList({ index, movieData }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <img
-        src={movieData.thumbnail ? movieData.thumbnail : movieThumbnail}
+        src={movieData?.thumbnail ? movieData.thumbnail : movieThumbnail}
         alt=""
       />
       {isHovered && (
         <>
           <video
             className="video-thumbnail"
-            src={movieData.trailer ? movieData.trailer : trailer}
+            src={movieData?.trailer ? movieData.trailer : trailer}
             autoPlay={true}
             loop
           />
           <div className="itemInfo">
             <div className="icons">
               <Link
-                to={`/player/${movieData.movie_id}`}
+                to={`/player/${movieData?.movie_id}`}
                 state={{ data: movieData }}
               >
                 <PlayArrow className="icon" />
@@ -102,12 +102,12 @@ export default function ItemList({ index, movieData }) {
               <InfoRounded className="icon" onClick={openDialogBox} />
             </div>
             <div className="itemInfoTop">
-              <span>{movieData.runtime} mins</span>
-              {movieData.isAdult && <span className="limit">+16</span>}
-              {!movieData.isAdult && <span className="limit">+3</span>}
-              <span>{movieData.release_date.split('-')[0]}</span>
+              <span>{movieData?.runtime} mins</span>
+              {movieData?.isAdult && <span className="limit">+16</span>}
+              {!movieData?.isAdult && <span className="limit">+3</span>}
+              <span>{movieData?.release_date.split('-')[0]}</span>
             </div>
-            <div className="desc">{movieData.tagline}</div>
+            <div className="desc">{movieData?.tagline}</div>
             <div className="genre">
               {/* {movie.movie_genres ? movie.movie_genres[0].genre.genre_name : ''} */}
               {movie &&
@@ -135,14 +135,14 @@ export default function ItemList({ index, movieData }) {
               autoPlay
               muted
               loop
-              src={movieData.trailer ? movieData.trailer : trailer}
+              src={movieData?.trailer ? movieData.trailer : trailer}
             ></video>
             <div className="navigation-general">
-              <h1 className="title-movie">{movieData.title}</h1>
+              <h1 className="title-movie">{movieData?.title}</h1>
               <div className="navigation-button">
                 <div className="icons">
                   <Link
-                    to={`/player/${movieData.movie_id}`}
+                    to={`/player/${movieData?.movie_id}`}
                     state={{ data: movieData }}
                   >
                     <IconButton className="icon-button-custom">
@@ -164,18 +164,18 @@ export default function ItemList({ index, movieData }) {
           </div>
           <div className="detail-info">
             <div className="sub-detail-1">
-              {movieData.release_date.split('-')[0] > '2000' && (
+              {movieData?.release_date.split('-')[0] > '2000' && (
                 <span className="new">New</span>
               )}
-              <span className="time">{movieData.runtime} mins</span>
+              <span className="time">{movieData?.runtime} mins</span>
               <span>Comedy</span>
-              <span>{movieData.release_date.split('-')[0]}</span>
+              <span>{movieData?.release_date.split('-')[0]}</span>
             </div>
             <div className="limit-age">
-              {movieData.isAdult && <span className="limit">+16</span>}
-              {!movieData.isAdult && <span className="limit">+3</span>}
+              {movieData?.isAdult && <span className="limit">+16</span>}
+              {!movieData?.isAdult && <span className="limit">+3</span>}
             </div>
-            <p className="description">{movieData.overview}</p>
+            <p className="description">{movieData?.overview}</p>
             <div className="addtional-field">
               <span>
                 <span className="title-additonal">Cast: </span>
@@ -192,7 +192,7 @@ export default function ItemList({ index, movieData }) {
             </div>
           </div>
 
-          {movieData.seriesId && (
+          {movieData?.seriesId && (
             <div className="movie-chapter">
               <span className="movie-chapter-title">Episodes</span>
               <div className="gap"></div>
@@ -203,7 +203,7 @@ export default function ItemList({ index, movieData }) {
                     <span>1</span>
                   </div>
                   <div className="chapter-image">
-                    <img src={movieData.thumbnail} alt="" />
+                    <img src={movieData?.thumbnail} alt="" />
                   </div>
                   <div className="chapter-title">
                     <div>

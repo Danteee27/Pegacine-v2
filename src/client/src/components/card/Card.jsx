@@ -12,14 +12,32 @@ import PlayerPage from "../../pages/player/PlayerPage";
 import {IconButton} from "@mui/material";
 import {Add, CloseOutlined, PlayArrow, ThumbUpAltOutlined} from "@mui/icons-material";
 import Dialog from "@mui/material/Dialog";
+import {axiosInstance3} from "../../axios";
 
 export default React.memo(function Card({index, movieData, isLiked = false, isVip = false}) {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
     const [openDialog, handleDisplay] = useState(false);
+    const [fullDataMovie, setFullDataMovie] = useState(null);
     const handleClose = () => {
         handleDisplay(false);
     };
+
+    useEffect(() => {
+        async function fetchMovieById(id) {
+            const request = await axiosInstance3.get(`http://localhost:3000/api/movie/findById?id=${movieData.movie_id}`);
+            console.log("movie: ", request.data.data)
+            setFullDataMovie(request.data.data)
+            return request;
+        }
+
+        fetchMovieById();
+    }, []);
+
+
+
+
+
 
     const openDialogBox = () => {
         handleDisplay(true);
@@ -117,8 +135,11 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                         <div className="genres flex">
                             <ul className="flex">
                                 {/*dang lam mang cho genre*/}
-                                {/*{movieData.genre_ids.map((genre) => (*/}
-                                {/*    <li key={genre}>{genre}</li>*/}
+                                {(fullDataMovie) && fullDataMovie.movie_genres.map((genre) => (
+                                    <li key={genre.genre_id}>{genre.genre.genre_name}</li>
+                                ))}
+                                {/*{movieData.movie_genres.map((genre) => (*/}
+                                {/*    <li key={genre}>{genre.genre_id}</li>*/}
                                 {/*))}*/}
                             </ul>
                         </div>

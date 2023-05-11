@@ -1,0 +1,54 @@
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.j-between {
+    justify-content: space-between;
+}
+
+.j-center {
+    justify-content: center;
+}
+
+.a-center {
+    align-items: center;
+}
+
+.myList {
+    overflow: hidden;
+}
+body{
+    background: #141414;
+}
+
+.myList{
+    height: 100%;
+    padding-bottom: 300px;
+}
+
+#root{
+    height: 100%;
+}
+
+h1 {
+    color: snow;
+    margin-left: 3rem;
+}
+
+.myListConent{
+    margin-top: 8rem;
+}
+
+.moviesContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-left: 65px;
+    margin-right: 2.3rem;
+    margin-top: 2rem;
+}
+

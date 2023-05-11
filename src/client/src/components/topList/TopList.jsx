@@ -13,7 +13,8 @@ export default function List({ movieDataList, title }) {
   const [slideNumber, setSlideNumber] = useState(0);
   const [openDialog, handleDisplay] = useState(false);
   const [movies, setMovies] = useState([]);
-  console.log('movieDataList: ', movieDataList);
+  console.log('movieDataList At top List: ', movieDataList);
+
   async function fetchMoviesData() {
     const request = await axiosInstance3.get(
       'http://localhost:3000/api/user/profiles/my_list?profile_id=2&page=1&pageSize=999',
