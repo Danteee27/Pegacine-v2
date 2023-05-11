@@ -2,25 +2,29 @@ import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import './PlayerPage.css';
 import {BsArrowLeft} from 'react-icons/bs';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {Link, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Navbar from "../../components/navbar/Navbar";
 import requests from "../../Requests";
+import {axiosInstance3} from "../../axios";
+import PlayerPage from "./PlayerPage";
 
 // import video from "../../assets/demoH06.mp4"
 function Player() {
     // const navigate = useNavigate()
     const location = useLocation();
-    console.log("state:",location.state?.data)
+    console.log("state:", location.state?.data)
 
     // const videoUrl = url || "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     const videoUrl = location.state?.data.video || "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     const movieData = location.state?.data;
 
+    const isSeries = movieData?.isSeries
 
 
     // const [isEpisodeHover, setEpisodeHover] = useState(false);
     const [isEpisodeHover, setIsEpisodeHover] = useState(false);
     const [isNextEpisodeHover, setIsNextEpisodeHover] = useState(false);
+    const [series, setSeries] = useState();
 
     const video = useRef(null);
     const videoContainer = useRef(null);
@@ -65,7 +69,17 @@ function Player() {
         }
     }
 
+    useEffect(() => {
+        async function fetchSeriesById() {
+            const request = await axiosInstance3.get(`http://localhost:3000/api/movie/series/${movieData?.seriesId}`);
+            console.log("Series: ", request.data.data)
+            setSeries(request.data.data)
+        }
 
+        if (isSeries) {
+            fetchSeriesById();
+        }
+    }, []);
 
 
     useEffect(() => {
@@ -209,7 +223,8 @@ function Player() {
                 </svg>
             </div>
             <div className={"videoPlayer videoContainer"} ref={videoContainer}>
-                <video ref={video} src={videoUrl} autoPlay={true} muted={false} datatype={".mp4"}  onClick={handlePlay}></video>
+                <video ref={video} src={videoUrl} autoPlay={true} muted={false} datatype={".mp4"}
+                       onClick={handlePlay}></video>
                 <div className={"controlsContainer"} ref={controlsContainer}>
                     <div className={"progressControls"}>
                         <div className={"progressBar"} ref={progressBar}>
@@ -360,27 +375,33 @@ function Player() {
                     isEpisodeHover &&
                     <div className={"episodeHover"} onMouseEnter={() => setIsEpisodeHover(true)}
                          onMouseLeave={handleOnMouseLeaveEpisode}>
-                        <div className={"filmTitle"}>Physical 100</div>
+                        <div className={"filmTitle"}>{isSeries ? series.seriesName : movieData.title}</div>
                         <div className={"episodeList"}>
-                            <div className={"episodeRow"}>
-                                <div className={"headerEpisodeRow"}>
-                                    <div className={"orderAndTitleEpisode"}>
-                                        <div className={"orderEpisode"}>1</div>
-                                        <div className={"titleEpisode"}>One You With To Avoid</div>
+
+                            {isSeries && series?.movies && series.movies.map((movie, index) =>
+                                <Link to={`/player/${movie.movie_id}`} state={{data: movie}}>
+                                    <div className={"episodeRow"}>
+                                        <div className={"headerEpisodeRow"}>
+                                            <div className={"orderAndTitleEpisode"}>
+                                                <div className={"orderEpisode"}>{movie.seriesOrder}</div>
+                                                <div className={"titleEpisode"}>{movie.title}</div>
+                                            </div>
+                                            <div className={"progressBarForEpisode"}>ProgressBar</div>
+                                        </div>
+                                        <div className={"contentEpisodeRow"}>
+                                            <div className={"imgEpisode"}>
+                                                <img src={movie.backdrop}/>
+                                            </div>
+                                            <div className={"descriptionEpisode"}>{movie.overview}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className={"progressBarForEpisode"}>ProgressBar</div>
-                                </div>
-                                <div className={"contentEpisodeRow"}>
-                                    <div className={"imgEpisode"}>
-                                        <img src={require("../../assets/img_episode.jpg")}/>
-                                    </div>
-                                    <div className={"descriptionEpisode"}>The fight to stay in the competition
-                                        continues.
-                                        Contestants find ways of defying their own physical limitations in order to beat
-                                        opponents.
-                                    </div>
-                                </div>
-                            </div>
+                                </Link>
+                            )}
+
+                            <Routes>
+                                <Route path="/player" element={<PlayerPage/>}/>
+                            </Routes>
                         </div>
                     </div>
                 }
