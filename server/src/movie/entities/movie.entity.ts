@@ -73,23 +73,23 @@ export class Movie extends BaseEntity {
   @ApiProperty()
   vote_count: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 1000 })
   @ApiProperty()
   image: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 1000 })
   @ApiProperty()
   backdrop: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 1000 })
   @ApiProperty()
   thumbnail: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 1000 })
   @ApiProperty()
   video: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 1000 })
   @ApiProperty()
   trailer: string;
 
