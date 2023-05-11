@@ -20,10 +20,6 @@ export default function Register() {
   };
 
   async function fetchData() {
-    const newUser = {
-      email: email,
-      password: passwordRef.current.value,
-    };
     let data = JSON.stringify({
       email: email,
       password: passwordRef.current.value,

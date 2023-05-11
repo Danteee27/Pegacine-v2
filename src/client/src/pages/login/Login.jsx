@@ -5,32 +5,38 @@ import Register from '../register/Register';
 import axios, { axiosInstance3 } from '../../axios';
 import './login.scss';
 import { useSignIn } from 'react-auth-kit';
+import { Alert, AlertTitle } from '@mui/material';
 
 export default function Login() {
   const username = useRef();
   const password = useRef();
   const signIn = useSignIn();
-
   async function fetchData() {
-    const request = await axiosInstance3.post(
-      `http://localhost:3000/api/user/login`,
-      {
-        email: username.current.value,
-        password: password.current.value,
-      },
-    );
-    console.log(request.data.data.jwt.token);
-    if (request.data.statusCode === 200) {
-      signIn({
-        token: request.data.data.jwt.token,
-        expiresIn: 360,
-        tokenType: 'Bearer',
-        authState: { username: username.current.value },
+    let data = JSON.stringify({
+      email: username.current.value,
+      password: password.current.value,
+    });
+    const request = await axiosInstance3
+      .post(`http://localhost:3000/api/user/login`, data, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(function (response) {
+        if (response.data.statusCode === 200) {
+          signIn({
+            token: response.data.data.jwt.token,
+            expiresIn: 360,
+            tokenType: 'Bearer',
+            authState: { username: username.current.value },
+          });
+          const user = response.data.data.user;
+          localStorage.setItem('user', JSON.stringify(user));
+          window.location.href = '/home';
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert('login failed');
       });
-      const user = request.data.data.user;
-      localStorage.setItem('user', JSON.stringify(user));
-      window.location.href = '/home';
-    }
   }
 
   return (
