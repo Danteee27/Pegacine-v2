@@ -20,17 +20,27 @@ export default function Register() {
   };
 
   async function fetchData() {
-    const request = await axiosInstance3.post(
-      `http://localhost:3000/api/user/register`,
-      {
-        email: email,
-        password: passwordRef.current.value,
-      },
-    );
-    if (request.data.statusCode === 200) {
-      window.location.href = '/login';
-    }
-    console.log(request.data.statusCode);
+    const newUser = {
+      email: email,
+      password: passwordRef.current.value,
+    };
+    let data = JSON.stringify({
+      email: email,
+      password: passwordRef.current.value,
+      phoneNumber: '123456789',
+    });
+    const request = await axiosInstance3
+      .post(`http://localhost:3000/api/user/register`, data, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(function (response) {
+        window.location.href = '/login';
+      })
+      .catch(function (error) {
+        console.log(error);
+        // window.location.href = '/register';
+        alert('Register failed');
+      });
   }
   return (
     <div className="register">
