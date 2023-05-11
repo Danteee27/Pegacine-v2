@@ -49,7 +49,7 @@
   font-weight: bold;
 }
 
-.momoButton {
+.momoButton-1 {
   margin-bottom: 50px;
   margin-top: 25px;
   width: 100%;
@@ -62,6 +62,9 @@
   border-radius: 5px;
   border: 1px #cccccc solid;
   justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
 }
 
 .momoButton:hover {

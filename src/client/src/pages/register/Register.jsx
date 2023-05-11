@@ -23,7 +23,7 @@ export default function Register() {
     let data = JSON.stringify({
       email: email,
       password: passwordRef.current.value,
-      phoneNumber: '123456789',
+      phoneNumber: '0335886430',
     });
     const request = await axiosInstance3
       .post(`http://localhost:3000/api/user/register`, data, {

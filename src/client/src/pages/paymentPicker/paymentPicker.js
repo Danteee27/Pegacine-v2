@@ -8,6 +8,9 @@ import Navbar from "../../components/navbar/Navbar";
 import "./paymentPicker.css"
 import Footer from "../../components/footer/Footer";
 import { useLocation } from "react-router-dom";
+import PaymentConfirm from "../paymentConfirm/paymentConfirm";
+import { Link, Route, Routes } from 'react-router-dom';
+
 export default function PaymentPicker({props}) {
 
     const silver = useRef();
@@ -18,6 +21,7 @@ export default function PaymentPicker({props}) {
         setReRender(prevState => !prevState)
     }
     const { state } = useLocation();
+    const stateObj = state;
     console.log(state);
 
     return (<div className={"paymentPickerForm"}>
@@ -44,7 +48,12 @@ export default function PaymentPicker({props}) {
                             </div>
                         </div>
                     </div>
-                    <button className={"momoButton"}>
+
+                    <Link
+                                to={'/confirm-payment'}  
+                                state={stateObj}
+                            >
+                                <button className={"momoButton-1"}>
                         <div className={"leftDetailWallet"}>
                             <div className={"walletName"}>Digital Wallet</div>
                             <div><img src={require("../../assets/MOMOPAY.png")} alt="momoIcon"/></div>
@@ -56,6 +65,12 @@ export default function PaymentPicker({props}) {
                                   fill="currentColor"></path>
                         </svg>
                     </button>
+                            </Link>
+                            <Routes>
+                                <Route path="/confirm-payment" element={<PaymentConfirm />} />
+                            </Routes>
+
+                    
                 </div>
             </div>
             <Footer/>   

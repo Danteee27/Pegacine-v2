@@ -99,6 +99,15 @@ export default function App() {
             </RequireAuth>
           }
         />
+
+        <Route
+          path="/confirm-payment"
+          element={
+            <RequireAuth loginPath="/login">
+              <PaymentConfirm fetchUrl={requests.fetchTrending} />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </div>
   );

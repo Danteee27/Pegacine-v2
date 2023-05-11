@@ -21,7 +21,7 @@ const Home = () => {
   console.log('userDetails: ', userDetails);
   useEffect(() => {
     if (userDetails.userRank === 'NONE') {
-      window.location.href = '/myList';
+      window.location.href = '/plan-form';
     }
     async function fetchData() {
       const request = await axiosInstance3.get(
