@@ -1,0 +1,44 @@
+.paymentConfirmFormContainer {
+    background: white;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+}
+
+.paymentConfirmForm {
+    height: 100%;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.paymentConfirmFormContent {
+    width: 70vw;
+    color: #141414;
+    display: flex;
+    justify-content: center;
+}
+
+.paymentConfirmHeading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.stepHeader-container {
+    display: flex;
+}
+.contextRow {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.contextRowEmphasized {
+    font-weight: bold;
+}
+
+.qr-code{
+
+}
+

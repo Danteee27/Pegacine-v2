@@ -1,26 +1,24 @@
-.paymentPickerFormContainer {
+.paymentConfirmFormContainer {
   background: white;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  height: 90vh;
 }
 
-.paymentPickerForm {
+.paymentConfirmForm {
   height: 100%;
   padding-bottom: 50px;
   display: flex;
   flex-direction: column;
 }
 
-.paymentPickerFormContainer {
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
-}
-
-.paymentPickerFormContent {
+.paymentConfirmFormContent {
   width: 26vw;
   color: #141414;
 }
 
-.paymentPickerHeading {
+.paymentConfirmHeading {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,32 +35,82 @@
   font-weight: bold;
 }
 
-.momoButton {
-  margin-top: 25px;
-  width: 500px;
-  height: 60px;
+.phoneInputContainer{
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  border: 1px #A1A1A1 solid;
+  width: 440px;
+  height: 50px;
+}
+
+.phoneArea{
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
   align-items: center;
-  background: transparent;
-  border-radius: 5px;
-  border: 1px #cccccc solid;
+  padding-right: 5px;
+  padding-left: 5px;
+
+}
+
+.vnFlag{
+  width: 24px;
+  height: 24px;
+}
+
+.caretDown{
+  width: 14px;
+  height: 14px;
+  color: #A1A1A1;
+  fill: #A1A1A1;
+}
+
+.inputPhone{
+  padding-left: 15px;
+  width: 100%;
+  border: none;
+  font-size: 17px;
+}
+
+.planContent{
+  display: flex;
   justify-content: space-between;
-}
-
-.momoButton:hover {
-  cursor: pointer;
-}
-
-.leftDetailWallet {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 15px;
-}
-
-.walletName {
-  display: flex;
+  width: 442px;
+  height: 70px;
+  border-radius: 5px;
+  margin-top: 15px;
   align-items: center;
+  background-color: #f4f4f4;
 }
+
+.monthlyPrice{
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.planName{
+  color: #737373;
+  font-size: 16px;
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+.startMemberShipButton{
+  margin-top: 25px;
+  width: 442px;
+  height: 56px;
+  background-color: #E31221;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.noteToMomo{
+  padding-top: 10px;
+}
+
+

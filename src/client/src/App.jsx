@@ -26,6 +26,7 @@ import { RequireAuth } from 'react-auth-kit';
 import PlanForm from './pages/planForm/PlanForm';
 import PaymentPicker from './pages/paymentPicker/paymentPicker';
 import PaymentConfirm from './pages/paymentConfirm/paymentConfirm';
+import PaymentProcessing from "./pages/paymentProcessing/paymentProcessing";
 
 export default function App() {
   // const location = useLocation();
@@ -108,6 +109,15 @@ export default function App() {
             </RequireAuth>
           }
         />
+
+          <Route
+              path="/payment-processing"
+              element={
+                  <RequireAuth loginPath="/login">
+                      <PaymentProcessing fetchUrl={requests.fetchTrending} />
+                  </RequireAuth>
+              }
+          />
       </Routes>
     </div>
   );

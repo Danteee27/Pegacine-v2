@@ -22,7 +22,7 @@ export default function PaymentPicker({props}) {
     }
     const { state } = useLocation();
     const stateObj = state;
-    console.log(state);
+    console.log("payment picker: ",state);
 
     return (<div className={"paymentPickerForm"}>
             <Navbar/>

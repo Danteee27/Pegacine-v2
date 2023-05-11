@@ -51,7 +51,7 @@ export default function ItemTopList({ index, top = index + 1, movieData }) {
   const trailer =
     'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761';
 
-  const movieThumbnail =
+  const moviePoster =
     'https://image.tmdb.org/t/p/original/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg';
   const [open, setOpen] = React.useState(false);
   const [openDialog, handleDisplay] = React.useState(false);
@@ -270,7 +270,7 @@ export default function ItemTopList({ index, top = index + 1, movieData }) {
 
         <img
           ref={poster}
-          src={movieData?.thumbnail ? movieData.thumbnail : movieThumbnail}
+          src={movieData?.poster ? movieData.poster : moviePoster}
           alt=""
         />
       </div>
