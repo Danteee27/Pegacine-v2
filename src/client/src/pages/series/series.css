@@ -24,3 +24,32 @@
 body{
     background: #141414;
 }
+
+.myList{
+    height: 100%;
+    padding-bottom: 300px;
+}
+
+#root{
+    height: 100%;
+}
+
+h1 {
+    color: snow;
+    margin-left: 3rem;
+}
+
+.seriesContainer{
+    margin-top: 8rem;
+}
+
+.seriesContent{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-left: 65px;
+    margin-right: 2.3rem;
+    margin-top: 2rem;
+    min-height: 1400px;
+}
+
