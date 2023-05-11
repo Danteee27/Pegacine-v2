@@ -24,7 +24,6 @@ export default function ItemTopList({ index, top = index + 1, movieData }) {
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState(null);
 
-
   console.log('movieDataList At Item Top List: ', movieData);
 
   useEffect(() => {
@@ -66,9 +65,7 @@ export default function ItemTopList({ index, top = index + 1, movieData }) {
     handleDisplay(true);
   };
 
-  const hanleAddMyList = ()=>{
-
-  }
+  const hanleAddMyList = () => {};
   const dialogStyle = {
     padding: '20px',
   };
@@ -297,9 +294,11 @@ export default function ItemTopList({ index, top = index + 1, movieData }) {
               <Routes>
                 <Route path="/player" element={<PlayerPage />} />
               </Routes>
-              <div onClick={hanleAddMyList}><Add className="icon"/></div>
-              <ThumbUpAltOutlined className="icon" />
-              <ThumbDownOutlined className="icon" />
+              <div onClick={hanleAddMyList}>
+                <Add className="icon" />
+              </div>
+              {/* <ThumbUpAltOutlined className="icon" />
+              <ThumbDownOutlined className="icon" /> */}
 
               <InfoRounded className="icon" onClick={openDialogBox} />
             </div>
@@ -357,9 +356,9 @@ export default function ItemTopList({ index, top = index + 1, movieData }) {
                   <IconButton className="icon-button-custom">
                     <Add />
                   </IconButton>
-                  <IconButton className="icon-button-custom">
+                  {/* <IconButton className="icon-button-custom">
                     <ThumbUpAltOutlined />
-                  </IconButton>
+                  </IconButton> */}
                 </div>
               </div>
             </div>

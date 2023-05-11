@@ -21,6 +21,12 @@ const Navbar = () => {
     localStorage.clear();
     navigate('/login');
   };
+  const backHome = () => {
+    window.location.href = '/home';
+  };
+  const upgradeAccount = () => {
+    window.location.href = 'plan-form';
+  };
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -30,7 +36,7 @@ const Navbar = () => {
     <div className={isScrolled ? 'navbar scrolled' : 'navbar'}>
       <div className="container">
         <div className="left">
-          <img src="../logo.png" alt="" />
+          <img src="../logo.png" className="logo" alt="" onClick={backHome} />
           <a href="./home">
             <span>Home</span>
           </a>
@@ -62,7 +68,9 @@ const Navbar = () => {
             <ArrowDropDown className="icon" />
             <div className="options">
               <span>Membership: {userDetails.userRank}</span>
-              <span>Upgrade Membership</span>
+
+              <span onClick={upgradeAccount}>Upgrade Membership</span>
+
               <span onClick={logout}>Logout</span>
             </div>
           </div>
