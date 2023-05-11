@@ -32,7 +32,7 @@ const Navbar = () => {
         <div className="left">
           <img src="../logo.png" alt="" />
           <a href="./home">
-            <span>Homepage</span>
+            <span>Home</span>
           </a>
           <Link to="../series">
             <span>Series</span>
@@ -57,20 +57,19 @@ const Navbar = () => {
             <Search className="icon" />
           </a>
           <span className="username">{userDetails.username}</span>
-          <Link to="/register">
-            <img
-              src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-              alt=""
-            />
-          </Link>
+
           <div className="profile">
             <ArrowDropDown className="icon" />
             <div className="options">
-              <span>Settings</span>
+              <span>Membership: {userDetails.userRank}</span>
+              <span>Upgrade Membership</span>
               <span onClick={logout}>Logout</span>
-              {/* <span>Logout</span> */}
             </div>
           </div>
+          <img
+            src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
+            alt=""
+          />
         </div>
       </div>
     </div>

@@ -29,6 +29,7 @@ import {axiosInstance2} from "../../axios";
 import requests from "../../Requests";
 import Navbar from "../../components/navbar/Navbar";
 import "./MyList.css"
+import Footer from "../../components/footer/Footer";
 
 export default function MyList({fetchUrl}) {
     const trailer = 'https://media.istockphoto.com/id/857947444/vi/video/thu-nh%E1%BB%8F-%C4%91%E1%BA%A7u-b%E1%BA%BFp-trang-tr%C3%AD-%C4%91%C4%A9a-c%E1%BB%A7a-m%C3%ACnh-v%C3%A0-tr%C3%B4ng-r%E1%BA%A5t-h%E1%BA%A1nh-ph%C3%BAc.mp4?s=mp4-640x640-is&k=20&c=aiuYYFGW7o-MIb95Gr1MLRP8F0gc7WD3u5qEpe1sR4I=';
@@ -71,6 +72,7 @@ export default function MyList({fetchUrl}) {
                     })}
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }
