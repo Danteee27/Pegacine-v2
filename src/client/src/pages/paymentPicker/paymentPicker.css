@@ -1,0 +1,80 @@
+
+body {
+    background: white;
+}
+
+.paymentPickerForm {
+    height: 100%;
+    padding-bottom: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.paymentPickerFormContainer {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.paymentPickerFormContent {
+    width: 26vw;
+    color: #141414;
+}
+
+.paymentPickerHeading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stepLogoContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.paymentStepLogo {
+    display: flex;
+    background: url("../../assets/Lock.png") no-repeat 50% 50%;
+    width: 90px;
+    height: 90px;
+    color: red;
+}
+
+.stepHeader-container {
+    display: flex;
+}
+.contextRow{
+    margin-top: 20px;
+}
+.contextRowEmphasized{
+    font-weight: bold;
+}
+
+.momoButton{
+    margin-top: 25px;
+    width: 500px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    background: transparent;
+    border-radius: 5px;
+    border: 1px #cccccc solid;
+    justify-content: space-between;
+}
+
+.momoButton:hover{
+    cursor: pointer;
+}
+
+.leftDetailWallet{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 15px;
+}
+.walletName{
+    display: flex;
+    align-items: center;
+}

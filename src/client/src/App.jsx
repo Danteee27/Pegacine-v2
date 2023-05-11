@@ -17,6 +17,8 @@ import {useContext} from 'react';
 import TestPage from "./pages/test/Test";
 import Series from "./pages/series/Series";
 import Test from "./pages/test/Test";
+import PlanForm from "./pages/planForm/PlanForm";
+import PaymentPicker from "./pages/paymentPicker/paymentPicker";
 
 
 export default function App() {
@@ -38,6 +40,8 @@ export default function App() {
                 <Route path="/search" element={<SearchPage/>}/>
                 {/*<Route path="/test" element={<TestPage/>}/>*/}
                 <Route path="/series" element={<Series fetchUrl={requests.fetchTrending}/>}/>
+                <Route path="/planForm" element={<PlanForm/>}/>
+                <Route path="/paymentPicker" element={<PaymentPicker/>}/>
 
             </Routes>
         </div>
