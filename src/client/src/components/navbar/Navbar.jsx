@@ -65,19 +65,25 @@ const Navbar = () => {
           <span className="username">{userDetails.username}</span>
 
           <div className="profile">
-            <ArrowDropDown className="icon" />
+            <img
+              src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
+              alt=""
+            />
+
             <div className="options">
               <span>Membership: {userDetails.userRank}</span>
+              <span>Phone: {userDetails.phoneNumber}</span>
+            </div>
+          </div>
+          <div className="profile">
+            <ArrowDropDown className="icon" />
 
-              <span onClick={upgradeAccount}>Upgrade Membership</span>
+            <div className="options">
+              <span onClick={upgradeAccount}>Up Memberships</span>
 
               <span onClick={logout}>Logout</span>
             </div>
           </div>
-          <img
-            src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-            alt=""
-          />
         </div>
       </div>
     </div>
