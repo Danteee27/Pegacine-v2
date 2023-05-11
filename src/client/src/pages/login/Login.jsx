@@ -27,6 +27,8 @@ export default function Login() {
         tokenType: 'Bearer',
         authState: { username: username.current.value },
       });
+      const user = request.data.data.user;
+      localStorage.setItem('user', JSON.stringify(user));
       window.location.href = '/home';
     }
   }
