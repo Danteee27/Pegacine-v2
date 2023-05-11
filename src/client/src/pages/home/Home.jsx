@@ -2,56 +2,96 @@ import Navbar from '../../components/navbar/Navbar';
 import HighLight from '../../components/highlight/HighLight';
 import List from '../../components/list/List';
 import './home.scss';
-import axios, {axiosInstance3} from '../../axios';
-import {useState} from 'react';
-import {useEffect} from 'react';
+import axios, { axiosInstance3 } from '../../axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 import TopList from '../../components/topList/TopList';
 import Footer from '../../components/footer/Footer';
 
 const Home = () => {
-    const [movies, setMovies] = useState([]);
-    const [moviesTop10Country, setMoviesTop10Country] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [movies1, setMovies1] = useState([]);
+  const [movies2, setMovies2] = useState([]);
+  const [movies3, setMovies3] = useState([]);
+  const [movies4, setMovies4] = useState([]);
+  const [movies5, setMovies5] = useState([]);
+  const [movies6, setMovies6] = useState([]);
+  const [moviesTop10Country, setMoviesTop10Country] = useState([]);
+  const userDetails = JSON.parse(localStorage.getItem('user'));
+  console.log('userDetails: ', userDetails);
+  useEffect(() => {
+    async function fetchData() {
+      const request = await axiosInstance3.get(
+        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=12&page=1&pageSize=10`,
+      );
+      setMovies(request.data.data.items);
+      console.log('movieDataList at Home: ', request.data.data.items);
+    }
 
-    useEffect(() => {
-        async function fetchData() {
-            const request = await axiosInstance3.get(
-                `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=12&page=1&pageSize=10`,
-            );
-            setMovies(request.data.data.items);
-            console.log('movieDataList at Home: ', request.data.data.items);
-        }
+    async function fetchData1() {
+      const request = await axiosInstance3.get(
+        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=14&page=1&pageSize=10`,
+      );
+      setMovies1(request.data.data.items);
+      console.log('movieDataList at Home: ', request.data.data.items);
+    }
 
-        // async function fetchDataTop10VN() {
-        //   const request = await axiosInstance3.get(
-        //     `http://localhost:3000/api/movie/find_by_country?country_id=1&page=1&pageSize=10`,
-        //   );
-        //   setMoviesTop10Country(request.data.data.items);
-        //   console.log('movieDataList Top 10 VN: ', request.data.data.items);
-        // }
-        // fetchDataTop10VN();
-        fetchData();
-        console.log("day la home page")
-    }, []);
-    return (
-        <div className="home">
-            <Navbar/>
-            <HighLight/>
-            <TopList movieDataList={movies} title={'Hot movies today'}/>
-            <List movieDataList={movies} title={'Only in Pegacine'} />
-            <List movieDataList={movies} title={'Drama'} />
-            <List movieDataList={movies} title={'K Drama'} />
-            <List movieDataList={movies} title={'V Drama'} />
-            <List movieDataList={movies} title={'T Drama'} />
-            {/* {moviesTop10Country && (
-        <TopList
-          movieDataList={moviesTop10Country}
-          title={'Hot movies in Vietnam today'}
-        />
-      )} */}
-            <Footer/>
-        </div>
-    );
+    async function fetchData2() {
+      const request = await axiosInstance3.get(
+        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=16&page=1&pageSize=10`,
+      );
+      setMovies2(request.data.data.items);
+      console.log('movieDataList at Home: ', request.data.data.items);
+    }
+
+    async function fetchData3() {
+      const request = await axiosInstance3.get(
+        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=18&page=1&pageSize=10`,
+      );
+      setMovies3(request.data.data.items);
+      console.log('movieDataList at Home: ', request.data.data.items);
+    }
+
+    async function fetchData4() {
+      const request = await axiosInstance3.get(
+        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=27&page=1&pageSize=10`,
+      );
+      setMovies4(request.data.data.items);
+      console.log('movieDataList at Home: ', request.data.data.items);
+    }
+
+    async function fetchData5() {
+      const request = await axiosInstance3.get(
+        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=28&page=1&pageSize=10`,
+      );
+      setMovies5(request.data.data.items);
+      console.log('movieDataList at Home: ', request.data.data.items);
+    }
+
+    fetchData();
+    fetchData1();
+    fetchData2();
+    fetchData3();
+    fetchData4();
+    fetchData5();
+  }, []);
+  return (
+    <div className="home">
+      <Navbar />
+      <HighLight />
+      <TopList movieDataList={movies} title={'Hot movies today'} />
+      <List movieDataList={movies1} title={'Only in Pegacine'} />
+      <List movieDataList={movies2} title={'Drama'} />
+      <List movieDataList={movies3} title={'K Drama'} />
+      <TopList movieDataList={movies5} title={'Highly Recommend Movies'} />
+      <List movieDataList={movies4} title={'T Drama'} />
+      <List movieDataList={movies5} title={'V Drama'} />
+      <List movieDataList={movies5} title={'L Drama'} />
+
+      <Footer />
+    </div>
+  );
 };
 
 export default Home;
