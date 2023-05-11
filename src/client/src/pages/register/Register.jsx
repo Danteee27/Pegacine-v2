@@ -10,20 +10,26 @@ import Home from '../home/Home';
 
 export default function Register() {
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
   const emailRef = useRef();
   const passwordRef = useRef();
+  const phoneNumberRef = useRef();
 
   const handleStart = () => {
     setEmail(emailRef.current.value);
+  };
+
+  const handleFinish = () => {
+    setPhoneNumber(phoneNumberRef.current.value);
   };
 
   async function fetchData() {
     let data = JSON.stringify({
       email: email,
       password: passwordRef.current.value,
-      phoneNumber: '0335886430',
+      phoneNumber: phoneNumber,
     });
     const request = await axiosInstance3
       .post(`http://localhost:3000/api/user/register`, data, {
@@ -52,9 +58,9 @@ export default function Register() {
           Ready to watch? Enter your email to create or restart your membership.
         </p>
         <p>
-          Already have an account? <a href="/login">Login now</a>
+          Already have an account? <a href="/login">Sign in now</a>
         </p>
-        {!email ? (
+        {!email && !phoneNumber && (
           <div className="input">
             <input
               type="text"
@@ -65,7 +71,20 @@ export default function Register() {
               Get Started <ArrowForwardIosIcon />
             </button>
           </div>
-        ) : (
+        )}
+        {email && !phoneNumber && (
+          <div className="input">
+            <input
+              type="text"
+              placeholder="Enter your phone number"
+              ref={phoneNumberRef}
+            />
+            <button className="registerButton" onClick={handleFinish}>
+              Next <ArrowForwardIosIcon />
+            </button>
+          </div>
+        )}
+        {email && phoneNumber && (
           <div className="input-pass">
             <div className="input">
               <input
