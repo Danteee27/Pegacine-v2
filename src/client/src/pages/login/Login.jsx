@@ -4,10 +4,12 @@ import Home from '../home/Home';
 import Register from '../register/Register';
 import axios, { axiosInstance3 } from '../../axios';
 import './login.scss';
+import { useSignIn } from 'react-auth-kit';
 
 export default function Login() {
   const username = useRef();
   const password = useRef();
+  const signIn = useSignIn();
 
   async function fetchData() {
     const request = await axiosInstance3.post(
@@ -17,10 +19,16 @@ export default function Login() {
         password: password.current.value,
       },
     );
+    console.log(request.data.data.jwt.token);
     if (request.data.statusCode === 200) {
+      signIn({
+        token: request.data.data.jwt.token,
+        expiresIn: 360,
+        tokenType: 'Bearer',
+        authState: { username: username.current.value },
+      });
       window.location.href = '/home';
     }
-    console.log(request.data.statusCode);
   }
 
   return (
