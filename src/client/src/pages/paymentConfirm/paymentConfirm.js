@@ -16,7 +16,7 @@ export default function PaymentConfirm({fetchUrl}) {
     const phoneInput = useRef();
     const [isValidPhone, setIsValidPhone] = useState(false);
     console.log("payment confirm: ", state);
-
+const userDetails = JSON.parse(localStorage.getItem('user'));
     const handlePhoneNumber = (e) => {
         state.phoneNumber = e.target.value;
         if(state.phoneNumber !== ""){
@@ -27,15 +27,15 @@ export default function PaymentConfirm({fetchUrl}) {
         console.log(state)
     };
 
-    return (<div className={"paymentConfirmForm"}>
+    return (<div className={"paymentConfirmForm-1"}>
             <Navbar/>
-            <div className="paymentConfirmFormContainer">
-                <div className={"paymentConfirmFormContent"}>
-                    <div className="paymentConfirmHeading">
+            <div className="paymentConfirmFormContainer-1">
+                <div className={"paymentConfirmFormContent-1"}>
+                    <div className="paymentConfirmHeading-1">
                         <div className="stepHeader-container" data-uia="header">
                             <div className="stepHeader" role="status"><span id="" className="stepIndicator"
                                                                             data-uia="">STEP <b>3</b> OF <b>3</b></span>
-                                <h1 className="stepTitle" data-uia="stepTitle">Set up Momo</h1></div>
+                                <h1 className="stepTitle" data-uia="stepTitle">Check your bill</h1></div>
                         </div>
                         <div className={"momoImage"}><img src={require("../../assets/MOMOPAY.png")} alt="momoIcon"/>
                         </div>
@@ -55,14 +55,15 @@ export default function PaymentConfirm({fetchUrl}) {
                         {/* </div>)}*/}
 
                         <div className="narrowContainer" data-uia="messagesContainer">
-                            <div id="" className="contextRow contextRowFirst" data-uia="">Enter your MoMo mobile number.
+                            <div id="" className="contextRow contextRowFirst" data-uia="">You must pay close attention to the details on the bill.
                             </div>
-                            <div className="contextRow">Your number will also be used if you forget your password and
-                                for important account messages. SMS fees may apply.
+                            <div className="contextRow">Grab your phone and use the MoMo app to get ready to pay by scanning the QR code.
+                            </div>
+                            <div className="contextRow">*Notice: the phone number registered with Momo <br></br> must be the same as the phone number registered with PegaCine. 
                             </div>
                         </div>
 
-                        <div className={"phoneInputContainer"}>
+                        {/* <div className={"phoneInputContainer"}>
                             <div className={"phoneArea"}>
                                 <img className={"vnFlag"} src={require("../../assets/vietnam.png")}
                                      alt="viet nam flag"/>
@@ -70,7 +71,7 @@ export default function PaymentConfirm({fetchUrl}) {
                             </div>
                             <input ref={phoneInput} className={"inputPhone"} type="tel" placeholder={"Mobile Number"}
                                    onChange={handlePhoneNumber}/>
-                        </div>
+                        </div> */}
 
                         <div className={"planContainer"}>
                             {
@@ -81,14 +82,16 @@ export default function PaymentConfirm({fetchUrl}) {
                             }
                             {
                                 state.gold && <div className={"planContent"}>
-                                    <div className={"monthlyPrice"}>100 ₫/Month</div>
+                                    <div className={"monthlyPrice"}>200 ₫/Month</div>
                                     <div className={"planName"}>Gold</div>
                                 </div>
                             }
+                            <div className={"planContent"}>
+                                    <div className={"monthlyPrice"}>{userDetails.phoneNumber}</div>
+                                    <div className={"planName"}>Payment by phone number</div>
+                                </div>
 
                         </div>
-
-                        {isValidPhone &&
 
                             <Link
                                 to={'/payment-processing'}
@@ -97,7 +100,7 @@ export default function PaymentConfirm({fetchUrl}) {
                                 <button className={"startMemberShipButton"}>Start
                                     Membership
                                 </button>
-                            </Link>}
+                            </Link>
                         <Routes>
                             <Route path="/payment-processing" element={<PaymentProcessing/>}/>
                         </Routes>
