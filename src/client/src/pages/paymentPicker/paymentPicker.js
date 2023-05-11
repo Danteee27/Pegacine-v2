@@ -6,9 +6,9 @@ import {axiosInstance2} from "../../axios";
 import requests from "../../Requests";
 import Navbar from "../../components/navbar/Navbar";
 import "./paymentPicker.css"
-import SimpleNavBar from "../../components/simpleNavBar/simpleNavBar";
-
-export default function PaymentPicker({fetchUrl}) {
+import Footer from "../../components/footer/Footer";
+import { useLocation } from "react-router-dom";
+export default function PaymentPicker({props}) {
 
     const silver = useRef();
     const gold = useRef();
@@ -17,21 +17,23 @@ export default function PaymentPicker({fetchUrl}) {
     const handleChoice = ()=>{
         setReRender(prevState => !prevState)
     }
-
+    const { state } = useLocation();
+    console.log(state);
 
     return (<div className={"paymentPickerForm"}>
-            <SimpleNavBar/>
+            <Navbar/>
             <div className="paymentPickerFormContainer">
                 <div className={"paymentPickerFormContent"}>
                     <div className="paymentPickerHeading">
+                          <div className="stepHeader-container" data-uia="header">
+                            <div className="stepHeader" role="status"><span id="" className="stepIndicator"
+                                                                            data-uia="">STEP <b>2</b> OF <b>3</b></span>
+                                <h1 className="stepTitle" data-uia="stepTitle">Choose how to pay</h1></div>
+                        </div>
                         <div className="stepLogoContainer">
                             <span className="stepLogo paymentStepLogo"></span>
                         </div>
-                        <div className="stepHeader-container" data-uia="header">
-                            <div className="stepHeader" role="status"><span id="" className="stepIndicator"
-                                                                            data-uia="">STEP <b>3</b> OF <b>3</b></span>
-                                <h1 className="stepTitle" data-uia="stepTitle">Choose how to pay</h1></div>
-                        </div>
+                      
                         <div className="narrowContainer" data-uia="messagesContainer">
                             <div id="" className="contextRow contextRowFirst" data-uia="">Your payment is encrypted and
                                 you can change how you pay anytime.
@@ -56,6 +58,7 @@ export default function PaymentPicker({fetchUrl}) {
                     </button>
                 </div>
             </div>
+            <Footer/>   
         </div>
     );
 }

@@ -1,138 +1,139 @@
-
-body {
-    background: white;
+.planFormContainer {
+  background: white;
 }
 
 .planForm {
-    height: 100%;
-    padding-bottom: 300px;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 .planFormContainer {
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+}
+
+.stepHeader {
+  margin-top: 30px;
 }
 
 .planFormContent {
-    width: 60vw;
-    color: #141414;
+  width: 60vw;
+  color: #141414;
 }
 
 .stepIndicator {
-    font-size: 13px;
-    text-align: inherit;
+  font-size: 13px;
+  text-align: inherit;
 }
 
 .stepTitle {
-    color: #333333;
+  color: #333333;
 }
 
 ul {
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
 }
 
 ul > li {
-    list-style-type: disc;
-    margin-bottom: 5px;
-    margin-left: 1.1em;
+  list-style-type: disc;
+  margin-bottom: 5px;
+  margin-left: 1.1em;
 }
 
 li {
-    display: list-item;
-    text-align: -webkit-match-parent;
+  display: list-item;
+  text-align: -webkit-match-parent;
 }
 
 .checkmark-group--row {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 21px;
-    margin: 0;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 21px;
+  margin: 0;
 }
 
 .checkmark-group--icon {
-    align-self: flex-start;
-    color: #e50914;
-    flex: none;
-    height: 26px;
-    width: 26px;
+  align-self: flex-start;
+  color: #e50914;
+  flex: none;
+  height: 26px;
+  width: 26px;
 }
 
-.planChoiceHeader{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-    gap: 220px;
-    padding-bottom: 35px;
-    padding-right: 190px;
-
+.planChoiceHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 220px;
+  padding-bottom: 35px;
+  padding-right: 190px;
 }
 
-.planItem{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*background: #E31221;*/
-    background: #ee6679;
-    color: white;
-    width: 100px;
-    height: 100px;
+.planItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*background: #E31221;*/
+  background: #ee6679;
+  color: white;
+  width: 100px;
+  height: 100px;
 }
 
-input{
-    display: none;
+input {
+  display: none;
 }
 
-input[type="radio"]:checked + label {
-    background: #E31221;
+input[type='radio']:checked + label {
+  background: #e31221;
 }
 
-input[type="radio"]:checked ~ .silverCol {
-    background: #E31221;
+input[type='radio']:checked ~ .silverCol {
+  background: #e31221;
 }
 
-.planDetail{
-    width: 100%;
+.planDetail {
+  width: 100%;
 }
 
-.nextButtonContainer{
-    margin-top: 200px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
+.nextButtonContainer {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
-table{
-    color: #737373;
+table {
+  color: #737373;
 }
 
-td{
-    font-weight: bold;
+td {
+  font-weight: bold;
 }
 
-.nextButton{
-    width: 400px;
-    height: 50px;
-    background: #E31221;
-    border: none;
-    color: white;
-    font-size: 17px;
-    cursor: pointer;
-    border-radius: 5px;
+.nextButton {
+  width: 400px;
+  height: 50px;
+  background: #e31221;
+  border: none;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-.checkedStyle{
-    color: #E31221;
+.checkedStyle {
+  color: #e31221;
 }
-
-

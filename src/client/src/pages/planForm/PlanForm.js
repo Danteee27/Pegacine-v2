@@ -6,26 +6,31 @@ import {axiosInstance2} from "../../axios";
 import requests from "../../Requests";
 import Navbar from "../../components/navbar/Navbar";
 import "./planForm.css"
-import SimpleNavBar from "../../components/simpleNavBar/simpleNavBar";
+import Footer from "../../components/footer/Footer";
+import { Link, Route, Routes } from 'react-router-dom';
+import PaymentPicker from "../paymentPicker/paymentPicker";
 
 export default function PlanForm({fetchUrl}) {
 
     const silver = useRef();
     const gold = useRef();
     const [reRender, setReRender] = useState(false);
-
+    let stateObj = {
+        silver: silver.current?.checked,
+        gold: gold.current?.checked,
+    }
     const handleChoice = ()=>{
         setReRender(prevState => !prevState)
     }
 
 
     return (<div className={"planForm"}>
-            <SimpleNavBar/>
+            <Navbar/>
             <div className="planFormContainer">
                 <div className={"planFormContent"}>
                     <div className="stepHeader" role="status">
                         <span id="" className="stepIndicator" data-uia="">
-                            STEP <b>2</b> OF <b>3</b>
+                            STEP <b>1</b> OF <b>3</b>
                         </span>
                         <h1 className="stepTitle" data-uia="stepTitle">
                             Choose the plan that’s right for you
@@ -91,11 +96,21 @@ export default function PlanForm({fetchUrl}) {
                             </tbody>
                         </table>
                         <div className={"nextButtonContainer"}>
-                            <button className={"nextButton"}>Next</button>
+                            <Link
+                                to={'/payment-picker'}  
+                                state={stateObj}
+                            >
+                                <button className={"nextButton"}>Next</button>
+                            </Link>
+                            <Routes>
+                                <Route path="/payment-picker" element={<PaymentPicker />} />
+                            </Routes>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }
