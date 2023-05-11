@@ -59,10 +59,12 @@ export default function Sidebar() {
                 Movies
               </li>
             </Link>
-            <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
-            </li>
+            <Link to="/transactions" className="link">
+              <li className="sidebarListItem">
+                <AttachMoney className="sidebarIcon" />
+                Transactions
+              </li>
+            </Link>
             <Link to="/genres" className="link">
               <li className={splitLocation[1] === "genres" || splitLocation[1] === "genre" || splitLocation[1] === "newGenre" ? "sidebarListItem active" : "sidebarListItem"}>
                 <Movie className="sidebarIcon" />

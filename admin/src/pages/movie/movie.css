@@ -87,6 +87,7 @@
   .productFormLeft {
     display: flex;
     flex-direction: column;
+    width: 20%;
   }
   
   .productFormLeft > label {
@@ -97,7 +98,7 @@
   .productFormLeft > input {
     margin-bottom: 10px;
     border: none;
-    padding: 5px;
+    padding: 10px;
     border-bottom: 1px solid gray;
   }
   
@@ -123,6 +124,17 @@
     display: flex;
     align-items: center;
   }
+
+  .productUploadContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .productUploadTitle {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    font-weight: 500;
+  }
   
   .productButton{
     border: none;
@@ -132,4 +144,5 @@
     color:white;
     font-weight: 600;
     cursor: pointer;
+    margin-top: 10px;
   }

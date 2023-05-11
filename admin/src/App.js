@@ -25,6 +25,7 @@ import NewSeries from "./pages/newSeries/NewSeries";
 import GenreList from "./pages/genreList/GenreList";
 import Genre from "./pages/genre/Genre";
 import NewGenre from "./pages/newGenre/NewGenre";
+import TransactionList from "./pages/transactionList/TransactionList";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -84,6 +85,9 @@ function App() {
               </Route>
               <Route path="/newlist">
                 <NewList />
+              </Route>
+              <Route path="/transactions">
+                <TransactionList />
               </Route>
             </div>
           </>

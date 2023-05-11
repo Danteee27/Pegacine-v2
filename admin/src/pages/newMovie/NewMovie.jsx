@@ -8,10 +8,13 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { CreateOutlined } from "@material-ui/icons";
 import Select from 'react-select'
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 
 export default function NewMovie() {
   const [selected, setSelected] = useState([]);
+  const [seriesList, setSeriesList] = useState([]);
+  const [series, setSeries] = useState();
 
   const [movie, setMovie] = useState({
     vote_count: 0
@@ -44,6 +47,13 @@ export default function NewMovie() {
       })
       setGenreItems(genreMapItems);
     });
+
+    async function fetchSeriesList() {
+      const res = await axios.get("/movie/series")
+      setSeriesList(res.data);
+    }
+
+    fetchSeriesList();
   }, []);
 
   const { dispatch } = useContext(MovieContext);
@@ -53,6 +63,11 @@ export default function NewMovie() {
   const handleChange = (e) => {
     const value = e.target.value;
     setMovie({ ...movie, [e.target.name]: value });
+
+    if (value === 'seriesId') {
+      const series = seriesList.find(e => e.seriesId === value);
+      setMovie({ ...movie, 'seriesOrder': series.movies.length });
+    }
   };
 
   const upload = (items) => {
@@ -311,15 +326,14 @@ export default function NewMovie() {
         {movie.isSeries === "true" ?
           <>
             <div className="addProductItem">
-              <label>Series ID</label>
-              <input
-                type="numeric"
-                placeholder="Series ID"
-                name="seriesId"
-                onChange={handleChange}
-              />
+              <label>Series name</label>
+              <select name="seriesId" id="seriesId" onChange={handleChange}>
+                {seriesList.map(e => {
+                  return <option value={e.seriesId}>{e.seriesName}</option>
+                })}
+              </select>
             </div>
-            <div className="addProductItem">
+            {/* <div className="addProductItem">
               <label>Series Order</label>
                 <input
                   type="numeric"
@@ -327,20 +341,20 @@ export default function NewMovie() {
                   name="seriesOrder"
                   onChange={handleChange}
                 />
-            </div>
+            </div> */}
           </>
           : <>
           <div className="addProductItem">
-            <label>Series ID</label>
+            <label>Series name</label>
             <input
               type="numeric"
-              placeholder="Series ID"
+              placeholder="Series name"
               name="seriesId"
               onChange={handleChange}
               disabled={true}
             />
           </div>
-          <div className="addProductItem">
+          {/* <div className="addProductItem">
             <label>Series Order</label>
               <input
                 type="numeric"
@@ -349,7 +363,7 @@ export default function NewMovie() {
                 onChange={handleChange}
                 disabled={true}
               />
-          </div>
+          </div> */}
         </>
         }
         <div className="addProductItem">

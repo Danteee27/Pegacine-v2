@@ -85,7 +85,6 @@ export default function MovieList() {
         disableSelectionOnClick
         columns={columns}
         pageSize={20}
-        checkboxSelection
         getRowId={r => r.movie_id}
         style={{marginRight: "20px"}}
       />

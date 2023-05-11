@@ -49,6 +49,56 @@ export const userData = [
     },
   ];
 
+  export const revenueData = [
+    {
+      name: "Jan",
+      "Revenue": 6000,
+    },
+    {
+      name: "Feb",
+      "Revenue": 5400,
+    },
+    {
+      name: "Mar",
+      "Revenue": 6400,
+    },
+    {
+      name: "Apr",
+      "Revenue": 5000,
+    },
+    {
+      name: "May",
+      "Revenue": 4600,
+    },
+    {
+      name: "Jun",
+      "Revenue": 5800,
+    },
+    {
+      name: "Jul",
+      "Revenue": 5200,
+    },
+    {
+      name: "Agu",
+      "Revenue": 4800,
+    },
+    {
+      name: "Sep",
+      "Revenue": 5200,
+    },
+    {
+      name: "Oct",
+      "Revenue": 4000,
+    },
+    {
+      name: "Nov",
+      "Revenue": 5400,
+    },
+    {
+      name: "Dec",
+      "Revenue": 4000,
+    },
+  ];
   export const productData = [
     {
       name: "Jan",

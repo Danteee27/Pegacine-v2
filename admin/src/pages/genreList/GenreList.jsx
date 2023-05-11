@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 export default function GenreList() {
-    const [genres, setGenres] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,11 +46,11 @@ export default function GenreList() {
       renderCell: (params) => {
         return (
           <>
-            <Link
+            {/* <Link
               to={{ pathname: '/genre/' + params.row.genre_id }}
             >
               <button className="productListEdit">Edit</button>
-            </Link>
+            </Link> */}
             <DeleteOutline
               className="productListDelete"
               onClick={() => handleDelete(params.row.genre_id)}
