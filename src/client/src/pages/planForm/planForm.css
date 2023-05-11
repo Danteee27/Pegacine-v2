@@ -1,54 +1,138 @@
-.flex {
-    display: flex;
+
+body {
+    background: white;
 }
 
-.column {
+.planForm {
+    height: 100%;
+    padding-bottom: 300px;
+    display: flex;
     flex-direction: column;
 }
 
-.j-between {
-    justify-content: space-between;
-}
-
-.j-center {
+.planFormContainer {
+    margin-top: 100px;
+    display: flex;
     justify-content: center;
 }
 
-.a-center {
-    align-items: center;
+.planFormContent {
+    width: 60vw;
+    color: #141414;
 }
 
-.myList {
-    overflow: hidden;
-}
-body{
-    background: #141414;
+.stepIndicator {
+    font-size: 13px;
+    text-align: inherit;
 }
 
-.myList{
-    height: 100%;
-    padding-bottom: 300px;
+.stepTitle {
+    color: #333333;
 }
 
-#root{
-    height: 100%;
+ul {
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
 }
 
-h1 {
-    color: snow;
-    margin-left: 3rem;
+ul > li {
+    list-style-type: disc;
+    margin-bottom: 5px;
+    margin-left: 1.1em;
 }
 
-.myListConent{
-    margin-top: 8rem;
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
 }
 
-.moviesContainer{
+.checkmark-group--row {
+    align-items: flex-start;
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-left: 65px;
-    margin-right: 2.3rem;
-    margin-top: 2rem;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 21px;
+    margin: 0;
 }
+
+.checkmark-group--icon {
+    align-self: flex-start;
+    color: #e50914;
+    flex: none;
+    height: 26px;
+    width: 26px;
+}
+
+.planChoiceHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 220px;
+    padding-bottom: 35px;
+    padding-right: 190px;
+
+}
+
+.planItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background: #E31221;*/
+    background: #ee6679;
+    color: white;
+    width: 100px;
+    height: 100px;
+}
+
+input{
+    display: none;
+}
+
+input[type="radio"]:checked + label {
+    background: #E31221;
+}
+
+input[type="radio"]:checked ~ .silverCol {
+    background: #E31221;
+}
+
+.planDetail{
+    width: 100%;
+}
+
+.nextButtonContainer{
+    margin-top: 200px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+table{
+    color: #737373;
+}
+
+td{
+    font-weight: bold;
+}
+
+.nextButton{
+    width: 400px;
+    height: 50px;
+    background: #E31221;
+    border: none;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.checkedStyle{
+    color: #E31221;
+}
+
 
