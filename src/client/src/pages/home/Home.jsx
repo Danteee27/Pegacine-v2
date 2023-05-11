@@ -17,10 +17,12 @@ const Home = () => {
   const [movies4, setMovies4] = useState([]);
   const [movies5, setMovies5] = useState([]);
   const [movies6, setMovies6] = useState([]);
-  const [moviesTop10Country, setMoviesTop10Country] = useState([]);
   const userDetails = JSON.parse(localStorage.getItem('user'));
   console.log('userDetails: ', userDetails);
   useEffect(() => {
+    if (userDetails.userRank === 'NONE') {
+      window.location.href = '/myList';
+    }
     async function fetchData() {
       const request = await axiosInstance3.get(
         `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=12&page=1&pageSize=10`,
