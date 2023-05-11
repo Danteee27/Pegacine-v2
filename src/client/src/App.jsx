@@ -75,14 +75,14 @@ export default function App() {
             </RequireAuth>
           }
         />
-        <Route
-          path="/series"
-          element={
-            <RequireAuth loginPath="/login">
-              <Series fetchUrl={requests.fetchTrending} />
-            </RequireAuth>
-          }
-        />
+        {/*<Route*/}
+        {/*  path="/series"*/}
+        {/*  element={*/}
+        {/*    <RequireAuth loginPath="/login">*/}
+        {/*      <Series fetchUrl={requests.fetchTrending} />*/}
+        {/*    </RequireAuth>*/}
+        {/*  }*/}
+        {/*/>*/}
         <Route
           path="/plan-form"
           element={

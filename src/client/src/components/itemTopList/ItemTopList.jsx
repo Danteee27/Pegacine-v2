@@ -65,6 +65,10 @@ export default function ItemTopList({ index, top = index + 1, movieData }) {
   const openDialogBox = () => {
     handleDisplay(true);
   };
+
+  const hanleAddMyList = ()=>{
+
+  }
   const dialogStyle = {
     padding: '20px',
   };
@@ -293,7 +297,7 @@ export default function ItemTopList({ index, top = index + 1, movieData }) {
               <Routes>
                 <Route path="/player" element={<PlayerPage />} />
               </Routes>
-              <Add className="icon" />
+              <div onClick={hanleAddMyList}><Add className="icon"/></div>
               <ThumbUpAltOutlined className="icon" />
               <ThumbDownOutlined className="icon" />
 

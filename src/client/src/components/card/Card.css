@@ -166,3 +166,9 @@
 .episodes {
     padding: 0px 0;
 }
+
+.flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}

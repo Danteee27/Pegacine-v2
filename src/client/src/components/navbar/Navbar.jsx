@@ -34,9 +34,9 @@ const Navbar = () => {
           <a href="./home">
             <span>Home</span>
           </a>
-          <Link to="../series">
-            <span>Series</span>
-          </Link>
+          {/*<Link to="../series">*/}
+          {/*  <span>Series</span>*/}
+          {/*</Link>*/}
           {/*<Link to="../player"><span>Movies</span></Link>*/}
           {/*<Link to="../player"><span>New and Popular</span></Link>*/}
           <a href="./myList">
@@ -46,10 +46,10 @@ const Navbar = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/player" element={<PlayerPage />} />
-            <Route
-              path="/series"
-              element={<Series fetchUrl={requests.fetchTrending} />}
-            />
+            {/*<Route*/}
+            {/*  path="/series"*/}
+            {/*  element={<Series fetchUrl={requests.fetchTrending} />}*/}
+            {/*/>*/}
           </Routes>
         </div>
         <div className="right">

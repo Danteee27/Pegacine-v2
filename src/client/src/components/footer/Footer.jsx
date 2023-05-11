@@ -19,9 +19,9 @@ const Footer = () => {
           <a href="./home">
             <span>Homepage</span>
           </a>
-          <Link to="../series">
-            <span>Series</span>
-          </Link>
+          {/*<Link to="../series">*/}
+          {/*  <span>Series</span>*/}
+          {/*</Link>*/}
 
           {/*<Link to="../player"><span>Movies</span></Link>*/}
           {/*<Link to="../player"><span>New and Popular</span></Link>*/}
@@ -35,10 +35,10 @@ const Footer = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/player" element={<PlayerPage />} />
-            <Route
-              path="/series"
-              element={<Series fetchUrl={requests.fetchTrending} />}
-            />
+            {/*<Route*/}
+            {/*  path="/series"*/}
+            {/*  element={<Series fetchUrl={requests.fetchTrending} />}*/}
+            {/*/>*/}
           </Routes>
         </div>
       </div>
