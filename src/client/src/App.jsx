@@ -23,6 +23,9 @@ import Test from './pages/test/Test';
 import {useEffect} from 'react';
 import {useState} from 'react';
 import {RequireAuth} from 'react-auth-kit';
+import PlanForm from "./pages/planForm/PlanForm";
+import PaymentPicker from "./pages/paymentPicker/paymentPicker";
+import PaymentConfirm from "./pages/paymentConfirm/paymentConfirm";
 
 export default function App() {
     // const location = useLocation();
@@ -78,6 +81,21 @@ export default function App() {
                             <Series fetchUrl={requests.fetchTrending}/>
                         </RequireAuth>
                     }
+                />
+
+                <Route
+                    path={"/planForm"}
+                    element={<PlanForm/>}
+                />
+
+                <Route
+                    path={"/paymentPicker"}
+                    element={<PaymentPicker/>}
+                />
+
+                <Route
+                    path={"/paymentConfirm"}
+                    element={<PaymentConfirm/>}
                 />
             </Routes>
         </div>
