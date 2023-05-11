@@ -18,7 +18,8 @@ const Home = () => {
   const [movies5, setMovies5] = useState([]);
   const [movies6, setMovies6] = useState([]);
   const [moviesTop10Country, setMoviesTop10Country] = useState([]);
-
+  const userDetails = JSON.parse(localStorage.getItem('user'));
+  console.log('userDetails: ', userDetails);
   useEffect(() => {
     async function fetchData() {
       const request = await axiosInstance3.get(
