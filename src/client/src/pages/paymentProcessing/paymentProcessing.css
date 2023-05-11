@@ -1,44 +1,40 @@
 .paymentConfirmFormContainer {
-    background: white;
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
-    height: 90vh;
+  background: white;
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
 }
 
 .paymentConfirmForm {
-    height: 100%;
-    padding-bottom: 50px;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 .paymentConfirmFormContent {
-    width: 70vw;
-    color: #141414;
-    display: flex;
-    justify-content: center;
+  width: 70vw;
+  color: #141414;
+  display: flex;
+  justify-content: center;
 }
 
 .paymentConfirmHeading {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .stepHeader-container {
-    display: flex;
+  display: flex;
 }
 .contextRow {
-    margin-top: 20px;
-    margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 .contextRowEmphasized {
-    font-weight: bold;
+  font-weight: bold;
 }
 
-.qr-code{
-
+.qr-code {
 }
-

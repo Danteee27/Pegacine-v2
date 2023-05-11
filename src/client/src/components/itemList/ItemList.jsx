@@ -96,8 +96,8 @@ export default function ItemList({ index, movieData }) {
                 <Route path="/player" element={<PlayerPage />} />
               </Routes>
               <Add className="icon" />
-              <ThumbUpAltOutlined className="icon" />
-              <ThumbDownOutlined className="icon" />
+              {/* <ThumbUpAltOutlined className="icon" />
+              <ThumbDownOutlined className="icon" /> */}
 
               <InfoRounded className="icon" onClick={openDialogBox} />
             </div>
@@ -155,9 +155,9 @@ export default function ItemList({ index, movieData }) {
                   <IconButton className="icon-button-custom">
                     <Add />
                   </IconButton>
-                  <IconButton className="icon-button-custom">
+                  {/* <IconButton className="icon-button-custom">
                     <ThumbUpAltOutlined />
-                  </IconButton>
+                  </IconButton> */}
                 </div>
               </div>
             </div>
