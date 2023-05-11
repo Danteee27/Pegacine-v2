@@ -15,9 +15,10 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const signOut = useSignOut();
   const navigate = useNavigate();
-
+  const userDetails = JSON.parse(localStorage.getItem('user'));
   const logout = () => {
     signOut();
+    localStorage.clear();
     navigate('/login');
   };
 
@@ -55,7 +56,7 @@ const Navbar = () => {
           <a href="./search">
             <Search className="icon" />
           </a>
-          <span className="username">Phu Nguyen</span>
+          <span className="username">{userDetails.username}</span>
           <Link to="/register">
             <img
               src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
