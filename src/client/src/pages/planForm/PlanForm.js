@@ -67,11 +67,11 @@ export default function PlanForm({fetchUrl}) {
                     </div>
                     <div className={"planChoice"}>
                         <div className={"planChoiceHeader"}>
-                            <input ref={silver} type="radio" id="silver" name="planChoice" value="silver" onChange={handleChoice}/>
+                            <input className={"input"} ref={silver} type="radio" id="silver" name="planChoice" value="silver" onChange={handleChoice}/>
                             <label htmlFor={"silver"} className={"planItem"}>
                                 <span>Silver</span>
                             </label>
-                            <input ref={gold} type="radio" id="gold" name="planChoice" value="gold" onChange={handleChoice}/>
+                            <input className={"input"} ref={gold} type="radio" id="gold" name="planChoice" value="gold" onChange={handleChoice}/>
                             <label htmlFor={"gold"} className={"planItem"}>
                                 <span>Gold</span>
                             </label>
