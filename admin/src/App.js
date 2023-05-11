@@ -34,11 +34,14 @@ function App() {
       <Switch>
         {/* <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route> */}
         {/* {user && ( */}
+        <Route exact path="/">
+          <Login />
+        </Route>
           <>
             <Topbar />
             <div className="container">
               <Sidebar />
-              <Route exact path="/">
+              <Route path="/home">
                 <Home />
               </Route>
               <Route path="/users">
