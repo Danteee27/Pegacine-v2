@@ -163,6 +163,7 @@ function Player() {
                     {
                         const request = await axiosInstance3
                             .post(`http://localhost:3000/api/user/profiles/watching?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}&stoppedAt=${Math.floor(video.current.currentTime / 60)}`)
+                        console.log("post watching movie :",movieData?.movie_id)
                     }
                     else {
                         const request = await axiosInstance3

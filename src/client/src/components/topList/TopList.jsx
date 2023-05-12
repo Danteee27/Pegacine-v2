@@ -57,6 +57,7 @@ export default function List({ movieDataList, title }) {
           <ItemTopList index={6} movieData={movieDataList[6]} />
           <ItemTopList index={7} movieData={movieDataList[7]} />
           <ItemTopList index={8} movieData={movieDataList[8]} />
+          <ItemTopList index={9} movieData={movieDataList[9]} />
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"

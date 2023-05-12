@@ -59,6 +59,12 @@
   padding: 5px;
 }
 
+#rank-10{
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+}
+
 .listItem:hover .itemInfo .icons {
   display: flex;
   margin-bottom: 10px;
