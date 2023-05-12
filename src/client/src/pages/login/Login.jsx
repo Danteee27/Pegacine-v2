@@ -64,7 +64,7 @@ export default function Login() {
           </button>
 
           <span>
-            New to Netflix? <a href="/register">Sign up now</a>
+            New to Pegacine? <a href="/register">Sign up now</a>
           </span>
         </div>
       </div>
