@@ -12,6 +12,7 @@ import { ProfileWatchingProviders } from './profile-watching.provider';
 import { MovieModule } from 'src/movie/movie.module';
 import { HttpModule } from '@nestjs/axios';
 import { UserTransactionEntityProviders } from './transaction.provider';
+import { SeriesProviders } from 'src/movie/series.provider';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { UserTransactionEntityProviders } from './transaction.provider';
     ...ProfileEntityProviders,
     ...ProfileWatchingProviders,
     ...UserTransactionEntityProviders,
+    ...SeriesProviders,
   ],
 })
 export class UserEntityModule {}

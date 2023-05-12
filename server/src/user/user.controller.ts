@@ -191,6 +191,12 @@ export class UserEntityController {
     );
   }
 
+  @Post('profiles/series')
+  addSeries(
+    @Query('user_id') user_id: number,
+    @Query('movie_id') movie_id: number,
+  ) {}
+
   @Get('profiles/:user_id')
   findProfileById(@Param('user_id') id: number) {
     return this.queryBus.execute(new GetProfilesQuery(id));

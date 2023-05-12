@@ -1,6 +1,7 @@
 import { AddProfileFavoriteMovieCommandHandler } from './profile/add_profile_favorite_movie/add_profile_favorite_movie.handler';
 import { AddProfileMyListMovieCommandHandler } from './profile/add_profile_mylist_movie/add_profile_mylist_movie.handler';
 import { AddProfileWatchingCommandHandler } from './profile/add_profile_watching_movie/add_profile_watching.handler';
+import { AddSeriesCommandHandler } from './profile/add_series/add_series.handler';
 import { CreateProfileCommandHandler } from './profile/create_profile/create_profile.handler';
 import { DeleteProfileCommandHandler } from './profile/delete_profile';
 import { DeleteProfileFavoriteMovieCommandHandler } from './profile/delete_profile_favorite_movie/delete_profile_favorite_movie.handler';
@@ -24,4 +25,5 @@ export const CommandHandlers = [
   DeleteProfileMyListMovieCommandHandler,
   DeleteProfileWatchingMovieCommandHandler,
   CheckTransactionCommandHandler,
+  AddSeriesCommandHandler,
 ];

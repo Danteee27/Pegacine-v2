@@ -5,6 +5,7 @@ import { RegisterCommand } from './register.command';
 import { UserEntity } from 'src/user/entities';
 import { BadRequestException, Inject } from '@nestjs/common';
 import { OkResponse } from 'libs/models/responses';
+import { ProfileEntity } from 'src/user/entities/profile.entity';
 
 @CommandHandler(RegisterCommand)
 export class RegisterCommandHandler
@@ -13,6 +14,8 @@ export class RegisterCommandHandler
   constructor(
     @Inject('UserEntity_REPOSITORY')
     private readonly userRepository: Repository<UserEntity>,
+    @Inject('ProfileEntity_REPOSITORY')
+    private readonly profileRepository: Repository<ProfileEntity>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -31,9 +34,14 @@ export class RegisterCommandHandler
       password,
       phoneNumber,
     });
-
     await newUser.save();
 
+    const newProfile = this.profileRepository.create({
+      profile_id: newUser.id,
+      user_id: newUser.id,
+      name: newUser.username,
+    });
+    await newProfile.save();
     const token = this.jwtService.sign(
       {
         id: newUser.id,
@@ -52,6 +60,7 @@ export class RegisterCommandHandler
         refreshToken,
       },
       user: newUser,
+      profile: newProfile,
     });
   }
 }

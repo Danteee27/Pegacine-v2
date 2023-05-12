@@ -8,14 +8,15 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { ProfileWatchingMovies } from './profile-watching.entity';
+import { Series } from 'src/movie/entities/series.entity';
 
 @Entity({ name: 'profiles' })
 export class ProfileEntity extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   profile_id: number;
 
   @Column()
@@ -75,4 +76,18 @@ export class ProfileEntity extends BaseEntity {
     },
   })
   MyListMovies: Movie[];
+
+  @ManyToMany(() => Series)
+  @JoinTable({
+    name: 'profile_series', // table name for the junction table of this relation
+    joinColumn: {
+      name: 'profile_id',
+      referencedColumnName: 'profile_id',
+    },
+    inverseJoinColumn: {
+      name: 'seriesId',
+      referencedColumnName: 'seriesId',
+    },
+  })
+  MySeries: Series[];
 }

@@ -11,7 +11,7 @@ export class GetProfileFavoriteQueryHandler
 {
   constructor(
     @Inject('ProfileEntity_REPOSITORY')
-    readonly profileEntityRepository: Repository<ProfileEntity>,
+    private readonly profileEntityRepository: Repository<ProfileEntity>,
   ) {}
 
   async execute(query: GetProfileFavoriteQuery) {
