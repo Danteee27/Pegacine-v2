@@ -10,7 +10,6 @@ import Home from '../../pages/home/Home';
 import Series from '../../pages/series/Series';
 import requests from '../../Requests';
 import { useSignOut } from 'react-auth-kit';
-
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const signOut = useSignOut();
@@ -27,7 +26,6 @@ const Navbar = () => {
   const upgradeAccount = () => {
     window.location.href = 'plan-form';
   };
-
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
@@ -40,9 +38,9 @@ const Navbar = () => {
           <a href="./home">
             <span>Home</span>
           </a>
-          <Link to="../series">
-            <span>Series</span>
-          </Link>
+          {/*<Link to="../series">*/}
+          {/*  <span>Series</span>*/}
+          {/*</Link>*/}
           {/*<Link to="../player"><span>Movies</span></Link>*/}
           {/*<Link to="../player"><span>New and Popular</span></Link>*/}
           <a href="./myList">
@@ -65,23 +63,28 @@ const Navbar = () => {
           <span className="username">{userDetails.username}</span>
 
           <div className="profile">
-            <ArrowDropDown className="icon" />
+            <img
+              src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
+              alt=""
+            />
+
             <div className="options">
               <span>Membership: {userDetails.userRank}</span>
+              <span>Phone: {userDetails.phoneNumber}</span>
+            </div>
+          </div>
+          <div className="profile">
+            <ArrowDropDown className="icon" />
 
-              <span onClick={upgradeAccount}>Upgrade Membership</span>
+            <div className="options">
+              <span onClick={upgradeAccount}>Up Memberships</span>
 
               <span onClick={logout}>Logout</span>
             </div>
           </div>
-          <img
-            src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745"
-            alt=""
-          />
         </div>
       </div>
     </div>
   );
 };
-
 export default Navbar;
