@@ -112,63 +112,94 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                     alert('adding failed');
                 });
         }
-        // else
-        // {
-        //     // add to series to my list
-        //     const request = await axiosInstance3
-        //         .post(`http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
-        //         .then(function (response) {
-        //             if (response.data.statusCode === 200) {
-        //                 // to handle add success
-        //                 setIsInMyList(true)
-        //
-        //                 async function fetchData() {
-        //                     const request = await axiosInstance3.get(
-        //                         `http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}`,
-        //                     );
-        //                     // setMovie(request.data.data.items);
-        //                     console.log('id moives userList: ', request.data.items[0].MyListMovies);
-        //                     setIdMovieMyList(request.data.items[0].MyListMovies.map((item) => item.movie_id))
-        //                 }
-        //
-        //                 fetchData();
-        //                 console.log(`adding movieid: ${movieData?.movie_id} success`)
-        //             }
-        //         })
-        //         .catch(function (error) {
-        //             console.log(error);
-        //             alert('adding failed');
-        //         });
-        // }
+        else
+        {
+            // add to series to my list
+            const request = await axiosInstance3
+                .post(`http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}&seriesId=${movieData?.seriesId}`)
+                .then(function (response) {
+                        // to handle add success
+                        setIsInMyList(true)
+                        async function fetchData() {
+                            const request = await axiosInstance3.get(
+                                `http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}`,
+                            );
+                            // setMovie(request.data.data.items);
+                            setSeries(request.data.MySeries)
+                            console.log('url series lisst: ', request.data.MySeries);
+                            // setIdMovieMyList(request.data.items[0].MyListMovies.map((item) => item.movie_id))
+                        }
+                        fetchData();
+                        console.log(`adding movieid: ${movieData?.movie_id} success`)
+
+                    console.log("url series: ", series)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    alert('adding failed');
+                });
+        }
 
     };
 
     const hanleRemoveMyList = async () => {
 
-        const request = await axiosInstance3
-            .delete(`http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
-            .then(function (response) {
-                if (response.data.statusCode === 200) {
+        if(!isSeries){
+            //handle remove movies from my list
+            const request = await axiosInstance3
+                .delete(`http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
+                .then(function (response) {
+                    if (response.data.statusCode === 200) {
+                        // to handle add success
+                        console.log(`remove movieid: ${movieData?.movie_id} success`)
+                        setIsInMyList(false)
+
+                        async function fetchData() {
+                            const request = await axiosInstance3.get(
+                                `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
+                            );
+                            // setMovie(request.data.data.items);
+                            console.log('id moives userList: ', request.data.items[0].MyListMovies);
+                            setIdMovieMyList(request.data.items[0].MyListMovies.map((item) => item.movie_id))
+                        }
+
+                        fetchData();
+                        window.location.reload(true);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    alert('remove failed');
+                });
+        }
+        else
+        {
+            // dang lam cho remove series nhung chua co API
+            // remove series from my list
+            const request = await axiosInstance3
+                .post(`http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}&seriesId=${movieData?.seriesId}`)
+                .then(function (response) {
                     // to handle add success
-                    console.log(`remove movieid: ${movieData?.movie_id} success`)
                     setIsInMyList(false)
                     async function fetchData() {
                         const request = await axiosInstance3.get(
-                            `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
+                            `http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}`,
                         );
                         // setMovie(request.data.data.items);
-                        console.log('id moives userList: ', request.data.items[0].MyListMovies);
-                        setIdMovieMyList(request.data.items[0].MyListMovies.map((item)=>item.movie_id))
+                        setSeries(request.data.MySeries)
+                        console.log('url series lisst: ', request.data.MySeries);
+                        // setIdMovieMyList(request.data.items[0].MyListMovies.map((item) => item.movie_id))
                     }
-
                     fetchData();
-                    window.location.reload(true);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                alert('remove failed');
-            });
+                    console.log(`adding movieid: ${movieData?.movie_id} success`)
+
+                    console.log("url series: ", series)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    alert('adding failed');
+                });
+        }
 
     };
 

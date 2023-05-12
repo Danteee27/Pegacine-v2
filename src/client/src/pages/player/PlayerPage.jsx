@@ -94,13 +94,13 @@ function Player() {
             setWatchingMovies(request.data.items)
         }
 
-            fetchWatchingMovies();
+        fetchWatchingMovies();
     }, []);
 
     useEffect(() => {
-        const matchingMovieArr = watchingMovies.filter((movie)=>movie?.movie_id === movieData?.movie_id)
-        if(matchingMovieArr.length > 0){
-            video.current.currentTime += matchingMovieArr[0].stoppedAt*60 || 0;
+        const matchingMovieArr = watchingMovies.filter((movie) => movie?.movie_id === movieData?.movie_id)
+        if (matchingMovieArr.length > 0) {
+            video.current.currentTime += (isFinite(matchingMovieArr[0]?.stoppedAt) ? matchingMovieArr[0]?.stoppedAt : 0) * 60 || 0;
         }
 
     }, [watchingMovies]);
@@ -153,27 +153,25 @@ function Player() {
                 let hours = null;
 
                 if (totalSecondsRemaining >= 3600) {
-                    hours = (Math.floor(totalSecondsRemaining/3600).toString()).padStart(2, '0');
+                    hours = (Math.floor(totalSecondsRemaining / 3600).toString()).padStart(2, '0');
                 }
 
-                let minutes = (Math.floor(totalSecondsRemaining/60 - hours*60).toString()).padStart(2, '0');
-                let seconds = (Math.floor(totalSecondsRemaining - hours*3600 - minutes*60).toString()).padStart(2, '0');
+                let minutes = (Math.floor(totalSecondsRemaining / 60 - hours * 60).toString()).padStart(2, '0');
+                let seconds = (Math.floor(totalSecondsRemaining - hours * 3600 - minutes * 60).toString()).padStart(2, '0');
                 timeRemaining.current.textContent = `${hours ? hours + ":" : ''}${minutes}:${seconds}`;
 
-                const updateWatchingTime = async ()=>{
-                    if(Math.floor(video.current.currentTime / 60) >= 2)
-                    {
+                const updateWatchingTime = async () => {
+                    if (Math.floor(video.current.currentTime / 60) >= 2) {
                         const request = await axiosInstance3
                             .post(`http://localhost:3000/api/user/profiles/watching?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}&stoppedAt=${Math.floor(video.current.currentTime / 60)}`)
-                        console.log("post watching movie :",movieData?.movie_id)
-                    }
-                    else {
+                        console.log("post watching movie :", movieData?.movie_id)
+                    } else {
                         const request = await axiosInstance3
                             .post(`http://localhost:3000/api/user/profiles/watching?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}&stoppedAt=${9999999}`)
                     }
                 }
 
-                if(Math.round(video.current.currentTime % 5) === 0) {
+                if (Math.round(video.current.currentTime % 5) === 0) {
                     updateWatchingTime()
                 }
 
@@ -186,7 +184,13 @@ function Player() {
             const pos =
                 (e.pageX - progressBar.current.offsetLeft - progressBar.current.offsetParent.offsetLeft) /
                 progressBar.current.offsetWidth;
-            video.current.currentTime = (pos||0) * video.current.duration;
+            if (isFinite(video.current.duration) && isFinite(video.current.duration))
+                video.current.currentTime = (isFinite(pos) ? pos : 0) * (isFinite(video.current.duration) ? video.current.duration : 0);
+            console.log("url pos: ", pos)
+            console.log("url duration: ", video.current.duration)
+            console.log("url current time: ", video.current.currentTime)
+            console.log("url is playing: ", video.current.paused)
+            console.log("url video: ", video.current)
         })
 
         return () => {
@@ -267,8 +271,12 @@ function Player() {
                 </svg>
             </div>
             <div className={"videoPlayer videoContainer"} ref={videoContainer}>
-                <video ref={video} src={videoUrl} autoPlay={true} muted={false}
-                       onClick={handlePlay}></video>
+                <video ref={video} autoPlay={true} muted={false} onClick={handlePlay}>
+                    <source src={videoUrl} type="video/mp4"/>
+                </video>
+                {/*<video ref={video} src={videoUrl} autoPlay={true} muted={false} datatype="video/mp4"*/}
+                {/*       onClick={handlePlay}>*/}
+                {/*</video>*/}
                 <div className={"controlsContainer"} ref={controlsContainer}>
                     <div className={"progressControls"}>
                         <div className={"progressBar"} ref={progressBar}>

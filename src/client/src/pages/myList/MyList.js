@@ -36,6 +36,7 @@ export default function MyList({fetchUrl}) {
     const base_url = "https://image.tmdb.org/t/p/original/";
     const [isScrolled, setIsScrolled] = useState(false);
     const [movies, setMovies] = useState([]);
+    const [series, setSeries] = useState([]);
 
     const userDetails = JSON.parse(localStorage.getItem('user'));
     console.log('userDetails at item top list: ', userDetails);
@@ -46,6 +47,16 @@ export default function MyList({fetchUrl}) {
             console.log("request: ", request.data.items[0].MyListMovies)
             setMovies(request.data.items[0].MyListMovies);
             return request;
+        }
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        async function fetchData() {
+            const request = await axiosInstance3.get(`http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}`);
+            console.log("request series: ", request.data.MySeries)
+            setSeries(request.data.MySeries);
         }
 
         fetchData();
@@ -71,6 +82,15 @@ export default function MyList({fetchUrl}) {
                             index={index}
                             key={movie.movie_id}
                             isLiked={true}
+                        />);
+                    })}
+                    {series.map((item, index) => {
+                        return (<Card
+                            movieData={item}
+                            index={index}
+                            key={index}
+                            isLiked={true}
+                            isSeries={true}
                         />);
                     })}
                 </div>

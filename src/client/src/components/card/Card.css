@@ -56,6 +56,7 @@
 }
 .detail-general {
     overflow: auto;
+    width: 600px;
 }
 .detail-general::-webkit-scrollbar {
     display: none;
