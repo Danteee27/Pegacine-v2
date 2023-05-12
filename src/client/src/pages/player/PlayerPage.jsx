@@ -76,6 +76,15 @@ function Player() {
     }
 
     useEffect(() => {
+        if(userDetails?.userRank === "SILVER" && movieData?.userRank === "GOLD")
+            navigate("/home");
+
+        console.log("url user rank:", (userDetails?.userRank))
+        console.log("url movie rank:", (movieData?.userRank))
+    }, []);
+
+
+    useEffect(() => {
         async function fetchSeriesById() {
             const request = await axiosInstance3.get(`http://localhost:3000/api/movie/series/${movieData?.seriesId}`);
             console.log("Series: ", request.data.data)
