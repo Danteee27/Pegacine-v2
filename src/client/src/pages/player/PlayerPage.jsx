@@ -17,6 +17,8 @@ function Player() {
     // const videoUrl = url || "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     const videoUrl = location.state?.data.video || "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     const movieData = location.state?.data;
+    console.log("url video: ", videoUrl)
+    console.log("url data: ", location.state)
 
     const isSeries = movieData?.isSeries
 
@@ -98,7 +100,7 @@ function Player() {
     useEffect(() => {
         const matchingMovieArr = watchingMovies.filter((movie)=>movie?.movie_id === movieData?.movie_id)
         if(matchingMovieArr.length > 0){
-            video.current.currentTime += matchingMovieArr[0].stoppedAt*60;
+            video.current.currentTime += matchingMovieArr[0].stoppedAt*60 || 0;
         }
 
     }, [watchingMovies]);
@@ -184,7 +186,7 @@ function Player() {
             const pos =
                 (e.pageX - progressBar.current.offsetLeft - progressBar.current.offsetParent.offsetLeft) /
                 progressBar.current.offsetWidth;
-            video.current.currentTime = pos * video.current.duration;
+            video.current.currentTime = (pos||0) * video.current.duration;
         })
 
         return () => {
@@ -265,7 +267,7 @@ function Player() {
                 </svg>
             </div>
             <div className={"videoPlayer videoContainer"} ref={videoContainer}>
-                <video ref={video} src={videoUrl} autoPlay={true} muted={false} datatype={".mp4"}
+                <video ref={video} src={videoUrl} autoPlay={true} muted={false}
                        onClick={handlePlay}></video>
                 <div className={"controlsContainer"} ref={controlsContainer}>
                     <div className={"progressControls"}>
