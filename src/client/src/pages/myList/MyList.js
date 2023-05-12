@@ -37,9 +37,12 @@ export default function MyList({fetchUrl}) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [movies, setMovies] = useState([]);
 
+    const userDetails = JSON.parse(localStorage.getItem('user'));
+    console.log('userDetails at item top list: ', userDetails);
+
     useEffect(() => {
         async function fetchData() {
-            const request = await axiosInstance3.get('http://localhost:3000/api/user/profiles/my_list?profile_id=2&page=1&pageSize=999');
+            const request = await axiosInstance3.get(`http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=999`);
             console.log("request: ", request.data.items[0].MyListMovies)
             setMovies(request.data.items[0].MyListMovies);
             return request;

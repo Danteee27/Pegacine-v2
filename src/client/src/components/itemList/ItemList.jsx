@@ -6,7 +6,7 @@ import {
   ThumbDownOutlined,
   InfoOutlined,
   InfoRounded,
-  CloseOutlined,
+  CloseOutlined, CheckCircleOutline,
 } from '@mui/icons-material';
 import { Link, Route, Routes } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
@@ -22,6 +22,12 @@ export default function ItemList({ index, movieData }) {
   const [isHovered, setIsHovered] = useState(false);
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState(null);
+  const [idMovieMyList, setIdMovieMyList] = useState([]);
+  const [isInMyList, setIsInMyList] = useState(false);
+
+  const userDetails = JSON.parse(localStorage.getItem('user'));
+  console.log('userDetails at item top list: ', userDetails);
+
   useEffect(() => {
     async function fetchData(id) {
       const request = await axiosInstance3.get(
@@ -60,6 +66,89 @@ export default function ItemList({ index, movieData }) {
   const openDialogBox = () => {
     handleDisplay(true);
   };
+
+  useEffect(() => {
+
+    async function fetchData() {
+      const request = await axiosInstance3.get(
+          `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
+      );
+      // setMovie(request.data.data.items);
+      console.log('id moives userList: ', request.data.items[0].MyListMovies);
+      setIdMovieMyList(request.data.items[0].MyListMovies.map((item)=>item.movie_id))
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log("id movie list check: ", idMovieMyList)
+    console.log("id movie data check: ", movieData?.movie_id)
+    if (idMovieMyList.indexOf(movieData?.movie_id) === -1) {
+      setIsInMyList(false)
+      console.log("check no exist in mylist")
+    } else {
+      setIsInMyList(true)
+      console.log("check have exist in mylist")
+    }
+  }, [idMovieMyList]);
+
+  const hanleAddMyList = async () => {
+
+    const request = await axiosInstance3
+        .post(`http://localhost:3000/api/user/profile/my_list?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
+        .then(function (response) {
+          if (response.data.statusCode === 200) {
+            // to handle add success
+            setIsInMyList(true)
+            async function fetchData() {
+              const request = await axiosInstance3.get(
+                  `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
+              );
+              // setMovie(request.data.data.items);
+              console.log('id moives userList: ', request.data.items[0].MyListMovies);
+              setIdMovieMyList(request.data.items[0].MyListMovies.map((item)=>item.movie_id))
+            }
+
+            fetchData();
+            console.log(`adding movieid: ${movieData?.movie_id} success`)
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          alert('adding failed');
+        });
+
+  };
+
+  const hanleRemoveMyList = async () => {
+
+    const request = await axiosInstance3
+        .delete(`http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
+        .then(function (response) {
+          if (response.data.statusCode === 200) {
+            // to handle add success
+            console.log(`remove movieid: ${movieData?.movie_id} success`)
+            setIsInMyList(false)
+            async function fetchData() {
+              const request = await axiosInstance3.get(
+                  `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
+              );
+              // setMovie(request.data.data.items);
+              console.log('id moives userList: ', request.data.items[0].MyListMovies);
+              setIdMovieMyList(request.data.items[0].MyListMovies.map((item)=>item.movie_id))
+            }
+
+            fetchData();
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          alert('remove failed');
+        });
+
+  };
+
   const dialogStyle = {
     padding: '20px',
   };
@@ -95,7 +184,11 @@ export default function ItemList({ index, movieData }) {
               <Routes>
                 <Route path="/player" element={<PlayerPage />} />
               </Routes>
-              <Add className="icon" />
+              {isInMyList ? (
+                  <div onClick={hanleRemoveMyList}><CheckCircleOutline className="icon"/></div>
+              ) : (
+                  <div onClick={hanleAddMyList}><Add className="icon"/></div>
+              )}
               {/* <ThumbUpAltOutlined className="icon" />
               <ThumbDownOutlined className="icon" /> */}
 
@@ -152,9 +245,7 @@ export default function ItemList({ index, movieData }) {
                   <Routes>
                     <Route path="/player" element={<PlayerPage />} />
                   </Routes>
-                  <IconButton className="icon-button-custom">
-                    <Add />
-                  </IconButton>
+
                   {/* <IconButton className="icon-button-custom">
                     <ThumbUpAltOutlined />
                   </IconButton> */}

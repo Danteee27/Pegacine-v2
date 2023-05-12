@@ -40,9 +40,9 @@ const Navbar = () => {
           <a href="./home">
             <span>Home</span>
           </a>
-          {/*<Link to="../series">*/}
-          {/*  <span>Series</span>*/}
-          {/*</Link>*/}
+          <Link to="../series">
+            <span>Series</span>
+          </Link>
           {/*<Link to="../player"><span>Movies</span></Link>*/}
           {/*<Link to="../player"><span>New and Popular</span></Link>*/}
           <a href="./myList">

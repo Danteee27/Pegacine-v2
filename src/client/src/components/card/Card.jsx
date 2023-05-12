@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {IoPlayCircleSharp} from 'react-icons/io5';
-import {AiOutlinePlus} from 'react-icons/ai';
+import {AiOutlinePlus, AiOutlinePlusCircle} from 'react-icons/ai';
 import {RiThumbUpFill, RiThumbDownFill} from 'react-icons/ri';
 import {BiChevronDown} from 'react-icons/bi';
-import {BsCheck} from 'react-icons/bs';
+import {BsCheck, BsCheckCircle, BsCheckCircleFill} from 'react-icons/bs';
 
 import './Card.css';
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import PlayerPage from "../../pages/player/PlayerPage";
 import {IconButton} from "@mui/material";
-import {Add, CloseOutlined, PlayArrow, ThumbUpAltOutlined} from "@mui/icons-material";
+import {Add, CheckCircleOutline, CloseOutlined, PlayArrow, ThumbUpAltOutlined} from "@mui/icons-material";
 import Dialog from "@mui/material/Dialog";
 import {axiosInstance3} from "../../axios";
 
@@ -20,7 +20,12 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
     const [openDialog, handleDisplay] = useState(false);
     const [fullDataMovie, setFullDataMovie] = useState(null);
     // const [isSeries, setIsSeries] = useState(false);
+    const [idMovieMyList, setIdMovieMyList] = useState([]);
+    const [isInMyList, setIsInMyList] = useState(false);
     const [series, setSeries] = useState();
+
+    const userDetails = JSON.parse(localStorage.getItem('user'));
+    console.log('userDetails at item top list: ', userDetails);
     const handleClose = () => {
         handleDisplay(false);
     };
@@ -51,6 +56,121 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
             fetchSeriesById();
         }
     }, []);
+
+    useEffect(() => {
+
+        async function fetchData() {
+            const request = await axiosInstance3.get(
+                `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
+            );
+            // setMovie(request.data.data.items);
+            console.log('id moives userList: ', request.data.items[0].MyListMovies);
+            setIdMovieMyList(request.data.items[0].MyListMovies.map((item)=>item.movie_id))
+        }
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        console.log("id movie list check: ", idMovieMyList)
+        console.log("id movie data check: ", movieData?.movie_id)
+        if (idMovieMyList.indexOf(movieData?.movie_id) === -1) {
+            setIsInMyList(false)
+            console.log("check no exist in mylist")
+        } else {
+            setIsInMyList(true)
+            console.log("check have exist in mylist")
+        }
+    }, [idMovieMyList]);
+
+    const hanleAddMyList = async () => {
+
+        if(!isSeries){
+            // add to movies to my list
+            const request = await axiosInstance3
+                .post(`http://localhost:3000/api/user/profile/my_list?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
+                .then(function (response) {
+                    if (response.data.statusCode === 200) {
+                        // to handle add success
+                        setIsInMyList(true)
+
+                        async function fetchData() {
+                            const request = await axiosInstance3.get(
+                                `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
+                            );
+                            // setMovie(request.data.data.items);
+                            console.log('id moives userList: ', request.data.items[0].MyListMovies);
+                            setIdMovieMyList(request.data.items[0].MyListMovies.map((item) => item.movie_id))
+                        }
+
+                        fetchData();
+                        console.log(`adding movieid: ${movieData?.movie_id} success`)
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    alert('adding failed');
+                });
+        }
+        // else
+        // {
+        //     // add to series to my list
+        //     const request = await axiosInstance3
+        //         .post(`http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
+        //         .then(function (response) {
+        //             if (response.data.statusCode === 200) {
+        //                 // to handle add success
+        //                 setIsInMyList(true)
+        //
+        //                 async function fetchData() {
+        //                     const request = await axiosInstance3.get(
+        //                         `http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}`,
+        //                     );
+        //                     // setMovie(request.data.data.items);
+        //                     console.log('id moives userList: ', request.data.items[0].MyListMovies);
+        //                     setIdMovieMyList(request.data.items[0].MyListMovies.map((item) => item.movie_id))
+        //                 }
+        //
+        //                 fetchData();
+        //                 console.log(`adding movieid: ${movieData?.movie_id} success`)
+        //             }
+        //         })
+        //         .catch(function (error) {
+        //             console.log(error);
+        //             alert('adding failed');
+        //         });
+        // }
+
+    };
+
+    const hanleRemoveMyList = async () => {
+
+        const request = await axiosInstance3
+            .delete(`http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
+            .then(function (response) {
+                if (response.data.statusCode === 200) {
+                    // to handle add success
+                    console.log(`remove movieid: ${movieData?.movie_id} success`)
+                    setIsInMyList(false)
+                    async function fetchData() {
+                        const request = await axiosInstance3.get(
+                            `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
+                        );
+                        // setMovie(request.data.data.items);
+                        console.log('id moives userList: ', request.data.items[0].MyListMovies);
+                        setIdMovieMyList(request.data.items[0].MyListMovies.map((item)=>item.movie_id))
+                    }
+
+                    fetchData();
+                    window.location.reload(true);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert('remove failed');
+            });
+
+    };
 
 
     const openDialogBox = () => {
@@ -124,22 +244,26 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                                 {/*    <Route path="/player" element={<PlayerPage/>}/>*/}
                                 {/*</Routes>*/}
 
-                                <RiThumbUpFill title="Like"/>
-                                <RiThumbDownFill title="Dislike"/>
-                                {isLiked ? (
-                                    <BsCheck
-                                        title="Remove from List"
-                                        // onClick={() =>
-                                        //     dispatch(
-                                        //         removeMovieFromLiked({movieId: movieData.id, email})
-                                        //     )
-                                        // }
-                                    />
+                                {/*{isLiked ? (*/}
+                                {/*    <BsCheckCircleFill*/}
+                                {/*        title="Remove from List"*/}
+                                {/*        // onClick={() =>*/}
+                                {/*        //     dispatch(*/}
+                                {/*        //         removeMovieFromLiked({movieId: movieData.id, email})*/}
+                                {/*        //     )*/}
+                                {/*        // }*/}
+                                {/*    />*/}
+                                {/*) : (*/}
+                                {/*    <AiOutlinePlus*/}
+                                {/*        title="Add to my list"*/}
+                                {/*        // onClick={addToList}*/}
+                                {/*    />*/}
+                                {/*)}*/}
+
+                                {isInMyList ? (
+                                    <div onClick={hanleRemoveMyList}><BsCheckCircleFill className="icon"/></div>
                                 ) : (
-                                    <AiOutlinePlus
-                                        title="Add to my list"
-                                        // onClick={addToList}
-                                    />
+                                    <div onClick={hanleAddMyList}><AiOutlinePlusCircle className="icon"/></div>
                                 )}
                             </div>
                             <div className="info">
@@ -147,7 +271,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                             </div>
                         </div>
                         <div className="genres flex">
-                            <ul className="flex">
+                            <ul className="flex flex-wrap">
                                 {/*dang lam mang cho genre*/}
                                 {(fullDataMovie) && fullDataMovie.movie_genres.map((genre) => (
                                     <li key={genre.genre_id}>{genre.genre.genre_name}</li>
@@ -175,7 +299,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                             <h1 className='title-movie'>{isSeries ? movieData.seriesName : movieData.title}</h1>
                             <div className='navigation-button'>
                                 <div className="icons">
-                                    <Link to="../player">
+                                    <Link to={`/player/${movieData.movie_id}`} state={{data: movieData}}>
                                         <IconButton className='icon-button-custom'>
                                             <PlayArrow/>
                                         </IconButton>
@@ -184,13 +308,13 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                                     <Routes>
                                         <Route path="/player" element={<PlayerPage/>}/>
                                     </Routes>
-                                    <IconButton className='icon-button-custom'>
-                                        <Add/>
-                                    </IconButton>
-                                    <IconButton className='icon-button-custom'>
+                                    {/*<IconButton className='icon-button-custom'>*/}
+                                    {/*    <Add/>*/}
+                                    {/*</IconButton>*/}
+                                    {/*<IconButton className='icon-button-custom'>*/}
 
-                                        <ThumbUpAltOutlined/>
-                                    </IconButton>
+                                    {/*    <ThumbUpAltOutlined/>*/}
+                                    {/*</IconButton>*/}
                                 </div>
                             </div>
                         </div>
