@@ -46,6 +46,8 @@ import { UserTransactionEntity } from './entities/transaction.entity';
 import { OkResponse } from 'libs/models/responses';
 import { UserEntity } from './entities';
 import { AddSeriesCommand } from './commands/profile/add_series/add_series.command';
+import { GetSeriesQuery } from 'src/movie/queries/get_series/get_series.query';
+import { GetProfileSeriesQuery } from './query/get_profile_series/get_profile_series.query';
 @ApiTags('user')
 @Controller('user')
 export class UserEntityController {
@@ -191,7 +193,10 @@ export class UserEntityController {
       new GetProfileWatchedQuery(profile_id, page, pageSize),
     );
   }
-
+  @Get('profiles/series')
+  getSeries(@Query('profile_id') profile_id: number) {
+    return this.queryBus.execute(new GetProfileSeriesQuery(profile_id));
+  }
   @Post('profiles/series')
   addSeries(
     @Query('profile_id') profile_id: number,

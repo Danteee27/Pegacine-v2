@@ -4,6 +4,7 @@ import { GetProfileMyListQueryHandler } from './get_profile_mylist/get_profile_m
 import { GetProfileWatchingQueryHandler } from './get_profile_watching/get_profile_watching.handler';
 import { GetProfileWatchedQueryHandler } from './get_profile_watched/get_profile_watched.handler';
 import { GetTransactionsQueryHandler } from './get_transactions/get_transactions.handler';
+import { GetProfileSeriesQueryHandler } from './get_profile_series/get_profile_series.handler';
 
 export const QueryHandlers = [
   GetProfilesQueryHandler,
@@ -12,4 +13,5 @@ export const QueryHandlers = [
   GetProfileWatchingQueryHandler,
   GetProfileWatchedQueryHandler,
   GetTransactionsQueryHandler,
+  GetProfileSeriesQueryHandler,
 ];
