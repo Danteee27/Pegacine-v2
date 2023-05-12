@@ -48,6 +48,7 @@ import { UserEntity } from './entities';
 import { AddSeriesCommand } from './commands/profile/add_series/add_series.command';
 import { GetSeriesQuery } from 'src/movie/queries/get_series/get_series.query';
 import { GetProfileSeriesQuery } from './query/get_profile_series/get_profile_series.query';
+import { DeleteProfileSeriesCommand } from './commands/delete_series/delete_series.command';
 @ApiTags('user')
 @Controller('user')
 export class UserEntityController {
@@ -203,6 +204,16 @@ export class UserEntityController {
     @Query('seriesId') seriesId: number,
   ) {
     return this.commandBus.execute(new AddSeriesCommand(profile_id, seriesId));
+  }
+
+  @Delete('profiles/series')
+  deleteSeries(
+    @Query('profile_id') profile_id: number,
+    @Query('seriesId') seriesId: number,
+  ) {
+    return this.commandBus.execute(
+      new DeleteProfileSeriesCommand(profile_id, seriesId),
+    );
   }
 
   @Get('profiles/:user_id')

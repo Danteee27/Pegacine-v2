@@ -1,3 +1,4 @@
+import { DeleteProfileSeriesCommandHandler } from './delete_series/delete_series.handler';
 import { AddProfileFavoriteMovieCommandHandler } from './profile/add_profile_favorite_movie/add_profile_favorite_movie.handler';
 import { AddProfileMyListMovieCommandHandler } from './profile/add_profile_mylist_movie/add_profile_mylist_movie.handler';
 import { AddProfileWatchingCommandHandler } from './profile/add_profile_watching_movie/add_profile_watching.handler';
@@ -26,4 +27,5 @@ export const CommandHandlers = [
   DeleteProfileWatchingMovieCommandHandler,
   CheckTransactionCommandHandler,
   AddSeriesCommandHandler,
+  DeleteProfileSeriesCommandHandler,
 ];
