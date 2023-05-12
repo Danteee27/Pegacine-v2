@@ -33,7 +33,7 @@ const Series = () => {
             <div className="seriesContainer">
                 <h1>Series</h1>
                 <div className="seriesContent">
-                    {movies.map((movie, index) => {
+                    {movies?.map((movie, index) => {
                         return (<Card
                             movieData={movie}
                             index={index}
