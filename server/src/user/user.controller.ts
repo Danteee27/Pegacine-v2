@@ -45,6 +45,7 @@ import { Repository } from 'typeorm';
 import { UserTransactionEntity } from './entities/transaction.entity';
 import { OkResponse } from 'libs/models/responses';
 import { UserEntity } from './entities';
+import { AddSeriesCommand } from './commands/profile/add_series/add_series.command';
 @ApiTags('user')
 @Controller('user')
 export class UserEntityController {
@@ -193,9 +194,11 @@ export class UserEntityController {
 
   @Post('profiles/series')
   addSeries(
-    @Query('user_id') user_id: number,
-    @Query('movie_id') movie_id: number,
-  ) {}
+    @Query('profile_id') profile_id: number,
+    @Query('seriesId') seriesId: number,
+  ) {
+    return this.commandBus.execute(new AddSeriesCommand(profile_id, seriesId));
+  }
 
   @Get('profiles/:user_id')
   findProfileById(@Param('user_id') id: number) {
