@@ -178,7 +178,7 @@ export default function ItemList({ index, movieData }) {
           src={movieData?.thumbnail ? movieData.thumbnail : movieThumbnail}
           alt=""
         />
-        {movieData.userRank === 'GOLD' && (
+        {movieData && movieData.userRank === 'GOLD' && (
           <div className="vipTag1">
             <img src={require('../../assets/vip.jpg')} alt="img vip" />
           </div>
