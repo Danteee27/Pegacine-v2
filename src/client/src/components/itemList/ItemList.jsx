@@ -281,7 +281,7 @@ export default function ItemList({ index, movieData }) {
                   <span className="new">New</span>
                 )}
                 <span className="time">{movieData?.runtime} mins</span>
-                <span>Comedy</span>
+                {/* <span>Comedy</span> */}
                 <span>{movieData?.release_date.split('-')[0]}</span>
               </div>
               <div className="limit-age">

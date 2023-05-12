@@ -85,11 +85,11 @@ const Home = () => {
       <TopList movieDataList={movies} title={'Hot movies today'} />
       <List movieDataList={movies1} title={'Only in Pegacine'} />
       <List movieDataList={movies2} title={'Drama'} />
-      <List movieDataList={movies3} title={'K Drama'} />
+      <List movieDataList={movies3} title={'Action'} />
       <TopList movieDataList={movies5} title={'Highly Recommend Movies'} />
-      <List movieDataList={movies4} title={'T Drama'} />
-      <List movieDataList={movies5} title={'V Drama'} />
-      <List movieDataList={movies5} title={'L Drama'} />
+      <List movieDataList={movies4} title={'Anime'} />
+      <List movieDataList={movies5} title={'Romantic'} />
+      <List movieDataList={movies5} title={'Exciting TV Shows'} />
 
       <Footer />
     </div>
