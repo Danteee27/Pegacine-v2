@@ -23,12 +23,24 @@ export default function PlanForm({fetchUrl}) {
         setReRender(prevState => !prevState)
     }
 
+    const isChecked  = () => {
+        if(silver.current?.checked){
+            return true;
+        }
+        if(gold.current?.checked){
+            return true;
+        }
+        return false;
+    }
+
 
     return (<div className={"planForm"}>
             <Navbar/>
             <div className="planFormContainer">
                 <div className={"planFormContent"}>
+                    <h2 className="alert-access">To access this website, you must first upgrade to a paid membership.</h2>
                     <div className="stepHeader" role="status">
+                        
                         <span id="" className="stepIndicator" data-uia="">
                             STEP <b>1</b> OF <b>3</b>
                         </span>
@@ -95,18 +107,22 @@ export default function PlanForm({fetchUrl}) {
                             </tr>
                             </tbody>
                         </table>
+                        {
+                            isChecked() && (
                         <div className={"nextButtonContainer"}>
                             <Link
                                 to={'/payment-picker'}  
                                 state={stateObj}
                             >
-                                <button className={"nextButton"}>Next</button>
+                                <button className={"nextButton-1"}>Next</button>
                             </Link>
                             <Routes>
                                 <Route path="/payment-picker" element={<PaymentPicker />} />
                             </Routes>
                             
-                        </div>
+                        </div>)
+                        }
+
                     </div>
                 </div>
             </div>

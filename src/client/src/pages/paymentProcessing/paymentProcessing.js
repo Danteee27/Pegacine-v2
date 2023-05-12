@@ -11,33 +11,32 @@ import Footer from "../../components/footer/Footer";
 
 export default function PaymentProcessing({fetchUrl}) {
     const {state} = useLocation();
-    console.log("payment confirm: ", state);
-
-    // useEffect(() => {
-    //     const postInterVal = window.setInterval(async () => {
-    //         let data;
-    //         data = {
-    //             access_token: "QIE4hQCWI0eHm7aqYuG7dIhLHwc78Og3qUqCLbAYXXbJ5RDU3b",
-    //             limit: 0,
-    //             offset: 0,
-    //             phone: state ? state.phoneNumber : ""
-    //         };
-    //         const request = await axiosInstance3
-    //             .post(`http://localhost:3000/api/user/transaction`, data, {
-    //                 headers: {'Content-Type': 'application/json'},
-    //             })
-    //             .then(function (response) {
-    //                 console.log("reponse from Payment processing: ", response)
-    //
-    //             })
-    //             .catch(function (error) {
-    //                 console.log(error);
-    //                 alert('login failed');
-    //             });
-    //     }, 5000)
-    //
-    //     return(clearInterval(postInterVal))
-    // }, []);
+const userDetails = JSON.parse(localStorage.getItem('user'));
+    async function fetchData() {
+        let type = 'GOLD';
+        if(state.silver){
+            type = 'SILVER';
+        } 
+    let data = JSON.stringify({
+      transaction_type: type,
+      transaction_date: new Date(),
+      access_token: "8yj1zN7x7rWnjFiZdWyp52OJZV6bA4xyFQ7e4Ss4U5fPb5p3p0",
+    });
+    const request = await axiosInstance3
+      .post(`http://localhost:3000/api/user/check_transaction/` + userDetails.id, data, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then(function (response) {
+        localStorage.clear();
+        const user = response.data.data;
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = '/home';
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert('Payment failed!');
+      });
+  }
 
     return (<div className={"paymentConfirmForm"}>
             <Navbar/>
@@ -49,11 +48,11 @@ export default function PaymentProcessing({fetchUrl}) {
                                 <h1 className="stepTitle" data-uia="stepTitle">Paying Momo</h1>
                             </div>
                         </div>
-                        <div className={"momoImage"}><img src={require("../../assets/MOMOPAY.png")} alt="momoIcon"/>
+                        <div className={"momoImage"}><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbJIyw8QqHq776m0KZdPfoOhOJFjHTNZjr2UqA-WE&s" width={60} alt="momoIcon"/>
                         </div>
 
                         <div className="narrowContainer" data-uia="messagesContainer">
-                            <div id="" className="contextRow contextRowFirst" data-uia="">Please scan this QR by your phone in Momo application.
+                            <div id="" className="contextRow contextRowFirst" data-uia="">Please use the Momo app on your phone to scan this QR code, then click <b>Confirm payment</b>.
                             </div>
                         </div>
                         {state.silver && (<div className="qr-code">
@@ -67,13 +66,14 @@ export default function PaymentProcessing({fetchUrl}) {
                             <img
                                 src="https://momosv3.apimienphi.com/api/QRCode?phone=0378588700&amount=200&note=pegacine&fbclid=IwAR0g-jx1m_TIuynVPkSoD902cUl5_IpByBbLSO4wtW5AghMYDU4K_e65rDY"
                                 alt="qr-code"
-                                width={"700px"}
+                                width={300}
                             />
                         </div>)}
-
+                    <div className="paymentConfirmFormFooter">
+                        <button className={"nextButton"} onClick={fetchData}>Confirm payment</button>
                     </div>
-
-
+                    </div>
+                    
                 </div>
             </div>
             <Footer/>

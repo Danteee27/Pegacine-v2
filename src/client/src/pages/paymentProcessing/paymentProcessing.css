@@ -17,6 +17,7 @@
   color: #141414;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .paymentConfirmHeading {
@@ -37,4 +38,26 @@
 }
 
 .qr-code {
+  display: flex;
+  justify-content: center;
+}
+
+.qr-code img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nextButton {
+  width: 100%;
+  height: 50px;
+  background: #e31221;
+  border: none;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.paymentConfirmFormFooter {
+  margin-top: 50px;
 }

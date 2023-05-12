@@ -1,7 +1,9 @@
 .planFormContainer {
   background: white;
 }
-
+.alert-access {
+  margin-top: 20px;
+}
 .planForm {
   height: 100%;
   padding-bottom: 50px;
@@ -123,7 +125,7 @@ td {
   font-weight: bold;
 }
 
-.nextButton {
+.nextButton-1 {
   width: 400px;
   height: 50px;
   background: #e31221;
