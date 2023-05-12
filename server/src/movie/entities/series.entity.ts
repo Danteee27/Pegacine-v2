@@ -22,6 +22,22 @@ export class Series extends BaseEntity {
   @ApiProperty()
   seriesDescription: string;
 
+  @Column({ nullable: true })
+  @ApiProperty()
+  trailer: string;
+
+  @Column({ nullable: true })
+  @ApiProperty()
+  poster: string;
+
+  @Column({ nullable: true })
+  @ApiProperty()
+  thumbnail: string;
+
+  @Column({ nullable: true })
+  @ApiProperty()
+  backdrop: string;
+
   @OneToMany(() => Movie, (movie) => movie.series)
   @ApiProperty()
   movies: Movie[];
