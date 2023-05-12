@@ -20,11 +20,15 @@ function Player() {
 
     const isSeries = movieData?.isSeries
 
+    const userDetails = JSON.parse(localStorage.getItem('user'));
+    console.log('userDetails at item top list: ', userDetails);
+
 
     // const [isEpisodeHover, setEpisodeHover] = useState(false);
     const [isEpisodeHover, setIsEpisodeHover] = useState(false);
     const [isNextEpisodeHover, setIsNextEpisodeHover] = useState(false);
     const [series, setSeries] = useState();
+    const [watchingMovies, setWatchingMovies] = useState([]);
 
     const video = useRef(null);
     const videoContainer = useRef(null);
@@ -81,6 +85,24 @@ function Player() {
         }
     }, []);
 
+    useEffect(() => {
+        async function fetchWatchingMovies() {
+            const request = await axiosInstance3.get(`http://localhost:3000/api/user/profiles/watching?profile_id=${userDetails?.id}&page=1&pageSize=999`);
+            console.log("watching movies: ", request.data.items)
+            setWatchingMovies(request.data.items)
+        }
+
+            fetchWatchingMovies();
+    }, []);
+
+    useEffect(() => {
+        const matchingMovieArr = watchingMovies.filter((movie)=>movie?.movie_id === movieData?.movie_id)
+        if(matchingMovieArr.length > 0){
+            video.current.currentTime += matchingMovieArr[0].stoppedAt*60;
+        }
+
+    }, [watchingMovies]);
+
 
     useEffect(() => {
         // initial icon for playpause button
@@ -125,15 +147,34 @@ function Player() {
                 const totalSecondsRemaining = video.current.duration - video.current.currentTime;
                 const time = new Date(null);
                 time.setSeconds(totalSecondsRemaining);
+
                 let hours = null;
 
                 if (totalSecondsRemaining >= 3600) {
-                    hours = (time.getHours().toString()).padStart(2, '0');
+                    hours = (Math.floor(totalSecondsRemaining/3600).toString()).padStart(2, '0');
                 }
 
-                let minutes = (time.getMinutes().toString()).padStart(2, '0');
-                let seconds = (time.getSeconds().toString()).padStart(2, '0');
-                timeRemaining.current.textContent = `${hours ? hours : ''}${minutes}:${seconds}`;
+                let minutes = (Math.floor(totalSecondsRemaining/60 - hours*60).toString()).padStart(2, '0');
+                let seconds = (Math.floor(totalSecondsRemaining - hours*3600 - minutes*60).toString()).padStart(2, '0');
+                timeRemaining.current.textContent = `${hours ? hours + ":" : ''}${minutes}:${seconds}`;
+
+                const updateWatchingTime = async ()=>{
+                    if(Math.floor(video.current.currentTime / 60) >= 2)
+                    {
+                        const request = await axiosInstance3
+                            .post(`http://localhost:3000/api/user/profiles/watching?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}&stoppedAt=${Math.floor(video.current.currentTime / 60)}`)
+                    }
+                    else {
+                        const request = await axiosInstance3
+                            .post(`http://localhost:3000/api/user/profiles/watching?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}&stoppedAt=${9999999}`)
+                    }
+                }
+
+                if(Math.round(video.current.currentTime % 5) === 0) {
+                    updateWatchingTime()
+                }
+
+                // console.log(video.current.duration)
             }
         }
         video.current.addEventListener('timeupdate', () => updateTime())
@@ -217,7 +258,7 @@ function Player() {
             <div className={'back'} ref={backButton} onClick={() => navigate(-1)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                      className="Hawkins-Icon Hawkins-Icon-Standard" data-name="ArrowLeft">
-                    <path fillRule="evenodd" clip-rule="evenodd"
+                    <path fillRule="evenodd" clipRule="evenodd"
                           d="M24 11.0001L3.41421 11.0001L8.70711 5.70718L7.29289 4.29297L0.292892 11.293C0.105356 11.4805 0 11.7349 0 12.0001C0 12.2653 0.105356 12.5196 0.292892 12.7072L7.29289 19.7072L8.70711 18.293L3.41421 13.0001H24V11.0001Z"
                           fill="white"></path>
                 </svg>
