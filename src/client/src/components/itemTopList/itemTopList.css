@@ -59,7 +59,7 @@
   padding: 5px;
 }
 
-#rank-10{
+#rank-10 {
   display: flex;
   align-items: center;
   padding-top: 20px;
@@ -101,4 +101,13 @@
 .listItem:hover .itemInfo .genre {
   font-size: 14px;
   color: lightgray;
+}
+.vipTag2 {
+  width: 5em;
+  height: 1.2em;
+  vertical-align: middle;
+  fill: yellow;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
 }

@@ -146,7 +146,7 @@ export default function HighLight({ type }) {
                 <span className="new">New</span>
               )}
               <span className="time">{movie?.runtime} mins</span>
-              <span>Comedy</span>
+              {/* <span>Comedy</span> */}
               <span>{movie?.release_date.split('-')[0]}</span>
             </div>
             <div className="limit-age">
