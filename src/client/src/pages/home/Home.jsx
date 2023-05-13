@@ -65,7 +65,7 @@ const Home = () => {
 
     async function fetchData5() {
       const request = await axiosInstance3.get(
-        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=28&page=1&pageSize=10`,
+        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=10773&page=1&pageSize=10`,
       );
       setMovies5(request.data.data.items);
       console.log('movieDataList at Home: ', request.data.data.items);
@@ -83,13 +83,13 @@ const Home = () => {
       <Navbar />
       <HighLight />
       <TopList movieDataList={movies} title={'Hot movies today'} />
-      <List movieDataList={movies1} title={'Only in Pegacine'} genreId={"14"} />
-      <List movieDataList={movies2} title={'Drama'} genreId={"16"} />
-      <List movieDataList={movies3} title={'Action' } genreId={"18"} />
+      <List movieDataList={movies1} title={'Only in Pegacine'} genreId={'14'} />
+      <List movieDataList={movies2} title={'Drama'} genreId={'16'} />
+      <List movieDataList={movies3} title={'Action'} genreId={'18'} />
       <TopList movieDataList={movies5} title={'Highly Recommend Movies'} />
-      <List movieDataList={movies4} title={'Anime'} genreId={"27"} />
-      <List movieDataList={movies5} title={'Romantic'} genreId={"28"}/>
-      <List movieDataList={movies5} title={'Exciting TV Shows'} genreId={"28"}/>
+      <List movieDataList={movies4} title={'Anime'} genreId={'27'} />
+      {/* <List movieDataList={movies5} title={'Romantic'} genreId={'28'} /> */}
+      <List movieDataList={movies5} title={'Newest movie'} genreId={'10773'} />
 
       <Footer />
     </div>

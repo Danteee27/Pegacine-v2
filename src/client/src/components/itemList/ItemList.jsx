@@ -30,26 +30,28 @@ export default function ItemList({ index, movieData }) {
   console.log('userDetails at item top list: ', userDetails);
 
   useEffect(() => {
-    async function fetchData(id) {
-      const request = await axiosInstance3.get(
-        `http://localhost:3000/api/movie/findById?id=` + id,
-      );
-      // setMovie(request.data.data.items);
-      console.log('movie: ', request.data.data);
-      setMovie(request.data.data);
-      return request;
+    if (movieData) {
+      async function fetchData(id) {
+        const request = await axiosInstance3.get(
+          `http://localhost:3000/api/movie/findById?id=` + id,
+        );
+        // setMovie(request.data.data.items);
+        console.log('movie: ', request.data.data);
+        setMovie(request.data.data);
+        return request;
+      }
+      async function fetchDataCast(id) {
+        const request = await axiosInstance3.get(
+          `http://localhost:3000/api/movie_cast/find_by_movie_id/` + id,
+        );
+        // setMovie(request.data.data.items);
+        console.log('cast: ', request.data);
+        setCast(request.data.slice(0, 5));
+        return request;
+      }
+      fetchData(movieData?.movie_id);
+      fetchDataCast(movieData?.movie_id);
     }
-    async function fetchDataCast(id) {
-      const request = await axiosInstance3.get(
-        `http://localhost:3000/api/movie_cast/find_by_movie_id/` + id,
-      );
-      // setMovie(request.data.data.items);
-      console.log('cast: ', request.data);
-      setCast(request.data.slice(0, 5));
-      return request;
-    }
-    fetchData(movieData?.movie_id);
-    fetchDataCast(movieData?.movie_id);
   }, []);
 
   const trailer =
