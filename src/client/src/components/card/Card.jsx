@@ -198,7 +198,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
 
                         fetchData();
 
-                            window.location.reload(true);
+                            // window.location.reload(true);
                     }
                 })
                 .catch(function (error) {
@@ -229,8 +229,8 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                         }
 
                         fetchData();
-                        if(document.referrer.includes("/myList"))
-                            window.location.reload(true);
+                        // if(document.referrer.includes("/myList"))
+                        //     window.location.reload(true);
                     }
                 })
                 .catch(function (error) {

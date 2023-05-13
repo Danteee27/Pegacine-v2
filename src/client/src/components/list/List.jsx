@@ -15,21 +15,45 @@ import { Link, Route, Routes } from 'react-router-dom';
 import PlayerPage from '../../pages/player/PlayerPage';
 import Card from '../card/Card';
 import { axiosInstance3 } from '../../axios';
+import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function List({ movieDataList, title }) {
+export default function List({ movieDataList, title, genreId="" }) {
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
   const [openDialog, handleDisplay] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
+
   console.log('movieDataList: ', movieDataList);
+
   async function fetchMoviesData() {
     const request = await axiosInstance3.get(
-      'http://localhost:3000/api/user/profiles/my_list?profile_id=2&page=1&pageSize=999',
+        `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=${genreId}&page=${pageNumber}&pageSize=30`,
     );
-    console.log('request: ', request.data.items[0].MyListMovies);
-    setMovies(request.data.items[0].MyListMovies);
-    return request;
+    setMovies(request.data.data.items);
+    setTotalPages(request.data.data.meta.totalPages)
+    console.log('movieDataList at Home: ', request.data.data.items);
   }
+
+
+  const fetchData = () => {
+    setPageNumber(prev => prev + 1)
+    async function fetchData() {
+      const request = await axiosInstance3.get(
+          `http://localhost:3000/api/movie/find_by_movie_genres?genre_id=${genreId}&page=${pageNumber}&pageSize=10`,
+      );
+      setMovies(prev=>[...prev,...request.data.data.items])
+      setTotalPages(request.data.data.meta.totalPages)
+      console.log(request.data.data.items)
+      return request
+    }
+    console.log("next")
+    fetchData();
+
+  }
+
 
   const handleClose = () => {
     handleDisplay(false);
@@ -106,6 +130,13 @@ export default function List({ movieDataList, title }) {
                 />
               );
             })}
+            <InfiniteScroll
+                dataLength={movies.length} //This is important field to render the next data
+                next={fetchData}
+                hasMore={totalPages >= pageNumber}
+            >
+
+            </InfiniteScroll>
           </div>
         </div>
       </Dialog>
