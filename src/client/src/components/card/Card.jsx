@@ -23,12 +23,15 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
     const [idMovieMyList, setIdMovieMyList] = useState([]);
     const [isInMyList, setIsInMyList] = useState(false);
     const [series, setSeries] = useState();
+    const [idSeriesMyList, setIdSeriesMyList] = useState([]);
 
     const userDetails = JSON.parse(localStorage.getItem('user'));
     console.log('userDetails at item top list: ', userDetails);
     const handleClose = () => {
         handleDisplay(false);
     };
+
+
 
     useEffect(() => {
         async function fetchMovieById(id) {
@@ -64,24 +67,54 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                 `http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&page=1&pageSize=9999`,
             );
             // setMovie(request.data.data.items);
-            console.log('id moives userList: ', request.data.items[0].MyListMovies);
-            setIdMovieMyList(request.data.items[0].MyListMovies.map((item)=>item.movie_id))
+            console.log('id moives userList: ', request.data.items[0]?.MyListMovies);
+            setIdMovieMyList(request.data.items[0]?.MyListMovies.map((item)=>item.movie_id))
         }
 
         fetchData();
     }, []);
 
     useEffect(() => {
-        console.log("id movie list check: ", idMovieMyList)
-        console.log("id movie data check: ", movieData?.movie_id)
-        if (idMovieMyList.indexOf(movieData?.movie_id) === -1) {
-            setIsInMyList(false)
-            console.log("check no exist in mylist")
-        } else {
-            setIsInMyList(true)
-            console.log("check have exist in mylist")
+
+        async function fetchData() {
+            const request = await axiosInstance3.get(
+                `http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}`,
+            );
+            // setMovie(request.data.data.items);
+            console.log('id series userList: ', request.data.MySeries);
+            setIdSeriesMyList(request.data.MySeries.map((item)=>item.seriesId))
+        }
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if(!isSeries){
+            console.log("id movie list check: ", idMovieMyList)
+            console.log("id movie data check: ", movieData?.movie_id)
+            if (idMovieMyList?.indexOf(movieData?.movie_id) === -1) {
+                setIsInMyList(false)
+                console.log("check no exist in mylist")
+            } else {
+                setIsInMyList(true)
+                console.log("check have exist in mylist")
+            }
         }
     }, [idMovieMyList]);
+
+    useEffect(() => {
+        if(isSeries){
+            console.log("id movie list check: ", idMovieMyList)
+            console.log("id series data check: ", movieData?.seriesId)
+            if (idSeriesMyList.indexOf(movieData?.seriesId) === -1) {
+                setIsInMyList(false)
+                console.log("check no exist in mylist")
+            } else {
+                setIsInMyList(true)
+                console.log("check have exist in mylist")
+            }
+        }
+    }, [idSeriesMyList]);
 
     const hanleAddMyList = async () => {
 
@@ -109,7 +142,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                 })
                 .catch(function (error) {
                     console.log(error);
-                    alert('adding failed');
+                    // alert('adding failed');
                 });
         }
         else
@@ -136,7 +169,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                 })
                 .catch(function (error) {
                     console.log(error);
-                    alert('adding failed');
+                    // alert('adding failed');
                 });
         }
 
@@ -150,7 +183,7 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                 .delete(`http://localhost:3000/api/user/profiles/my_list?profile_id=${userDetails?.id}&movie_id=${movieData?.movie_id}`)
                 .then(function (response) {
                     if (response.data.statusCode === 200) {
-                        // to handle add success
+                        // to handle remove success
                         console.log(`remove movieid: ${movieData?.movie_id} success`)
                         setIsInMyList(false)
 
@@ -164,40 +197,45 @@ export default React.memo(function Card({index, movieData, isLiked = false, isVi
                         }
 
                         fetchData();
-                        window.location.reload(true);
+
+                            window.location.reload(true);
                     }
                 })
                 .catch(function (error) {
                     console.log(error);
-                    alert('remove failed');
+                    // alert('remove failed');
                 });
         }
         else
         {
             // dang lam cho remove series nhung chua co API
-            // remove series from my list
+            // remove movie from my list
             const request = await axiosInstance3
-                .post(`http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}&seriesId=${movieData?.seriesId}`)
+                .delete(`http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}&seriesId=${movieData?.seriesId}`)
                 .then(function (response) {
-                    // to handle add success
-                    setIsInMyList(false)
-                    async function fetchData() {
-                        const request = await axiosInstance3.get(
-                            `http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}`,
-                        );
-                        // setMovie(request.data.data.items);
-                        setSeries(request.data.MySeries)
-                        console.log('url series lisst: ', request.data.MySeries);
-                        // setIdMovieMyList(request.data.items[0].MyListMovies.map((item) => item.movie_id))
-                    }
-                    fetchData();
-                    console.log(`adding movieid: ${movieData?.movie_id} success`)
+                    if (response.data.statusCode === 200) {
+                        // to handle add success
+                        console.log(`remove seriesID: ${movieData?.movie_id} success`)
+                        setIsInMyList(false)
 
-                    console.log("url series: ", series)
+                        async function fetchData() {
+                            const request = await axiosInstance3.get(
+                                `http://localhost:3000/api/user/profiles/series?profile_id=${userDetails?.id}`,
+                            );
+                            // setMovie(request.data.data.items);
+                            console.log('id series userList: ', request.data.MySeries);
+                            console.log("url",document.referrer)
+                            setIdSeriesMyList(request.data.MySeries.map((item)=>item.seriesId))
+                        }
+
+                        fetchData();
+                        if(document.referrer.includes("/myList"))
+                            window.location.reload(true);
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
-                    alert('adding failed');
+                    // alert('adding failed');
                 });
         }
 
