@@ -227,8 +227,8 @@ export class UserEntityController {
   }
 
   @Post('transaction')
-  createTransaction(@Body() dto: GetTransactionsDto) {
-    return this.queryBus.execute(new GetTransactionsQuery(dto));
+  createTransaction() {
+    return this.queryBus.execute(new GetTransactionsQuery());
   }
 
   @Post('check_transaction/:user_id')

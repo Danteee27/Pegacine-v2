@@ -28,6 +28,8 @@ export class UpdateSeriesCommandHandler
     existedSeries.seriesDescription =
       command.dto.seriesDescription || existedSeries.seriesDescription;
 
+    await existedSeries.save();
+
     return new OkResponse(existedSeries);
   }
 }
