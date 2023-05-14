@@ -1,24 +1,19 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetTransactionsQuery } from './get_transactions.query';
-import { firstValueFrom } from 'rxjs';
-import { HttpService } from '@nestjs/axios';
+import { Inject } from '@nestjs/common';
+import { UserTransactionEntity } from 'src/user/entities/transaction.entity';
+import { Repository } from 'typeorm';
 
 @QueryHandler(GetTransactionsQuery)
 export class GetTransactionsQueryHandler
   implements IQueryHandler<GetTransactionsQuery>
 {
-  constructor(readonly httpService: HttpService) {}
+  constructor(
+    @Inject('TRANSACTION_REPOSITORY')
+    readonly transactionRepository: Repository<UserTransactionEntity>,
+  ) {}
   async execute(query: GetTransactionsQuery): Promise<any> {
-    const response = await firstValueFrom(
-      this.httpService.post(
-        'https://momosv3.apimienphi.com/api/getTransHistory',
-        query.dto,
-      ),
-    );
-
-    const transactions = response.data.data.filter(
-      (transaction) => transaction.amount === '100' || '200',
-    );
+    const transactions = await this.transactionRepository.find();
 
     return transactions;
   }

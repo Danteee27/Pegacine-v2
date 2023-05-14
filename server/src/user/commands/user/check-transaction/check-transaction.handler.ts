@@ -52,7 +52,7 @@ export class CheckTransactionCommandHandler
       const existedTrans = await this.transactionRepository.findOne({
         where: { transaction_id: transactions[i].id },
       });
-
+      //
       if (!existedTrans) {
         newTransaction = transactions[i];
       }
