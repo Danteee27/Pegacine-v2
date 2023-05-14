@@ -33,7 +33,7 @@ export class CheckTransactionCommandHandler
         'https://momosv3.apimienphi.com/api/getTransHistory',
         {
           access_token: command.dto.access_token,
-          phone: '0378588700',
+          phone: '0335886430',
           limit: 10,
           offset: 0,
         },

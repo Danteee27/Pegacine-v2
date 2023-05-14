@@ -17,7 +17,7 @@ export class GetTransactionsQueryHandler
     );
 
     const transactions = response.data.data.filter(
-      (transaction) => transaction.amount === '666' || '888',
+      (transaction) => transaction.amount === '100' || '200',
     );
 
     return transactions;
