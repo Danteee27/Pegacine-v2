@@ -60,7 +60,7 @@ export default function Sidebar() {
               </li>
             </Link>
             <Link to="/transactions" className="link">
-              <li className="sidebarListItem">
+            <li className={splitLocation[1] === "transactions" ? "sidebarListItem active" : "sidebarListItem"}>
                 <AttachMoney className="sidebarIcon" />
                 Transactions
               </li>
