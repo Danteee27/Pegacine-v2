@@ -9,9 +9,9 @@ export default function TransactionList() {
 
   useEffect(() => {
     const fetchData = async () => {
-        const res = await axios.get("/user/transaction");
-        setSeries(res.data);
-    }
+      const res = await axios.get("http://localhost:3000/api/user/transaction");
+      setSeries(res.data);
+    };
     fetchData();
   }, []);
 
@@ -26,12 +26,11 @@ export default function TransactionList() {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     { field: "transaction_id", headerName: "Trans. Id", width: 200 },
-    { field: "user_id", headerName: "User Id", width: 90 },
+    { field: "user_id", headerName: "User Id", width: 200 },
     { field: "transaction_type", headerName: "Type", width: 200 },
     { field: "transaction_amount", headerName: "Amount", width: 200 },
     { field: "transaction_date", headerName: "Date", width: 200 },
     { field: "transaction_status", headerName: "Status", width: 200 },
-    
   ];
 
   return (
@@ -41,8 +40,8 @@ export default function TransactionList() {
         disableSelectionOnClick
         columns={columns}
         pageSize={20}
-        getRowId={r => r.seriesId}
-        style={{marginRight: "20px"}}
+        getRowId={(r) => r.id}
+        style={{ marginRight: "20px" }}
       />
     </div>
   );

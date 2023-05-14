@@ -42,9 +42,9 @@ export default function MovieList() {
     // { field: "tagline", headerName: "Tagline", width: 180 },
     { field: "vote_average", headerName: "Vote Avg", width: 130 },
     { field: "vote_count", headerName: "Vote Count", width: 150 },
-    // { 
+    // {
     //   field: "isSeries",
-    //   headerName: "Series", 
+    //   headerName: "Series",
     //   width: 120,
     // },
     // { field: "seriesId", headerName: "Series ID", width: 130 },
@@ -58,14 +58,12 @@ export default function MovieList() {
       renderCell: (params) => {
         return (
           <>
-            <Link
-              to={{ pathname: '/movie/' + params.row.movie_id }}
-            >
+            <Link to={{ pathname: "/movie/" + params.row.movie_id }}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline
               className="productListDelete"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.row.movie_id)}
             />
           </>
         );
@@ -85,8 +83,8 @@ export default function MovieList() {
         disableSelectionOnClick
         columns={columns}
         pageSize={20}
-        getRowId={r => r.movie_id}
-        style={{marginRight: "20px"}}
+        getRowId={(r) => r.movie_id}
+        style={{ marginRight: "20px" }}
       />
     </div>
   );
