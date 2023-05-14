@@ -20,7 +20,7 @@ const userDetails = JSON.parse(localStorage.getItem('user'));
     let data = JSON.stringify({
       transaction_type: type,
       transaction_date: new Date(),
-      access_token: "8yj1zN7x7rWnjFiZdWyp52OJZV6bA4xyFQ7e4Ss4U5fPb5p3p0",
+      access_token: "jJkBFwemlcaIsIyk6SgrMTSVtnOQmWPC7uDCvWbGMW0BIyeMVq",
     });
     const request = await axiosInstance3
       .post(`http://localhost:3000/api/user/check_transaction/` + userDetails.id, data, {
@@ -57,14 +57,14 @@ const userDetails = JSON.parse(localStorage.getItem('user'));
                         </div>
                         {state.silver && (<div className="qr-code">
                             <img
-                                src="https://momosv3.apimienphi.com/api/QRCode?phone=0378588700&amount=100&note=pegacine&fbclid=IwAR0g-jx1m_TIuynVPkSoD902cUl5_IpByBbLSO4wtW5AghMYDU4K_e65rDY"
+                                src="https://momosv3.apimienphi.com/api/QRCode?phone=0335886430&amount=100&note=pegacine&fbclid=IwAR0g-jx1m_TIuynVPkSoD902cUl5_IpByBbLSO4wtW5AghMYDU4K_e65rDY"
                                 alt="qr-code"
                                 width={300}
                             />
                         </div>)}
                         {state.gold && (<div className="qr-code">
                             <img
-                                src="https://momosv3.apimienphi.com/api/QRCode?phone=0378588700&amount=200&note=pegacine&fbclid=IwAR0g-jx1m_TIuynVPkSoD902cUl5_IpByBbLSO4wtW5AghMYDU4K_e65rDY"
+                                src="https://momosv3.apimienphi.com/api/QRCode?phone=0335886430&amount=200&note=pegacine&fbclid=IwAR0g-jx1m_TIuynVPkSoD902cUl5_IpByBbLSO4wtW5AghMYDU4K_e65rDY"
                                 alt="qr-code"
                                 width={300}
                             />

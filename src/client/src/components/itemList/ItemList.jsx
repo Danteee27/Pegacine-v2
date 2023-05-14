@@ -57,7 +57,7 @@ export default function ItemList({ index, movieData }) {
   const trailer =
     'https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761';
 
-  const movieThumbnail =
+  const movieimage =
     'https://www.ntdaily.com/wp-uploads/2019/04/endgame-scaled-680x365_c.jpg';
   const [open, setOpen] = React.useState(false);
   const [openDialog, handleDisplay] = React.useState(false);
@@ -176,10 +176,7 @@ export default function ItemList({ index, movieData }) {
         }}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <img
-          src={movieData?.thumbnail ? movieData.thumbnail : movieThumbnail}
-          alt=""
-        />
+        <img src={movieData?.image ? movieData.image : movieimage} alt="" />
         {movieData && movieData.userRank === 'GOLD' && (
           <div className="vipTag1">
             <img src={require('../../assets/vip.jpg')} alt="img vip" />
@@ -188,7 +185,7 @@ export default function ItemList({ index, movieData }) {
         {isHovered && (
           <>
             <video
-              className="video-thumbnail"
+              className="video-image"
               src={movieData?.trailer ? movieData.trailer : trailer}
               autoPlay={true}
               loop
@@ -320,7 +317,7 @@ export default function ItemList({ index, movieData }) {
                       <span>1</span>
                     </div>
                     <div className="chapter-image">
-                      <img src={movieData?.thumbnail} alt="" />
+                      <img src={movieData?.image} alt="" />
                     </div>
                     <div className="chapter-title">
                       <div>

@@ -38,7 +38,7 @@ export default function PlanForm({fetchUrl}) {
             <Navbar/>
             <div className="planFormContainer">
                 <div className={"planFormContent"}>
-                    <h2 className="alert-access">To access this website, you must first upgrade to a paid membership.</h2>
+                    <h2 className="alert-access">To access all films in this website, you must first upgrade to a paid membership.</h2>
                     <div className="stepHeader" role="status">
                         
                         <span id="" className="stepIndicator" data-uia="">
